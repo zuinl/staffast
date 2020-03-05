@@ -1,0 +1,64 @@
+/* Usado especialmente para tela login */
+@import url('https://fonts.googleapis.com/css?family=Livvic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+html, body {
+margin-top: 0 !important;
+padding: 4px;
+margin: 0; 
+height: 100%; 
+font-family: Livvic, "Arial, Helvetica, sans-serif"
+}
+/* text configs */
+
+h1{
+font-size: 2.5rem;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+/* ----------------------------*/
+/* ---------- alert ---------------  */
+.alert{
+    border-radius: 5px;
+    padding: 5px;
+    background-color: rgba(235, 74, 74, 0.377);
+}
+.content {
+    align-items: center;
+    color: black;
+
+}
+.content i {
+    float: right;
+}
+
+/* -------------- links ----------------------- */
+.links{
+    text-decoration: none;
+    color: white !important;
+}
+.links:hover{
+    color: #13A330 !important;
+}
+.links a{
+    color: white;
+}
+/* -------------- hr ----------------------- */
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.hr-divide {
+    border-width: 0.3em; 
+    border-color: #13a378
+}
+
+.hr-divide-light {
+    border-width: 0.2em; 
+    border-color: #13A330;
+}

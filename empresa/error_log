@@ -1,0 +1,9 @@
+[25-Oct-2019 20:50:29 America/Sao_Paulo] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home2/siste002/sistemastaffast.com/staffast/classes/class_conexao_empresa.php on line 14
+[26-Oct-2019 18:14:39 America/Sao_Paulo] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home2/siste002/sistemastaffast.com/staffast/classes/class_autoavaliacao.php on line 214
+[26-Oct-2019 18:14:39 America/Sao_Paulo] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home2/siste002/sistemastaffast.com/staffast/classes/class_autoavaliacao.php on line 214
+[26-Oct-2019 19:28:20 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to undefined method Autoavaliacao::setCpf() in /home2/siste002/sistemastaffast.com/staffast/empresa/home.php:16
+Stack trace:
+#0 {main}
+  thrown in /home2/siste002/sistemastaffast.com/staffast/empresa/home.php on line 16
+[26-Oct-2019 22:10:18 America/Sao_Paulo] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, string given in /home2/siste002/sistemastaffast.com/staffast/classes/class_mensagem.php on line 61
+[26-Oct-2019 22:10:18 America/Sao_Paulo] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, string given in /home2/siste002/sistemastaffast.com/staffast/classes/class_mensagem.php on line 61

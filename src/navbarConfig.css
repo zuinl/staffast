@@ -1,0 +1,175 @@
+*{
+    top: 0;
+    margin: 0;
+    overflow: hidden;
+}
+html, body {
+
+    font-family: 'Livvic', sans-serif
+}
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    border-bottom: 5px solid #13a378;
+}
+li{
+    float: left;
+}
+li h1{
+    display: block;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 30px 16px;
+    text-decoration: none;
+}
+input{
+    margin-right: 5px;
+    border-radius: 10px;
+    height: 25px;
+    text-align: left;
+    
+}
+input[type=text]:focus {
+  background-color: rgb(235, 235, 240);
+}
+input[type=password]:focus {
+  background-color: rgb(235, 235, 240);
+}
+.login-container{
+    float:right
+}
+.navbar input[type=text] {
+  padding: 6px;
+  margin-top: 25px;
+  font-size: 17px;
+  border: 2px solid #4CAF50;
+  width: 150px; /* adjust as needed (as long as it doesn't break the navbar) */
+}
+
+.navbar input[type=password] {
+  padding: 6px;
+  margin-top: 25px;
+  font-size: 17px;
+  border: 2px solid #4CAF50;
+  width: 150px; /* adjust as needed (as long as it doesn't break the navbar) */
+}
+
+/* Style the button inside the input container */
+.navbar .login-container button {
+    float: right;
+    padding: 9px;
+    margin-left: 10px;
+    margin-top: 25px;
+    margin-right: 16px;
+    font-size: 15px;
+    cursor: pointer;
+}
+/* .navbar .login-container button:focus {outline:0 !important;} */
+*:focus:not(.focus-visible) {
+  outline: none;
+}
+.navbar .login-container small, a{
+    color: rgb(85, 85, 192) !important;
+    
+}
+
+.navbar .login-container small, a:visited{
+    color: rgb(204, 19, 19) !important;
+    
+}
+
+.opcoes{
+    margin: 15px;
+    display: flex;
+    justify-content:space-between; 
+}
+.opcoes button > a:visited{
+    color: white !important;
+}
+.opcoes button > a:hover{
+    color: #13A330 !important ;
+}
+.infos{
+    margin: 15px;
+}
+.infos button{
+    float: right;
+
+    justify-content: center;
+}
+.infos h1{
+    align-items: center;
+    display: inline;
+}
+
+/* --------------- Responsividade ------------------------ */
+@media screen and (max-width: 600px) {
+html, body {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+nav{
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+}
+form{
+    text-align: center;
+}
+.navbar .login-container {
+    float: none;
+    text-align: center;
+}
+.navbar li, h1> span{
+    float: none;
+    /* display: inline-block; */
+    text-align: center;
+    /* width: 100%; */
+    margin: 0;
+    /* padding: 10px; */
+}
+.login-container .inputs > input[type=text]{
+    float: none;
+    /* display: inline-block; */
+    text-align: left;
+    width: 85%;
+    margin: 5px;
+    padding: 10px; 
+}
+.login-container input[type=password]{
+    float: none;
+    text-align: left;
+    width: 85%;
+    margin: 5px;
+    padding: 10px; 
+}
+.navbar .login-container button{
+    float: none;
+    text-align: center;
+    width: 90%;
+}
+.opcoes{
+    display: inline-block;
+}
+.opcoes button{
+    width: 100%;
+
+}
+.opcoes button > a:hover{
+    color: #13A330 !important ;
+}
+.infos{
+    text-align: justify;
+}
+.infos button{
+    float: none;
+    text-align: center;
+    width: 100%;
+}
+.infos h3{
+    text-align: justify;
+}
+}
