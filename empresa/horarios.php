@@ -134,21 +134,33 @@
             var saida_sunday = document.getElementById("saida_sunday").value;
 
             var pausa_flexivel = document.getElementById("pausa_flexivel");
+            var horario_flexivel = document.getElementById("horario_flexivel");
+            var hora_extra = document.getElementById("hora_extra");
             var tolerancia = document.getElementById("tolerancia").value;
             var noturno = document.getElementById("noturno");
+            var ponto_site = document.getElementById("ponto_site");
 
             if(pausa_flexivel.checked == true) pausa_flexivel.value = 1;
             else pausa_flexivel.value = 0;
 
+            if(horario_flexivel.checked == true) horario_flexivel.value = 1;
+            else horario_flexivel.value = 0;
+
+            if(hora_extra.checked == true) hora_extra.value = 1;
+            else hora_extra.value = 0;
+
             if(noturno.checked == true) noturno.value = 1;
             else noturno.value = 0;
+
+            if(ponto_site.checked == true) ponto_site.value = 1;
+            else ponto_site.value = 0;
 
             var resposta = document.getElementById("resposta");
 
             var xmlreq = CriaRequest();
             resposta.focus();
             resposta.innerHTML = '<div class="conteiner" style="text-align: center;"><div class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div></div>';
-            xmlreq.open("GET", "../database/horario.php?atualizar=true&cpf="+cpf+"&entrada_monday="+entrada_monday+"&pausa_monday="+pausa_monday+"&retorno_monday="+retorno_monday+"&saida_monday="+saida_monday+"&entrada_tuesday="+entrada_tuesday+"&pausa_tuesday="+pausa_tuesday+"&retorno_tuesday="+retorno_tuesday+"&saida_tuesday="+saida_tuesday+"&entrada_wednesday="+entrada_wednesday+"&pausa_wednesday="+pausa_wednesday+"&retorno_wednesday="+retorno_wednesday+"&saida_wednesday="+saida_wednesday+"&entrada_thursday="+entrada_thursday+"&pausa_thursday="+pausa_thursday+"&retorno_thursday="+retorno_thursday+"&saida_thursday="+saida_thursday+"&entrada_friday="+entrada_friday+"&pausa_friday="+pausa_friday+"&retorno_friday="+retorno_friday+"&saida_friday="+saida_friday+"&entrada_saturday="+entrada_saturday+"&pausa_saturday="+pausa_saturday+"&retorno_saturday="+retorno_saturday+"&saida_saturday="+saida_saturday+"&entrada_sunday="+entrada_sunday+"&pausa_sunday="+pausa_sunday+"&retorno_sunday="+retorno_sunday+"&saida_sunday="+saida_sunday+"&pausa_flexivel="+pausa_flexivel.value+"&noturno="+noturno.value+"&tolerancia="+tolerancia, true);
+            xmlreq.open("GET", "../database/horario.php?atualizar=true&cpf="+cpf+"&entrada_monday="+entrada_monday+"&pausa_monday="+pausa_monday+"&retorno_monday="+retorno_monday+"&saida_monday="+saida_monday+"&entrada_tuesday="+entrada_tuesday+"&pausa_tuesday="+pausa_tuesday+"&retorno_tuesday="+retorno_tuesday+"&saida_tuesday="+saida_tuesday+"&entrada_wednesday="+entrada_wednesday+"&pausa_wednesday="+pausa_wednesday+"&retorno_wednesday="+retorno_wednesday+"&saida_wednesday="+saida_wednesday+"&entrada_thursday="+entrada_thursday+"&pausa_thursday="+pausa_thursday+"&retorno_thursday="+retorno_thursday+"&saida_thursday="+saida_thursday+"&entrada_friday="+entrada_friday+"&pausa_friday="+pausa_friday+"&retorno_friday="+retorno_friday+"&saida_friday="+saida_friday+"&entrada_saturday="+entrada_saturday+"&pausa_saturday="+pausa_saturday+"&retorno_saturday="+retorno_saturday+"&saida_saturday="+saida_saturday+"&entrada_sunday="+entrada_sunday+"&pausa_sunday="+pausa_sunday+"&retorno_sunday="+retorno_sunday+"&saida_sunday="+saida_sunday+"&pausa_flexivel="+pausa_flexivel.value+"&horario_flexivel="+horario_flexivel.value+"&noturno="+noturno.value+"&tolerancia="+tolerancia+"&hora_extra="+hora_extra.value+"&ponto_site="+ponto_site.value, true);
             xmlreq.onreadystatechange = function(){
                 if (xmlreq.readyState == 4) {
                     if (xmlreq.status == 200) {
@@ -195,6 +207,15 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid" style="text-align: center;">
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Horários dos funcionários</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <div class="row">
         <div class="col-sm">
             <h2 class="high-text">Horários dos funcionários</h2>

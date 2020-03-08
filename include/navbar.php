@@ -77,6 +77,11 @@ $(function () {
           <a class="dropdown-item" href="avaliacaoSetor.php">Avaliação de setores</a>
           <?php if($_SESSION['user']['permissao'] == 'GESTOR-1' || $_SESSION['user']['permissao'] == 'GESTOR-2') { ?>
           <a class="dropdown-item" href="novaAvaliacao.php">Nova avaliação de colaborador</a>
+          <a class="dropdown-item" href="verModelosAvaliacao.php">Ver modelos de avalição</a>
+          <a class="dropdown-item" href="agendamentosAvaliacao.php">Agendamentos de avaliação</a>
+          <?php } ?>
+          <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?>
+          <!-- <a class="dropdown-item" href="novoModeloAvaliacao.php">Novo modelo de avaliação</a> -->
           <?php } ?>
           <a class="dropdown-item" href="painelAvaliacao.php">Painel de controle</a>
           <a class="dropdown-item" href="novaAutoavaliacao.php">Fazer autovaliação</a>

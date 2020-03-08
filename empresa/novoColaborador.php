@@ -140,7 +140,7 @@
     <!-- NAV DE CAMINHO DE TELA -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.php">Início</a></li>
+            <li class="breadcrumb-item"><a href="./">Início</a></li>
             <li class="breadcrumb-item active" aria-current="page"><?php if(isset($_GET['editar'])) echo 'Edição de colaborador'; else echo 'Cadastro de colaborador'; ?></li>
         </ol>
     </nav>

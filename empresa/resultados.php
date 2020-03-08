@@ -393,6 +393,17 @@
 
           window.location.href = "verAutoavaliacao.php?id="+id+"&col="+id_col;
         }
+        function verAvaAta(id_col) {
+          var id_ava = document.getElementById("avaliacao").value;
+          var id_ata = document.getElementById("autoavaliacao").value;
+
+          if(id_ava == 0 || id_ava == "0" || id_ata == 0 || id_ata == "0") {
+            alert("Selecione uma autoavaliação e uma avaliação para visualizar");
+            return true;
+          }
+
+          window.location.href = "verAva_Ata.php?id_ava="+id_ava+"&id_ata="+id_ata+"&col="+id_col;
+        }
       </script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -1187,10 +1198,10 @@
         <input type="button" id="btnAvaliacao" value="Ver" class="button button2" onclick="verAvaliacao('<?php echo base64_encode($colaborador->getCpf()); ?>');">
       </div>
       <div class="col-sm">
-        <input type="button" id="btnAvaliacaovsAutoavaliacao" value="Avaliação vs. Autoavaliação" class="button button3" onclick="verAvaliacaovsAutoavaliacao('<?php echo base64_encode($colaborador->getCpf()); ?>');">
+        <input type="button" id="btnAvaliacaovsAutoavaliacao" value="Avaliação vs. Autoavaliação" class="button button3" onclick="verAvaAta('<?php echo base64_encode($colaborador->getCpf()); ?>');">
       </div>
       <div class="col-sm">
-        <input type="button" id="btnAvaliacao" value="Ver" class="button button2" onclick="verAvaliacao('<?php echo base64_encode($colaborador->getCpf()); ?>');">
+        <input type="button" id="btnAutoavaliacao" value="Ver" class="button button2" onclick="verAutoavaliacao('<?php echo base64_encode($colaborador->getCpf()); ?>');">
       </div>
     </div>
 

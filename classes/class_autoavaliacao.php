@@ -186,7 +186,7 @@
             $conn = $conexao->conecta();
             $helper = new QueryHelper($conn);
 
-            $select = "SELECT ata_id as id FROM tbl_autoavaliacao WHERE ata_preenchida = 1 
+            $select = "SELECT ata_id as id FROM tbl_autoavaliacao WHERE ata_preenchida = 0 
             AND col_cpf = '$this->cpfColaborador'";
 
             $query = $helper->select($select, 1);
@@ -274,8 +274,8 @@
             $conn = $conexao->conecta();
             $helper = new QueryHelper($conn);
 
-            $select = "SELECT ata_id as id, DATE_FORMAT(ata_data_criacao, '%d/%m/%Y %H:%i:%s') as criacao, 
-            DATE_FORMAT(ata_data_preenchida, '%d/%m/%Y %H:%i:%s') as data_preencheu, ata_sessao_um as s1, 
+            $select = "SELECT ata_id as id, DATE_FORMAT(ata_data_criacao, '%d/%m/%Y %H:%i') as criacao, 
+            DATE_FORMAT(ata_data_preenchida, '%d/%m/%Y %H:%i') as data_preencheu, ata_sessao_um as s1, 
             ata_sessao_um_obs as s1_obs, ata_sessao_dois as s2, 
             ata_sessao_dois_obs as s2_obs,
             ata_sessao_tres as s3, ata_sessao_tres_obs as s3_obs, 

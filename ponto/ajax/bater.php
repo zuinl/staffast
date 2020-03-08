@@ -30,7 +30,22 @@
         die();
     }
 
-    $ret = $ponto->registrarPonto($tipo, date('Y-m-d H:i:s'), $funcionario['cpf'], $funcionario['database'], '', '');
+    //Verificando se funcionário possui permissão de registrar ponto usando o site
+    $isAutorizado = $ponto->isAutorizadoSite($funcionario['database'], $funcionario['cpf']);
+
+    if(!$isAutorizado) {
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <h4 class="text">'.$funcionario['nome'].' - '.$funcionario['empresa'].'</h4>
+                <strong>Ops... </strong> você não tem permissão para registrar ponto usando o site do Staffast.
+                <br>Por favor, utilize o aplicativo ou entre em contato com o RH da sua empresa.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+              </div>';
+        die();
+    }
+
+    $ret = $ponto->registrarPonto($tipo, date('Y-m-d H:i:s'), $funcionario['cpf'], $funcionario['database'], '', '', true);
 
     if($ret === true) {
         if(!isset($_COOKIE['staffast_ponto_email'])) setcookie('staffast_ponto_email', $email, time() + (86400 * 365), "/"); // 86400 = 1 day

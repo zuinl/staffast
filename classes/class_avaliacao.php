@@ -147,8 +147,8 @@
             $conn = $conexao->conecta();
             $helper = new QueryHelper($conn);
 
-            $select = "SELECT ava_id as id, DATE_FORMAT(ava_data_criacao, '%d/%m/%Y %H:%i:%s') as criacao, 
-            DATE_FORMAT(ava_data_liberacao, '%d/%m/%Y %H:%i:%s') as liberacao, 
+            $select = "SELECT ava_id as id, DATE_FORMAT(ava_data_criacao, '%d/%m/%Y %H:%i') as criacao, 
+            DATE_FORMAT(ava_data_liberacao, '%d/%m/%Y %H:%i') as liberacao, 
             ava_sessao_um as s1, ava_sessao_um_obs as s1_obs, 
             ava_sessao_dois as s2, ava_sessao_dois_obs as s2_obs,
             ava_sessao_tres as s3, ava_sessao_tres_obs as s3_obs, 

@@ -456,7 +456,7 @@
     <!-- NAV DE CAMINHO DE TELA -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.php">Início</a></li>
+            <li class="breadcrumb-item"><a href="./">Início</a></li>
             <li class="breadcrumb-item"><a href="gestores.php">Gestores</a></li>
             <li class="breadcrumb-item active" aria-current="page"><?php echo $gestor->getNomeCompleto(); ?></li>
         </ol>

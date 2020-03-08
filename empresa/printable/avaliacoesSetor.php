@@ -9,6 +9,7 @@
 
     $setor = new Setor();
     $setor->setID($_GET['setor']);
+    $setor = $setor->retornarSetor($_SESSION['empresa']['database']);
 
     if($_SESSION['user']['permissao'] != "GESTOR-1" && !$setor->isAutorizado($_SESSION['empresa']['database'], $_SESSION['user']['cpf'])) {
         include("../include/acessoNegado.php");
@@ -407,11 +408,6 @@
       <div class="row">
         <div class="col-sm">
             <h6 class="text">Filtros utilizados: <?php echo $filtros; ?></h6>
-        </div>  
-      </div>
-      <div class="row" style="text-align: center;">
-        <div class="col-sm">
-            <a href="printable/avaliacoesSetor.php?condicao=<?php echo $condicao ?>&filtros=<?php echo $filtros ?>" target="_blank"><button class="button button3">Imprimir relatório</button></a>
         </div>  
       </div>
 

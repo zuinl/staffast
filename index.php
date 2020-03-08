@@ -3,7 +3,6 @@ session_start();
 include('src/meta.php');
 
 if(isset($_SESSION['user'])) header('Location: empresa/home.php');
-
 if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] == "true") {
     $nome = addslashes($_POST['nome']);
     $email = $_POST['email'];

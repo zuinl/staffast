@@ -15,7 +15,7 @@
     $cpf = $_SESSION['user']['cpf'];
 
     if($_SESSION['user']['permissao'] == 'GESTOR-1') $selectCol = "SELECT col_nome_completo as nome, col_cpf as cpf FROM tbl_colaborador ORDER BY col_nome_completo ASC";
-    else if($_SESSION['user']['permissao'] == 'GESTOR-2') $selectCol = "SELECT t2.col_nome_completo as nome, t2.col_cpf as cpf FROM tbl_setor_funcionario t1 INNER JOIN tbl_colaborador t2 ON t2.col_cpf = t1.col_cpf WHERE t1.ges_cpf = ".$_SESSION['user']['cpf']." ORDER BY t2.col_nome_completo ASC";
+    else if($_SESSION['user']['permissao'] == 'GESTOR-2') $selectCol = "SELECT t2.col_nome_completo as nome, t2.col_cpf as cpf FROM tbl_setor_funcionario t1 INNER JOIN tbl_colaborador t2 ON t2.col_cpf = t1.col_cpf WHERE t1.ges_cpf = '$cpf' ORDER BY t2.col_nome_completo ASC";
     else $selectCol = "SELECT col_nome_completo as nome, col_cpf as cpf FROM tbl_colaborador WHERE col_cpf = '$cpf'";
 
     $query = mysqli_query($conn, $selectCol);
@@ -31,9 +31,19 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-9 offset-sm-1">
-            <h1 class="high-text">Avaliações dos <span class="destaque-text">colaboradores</span></h1>
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Painel de Avaliação</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+            <h2 class="high-text">Avaliações dos colaboradores</h2>
         </div>
     </div>
 
@@ -43,17 +53,21 @@
     if(isset($_SESSION['msg'])) {
         ?>
 		<div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm">
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
 		</div>
         <?php
     }
     ?>
-    
-    <table class="table-site">
+</div>
+<div class="container">
+    <table class="table-site" style="font-size: 0.8em;">
         <tr>
             <th>Colaborador</th>
             <?php if ($_SESSION['user']['permissao'] == "GESTOR-1" || $_SESSION['user']['permissao'] == "GESTOR-2") { ?>
@@ -82,7 +96,6 @@
 
                 $liberarAta = false;
                 if($ata->checarLiberada($_SESSION['empresa']['database'])) {
-                    
                     if(!$ata->checarPreenchida($_SESSION['empresa']['database'])) {
                         //LIBERADA E PREENCHIDA
                         $liberarAta = true;
@@ -90,12 +103,9 @@
                         //LIBERADA MAS NÃO PREENCHIDA
                         $liberarAta = false;
                     }
-
                 } else {
-
                     //NENHUMA LIBERADA
                     $liberarAta = true;
-
                 }
 
                 $visualizar = false;

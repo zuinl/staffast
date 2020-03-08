@@ -19,11 +19,11 @@ if(isset($_GET['novoColaborador'])) {
         die();
     }
 
-    if($_SESSION['empresa']['disponivel'] < 1) {
-        $_SESSION['msg'] = "O limite de funcionários na sua empresa foi atingido. Contate o suporte do Staffast para saber mais.";
-        header('Location: ../empresa/novoColaborador.php');
-        die();
-    }
+    // if($_SESSION['empresa']['disponivel'] < 1) {
+    //     $_SESSION['msg'] = "O limite de funcionários na sua empresa foi atingido. Contate o suporte do Staffast para saber mais.";
+    //     header('Location: ../empresa/novoColaborador.php');
+    //     die();
+    // }
 
     $primeiroNome = addslashes($_POST['primeiroNome']);
     $nomeCompleto = addslashes($_POST['primeiroNome'].' '.$_POST['sobrenome']);

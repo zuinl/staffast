@@ -100,6 +100,15 @@
 ?>
 <div class="container-fluid">
 
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Histórico de Pontos</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <div class="row" style="text-align: center;">
         <div class="col-sm">
             <h2 class="high-text">Histórico de Pontos</h2>
@@ -197,7 +206,7 @@
             </form>
         </div>
         <div class="col-sm" style="margin-top: 1.5em;">
-            <input type="button" class="button button3" value="Imprimir esta tabela">
+            <a href="printable/historicoPontos.php?cpf=<?php echo base64_encode($cpf); ?>&ano=<?php echo $ano; ?>&mes=<?php echo $mes; ?>" target="_blank"><input type="button" class="button button3" value="Imprimir esta tabela"></a>
         </div>
     </div>
 
@@ -229,7 +238,8 @@
             $dataFinal = $dataFormat.' 23:59:59';
 
             $select = "SELECT * FROM tbl_funcionario_horario WHERE cpf = '$cpf' 
-            AND '$dataInicial' >= dt_inicial AND ('$dataFinal' <= dt_final OR dt_final IS NULL) ORDER BY id ASC";
+            AND dt_inicial > '$dataInicial' AND ('$dataFinal' <= dt_final OR dt_final IS NULL) ORDER BY id ASC";
+            
             $query = $helper->select($select, 1);
 
             if(mysqli_num_rows($query) == 0) $encontrou = false;
@@ -289,6 +299,8 @@
             if(strlen($horarioCorretoSaida) == 5) $horarioCorretoSaida .= ':00';
 
             $pausaFlexivel = (int)$f['pausa_flexivel'];
+            $horarioFlexivel = (int)$f['horario_flexivel'];
+            $horaExtra = (int)$f['hora_extra'];
             $tolerancia = (int)$f['tolerancia'];
 
             if($encontrou) $atrasoEntrada = $ponto->retornarAtraso($horarioCorretoEntrada, $historico[$i]["entrada"], $tolerancia);
@@ -300,9 +312,20 @@
             } else {
                 $atrasoPausa = 'Flexível';
             }
+
+            //Zerando atrasos caso o funcionário tenha horário flexível
+            if($horarioFlexivel === 1) {
+                $atrasoEntrada = 'Flexível';
+                $atrasoPausa = 'Flexível';
+            }
             
             if($encontrou) $extraSaida = $ponto->retornarExtra($horarioCorretoSaida, $historico[$i]["saida"], $tolerancia);
             else $extraSaida = 'Sem horário';
+
+            //Zerando hora extra se o funcionário estiver com hora extra desabilitada
+            if($horaExtra === 0) {
+                $extraSaida = 'Não utiliza';
+            }
 
             $anotacao = str_replace('<br>', '', $historico[$i]["anotacao"]) != "" ? $historico[$i]["anotacao"] : "Nenhuma";
         ?>

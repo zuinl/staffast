@@ -568,6 +568,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pdi_competencia_meta` (
   `tipo` INT NOT NULL,
   `latitude` VARCHAR(20) NULL DEFAULT NULL,
   `longitude` VARCHAR(20) NULL DEFAULT NULL,
+  `endereco` TEXT NULL DEFAULT NULL,
   `editado` INT NOT NULL DEFAULT 0,
   `cpf_edicao` VARCHAR(11) NULL DEFAULT NULL,
   `data_edicao` DATETIME NULL DEFAULT NULL,
@@ -610,8 +611,53 @@ CREATE TABLE IF NOT EXISTS `tbl_pdi_competencia_meta` (
     `dt_final` TIMESTAMP NULL DEFAULT NULL ,
     `noturno` INT NOT NULL DEFAULT 0 ,
     `pausa_flexivel` INT NOT NULL DEFAULT 1 ,
+    `horario_flexivel` INT NOT NULL DEFAULT 0 ,
+    `hora_extra` INT NOT NULL DEFAULT 1 ,
     `tolerancia` INT NOT NULL DEFAULT 0 ,
+    `ponto_site` INT NOT NULL DEFAULT 0 ,
     PRIMARY KEY (`id`));
+
+
+    CREATE TABLE IF NOT EXISTS `tbl_modelo_avaliacao` ( 
+    `id` INT NOT NULL AUTO_INCREMENT, 
+    `data_criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+    `cpf_criador` VARCHAR(11) NOT NULL , 
+    `titulo` VARCHAR(60) NOT NULL,
+    `um` VARCHAR(35) NOT NULL,
+	  `dois` VARCHAR(35) NOT NULL,
+    `tres` VARCHAR(35) NOT NULL,
+    `quatro` VARCHAR(35) NOT NULL,
+    `cinco` VARCHAR(35) NULL DEFAULT NULL,
+    `seis` VARCHAR(35) NULL DEFAULT NULL,
+    `sete` VARCHAR(35) NULL DEFAULT NULL,
+    `oito` VARCHAR(35) NULL DEFAULT NULL,
+    `nove` VARCHAR(35) NULL DEFAULT NULL,
+    `dez` VARCHAR(35) NULL DEFAULT NULL,
+    `onze` VARCHAR(35) NULL DEFAULT NULL,
+    `doze` VARCHAR(35) NULL DEFAULT NULL,
+    `treze` VARCHAR(35) NULL DEFAULT NULL,
+    `quatorze` VARCHAR(35) NULL DEFAULT NULL,
+    `quinze` VARCHAR(35) NULL DEFAULT NULL,
+    `dezesseis` VARCHAR(35) NULL DEFAULT NULL,
+    `dezessete` VARCHAR(35) NULL DEFAULT NULL,
+    `dezoito` VARCHAR(35) NULL DEFAULT NULL,
+    `dezenove` VARCHAR(35) NULL DEFAULT NULL,
+    `vinte` VARCHAR(35) NULL DEFAULT NULL,
+    `ativo` INT NOT NULL DEFAULT 1,
+    PRIMARY KEY (`id`));
+
+    CREATE TABLE IF NOT EXISTS `tbl_agendamento_avaliacao` ( 
+      `id` INT NOT NULL AUTO_INCREMENT , 
+      `ges_cpf` VARCHAR(11) NOT NULL , 
+      `col_cpf` VARCHAR(11) NOT NULL , 
+      `data` DATETIME NULL DEFAULT NULL , 
+      `realizada` INT NOT NULL DEFAULT '0' , 
+      PRIMARY KEY (`id`));
+
+      CREATE TABLE IF NOT EXISTS `tbl_colaborador_modelo_avaliacao` ( 
+        `col_cpf` VARCHAR(11) NOT NULL , 
+        `modelo_id` INT NOT NULL, 
+        `data_add` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP );
 
 
     

@@ -34,7 +34,10 @@
         private $saidaSunday;
         private $noturno;
         private $pausaFlexivel;
+        private $horarioFlexivel;
+        private $horaExtra;
         private $tolerancia;
+        private $pontoSite;
 
         public function cadastrar($database_empresa) {
             require_once('class_conexao_empresa.php');
@@ -76,7 +79,10 @@
                         saida_sunday,
                         noturno,
                         pausa_flexivel,
-                        tolerancia) VALUES (
+                        horario_flexivel,
+                        hora_extra,
+                        tolerancia,
+                        ponto_site) VALUES (
                         '$this->cpf',
                         '$this->entradaMonday',
                         '$this->pausaMonday',
@@ -108,7 +114,10 @@
                         '$this->saidaSunday',
                         $this->noturno,
                         $this->pausaFlexivel,
-                        $this->tolerancia
+                        $this->horarioFlexivel,
+                        $this->horaExtra,
+                        $this->tolerancia,
+                        $this->pontoSite
                         )";
             if($helper->insert($insert)) return true;
             else return false;
@@ -218,7 +227,10 @@
 
             $horario->setNoturno($f['noturno']);
             $horario->setPausaFlexivel($f['pausa_flexivel']);
+            $horario->setHorarioFlexivel($f['horario_flexivel']);
             $horario->setTolerancia($f['tolerancia']);
+            $horario->setHoraExtra($f['hora_extra']);
+            $horario->setPontoSite($f['ponto_site']);
 
             return $horario;
         }
@@ -231,7 +243,8 @@
             $conexao = $conexao->conecta();
             $helper = new QueryHelper($conexao);
 
-            $update = "UPDATE tbl_funcionario_horario SET dt_final = CURRENT_TIMESTAMP WHERE cpf = '$this->cpf'";
+            $update = "UPDATE tbl_funcionario_horario SET dt_final = CURRENT_TIMESTAMP WHERE cpf = '$this->cpf' 
+            ORDER BY id DESC LIMIT 1";
             $helper->update($update);
 
             if($this->cadastrar($database_empresa)) return true;
@@ -914,6 +927,66 @@
         public function setTolerancia($tolerancia)
         {
                 $this->tolerancia = $tolerancia;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of horarioFlexivel
+         */ 
+        public function getHorarioFlexivel()
+        {
+                return $this->horarioFlexivel;
+        }
+
+        /**
+         * Set the value of horarioFlexivel
+         *
+         * @return  self
+         */ 
+        public function setHorarioFlexivel($horarioFlexivel)
+        {
+                $this->horarioFlexivel = $horarioFlexivel;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of horaExtra
+         */ 
+        public function getHoraExtra()
+        {
+                return $this->horaExtra;
+        }
+
+        /**
+         * Set the value of horaExtra
+         *
+         * @return  self
+         */ 
+        public function setHoraExtra($horaExtra)
+        {
+                $this->horaExtra = $horaExtra;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of pontoSite
+         */ 
+        public function getPontoSite()
+        {
+                return $this->pontoSite;
+        }
+
+        /**
+         * Set the value of pontoSite
+         *
+         * @return  self
+         */ 
+        public function setPontoSite($pontoSite)
+        {
+                $this->pontoSite = $pontoSite;
 
                 return $this;
         }

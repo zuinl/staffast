@@ -197,7 +197,19 @@
 
     <div class="row" style="margin-top: 1.5em; text-align: center;">
         <div class="col-sm" style="margin-top: 2em;">
+            <input type="checkbox" value="1" name="ponto_site" id="ponto_site" <?php if($horario->getPontoSite() == 1) echo 'checked'; ?>> Ponto no site <img src="img/help.png" width="18" onclick="alert('Com este parâmetro marcado, o funcionário será autorizado a registrar seu ponto usando o site do Staffast. \n Funcionários sem este parâmetro marcado poderão utilizar apenas o aplicativo para registrarem seus pontos. \n ATENÇÃO: o site do Staffast ainda não oferece a localização do funcionário, portanto recomendamos que, se a localização for importante para a empresa, utilizem apenas o aplicativo.');">
+        </div>
+
+        <div class="col-sm" style="margin-top: 2em;">
             <input type="checkbox" value="1" name="noturno" id="noturno" <?php if($horario->getNoturno() == 1) echo 'checked'; ?>> Horário noturno <img src="img/help.png" width="18" onclick="alert('Com este parâmetro marcado, o sistema não bloqueará divergências de pontos entre os dias. \nPor exemplo, ele permite que o funcionário dê entrada no dia e saia no outro');">
+        </div>
+
+        <div class="col-sm" style="margin-top: 2em;">
+            <input type="checkbox" value="1" name="horario_flexivel" id="horario_flexivel" <?php if($horario->getHorarioFlexivel() == 1) echo 'checked'; ?>> Horário flexível <img src="img/help.png" width="18" onclick="alert('Com este parâmetro marcado, o sistema não contabilizará atrasos de nenhum tipo.');">
+        </div>
+
+        <div class="col-sm" style="margin-top: 2em;">
+            <input type="checkbox" value="1" name="hora_extra" id="hora_extra" <?php if($horario->getHoraExtra() == 1) echo 'checked'; ?>> Hora extra <img src="img/help.png" width="18" onclick="alert('Com este parâmetro marcado, o sistema exibirá o tempo passado após o horário de saída como hora extra. Se não marcá-lo, o sistema ignorará esse tempo extra.');">
         </div>
 
         <div class="col-sm" style="margin-top: 2em;">

@@ -40,9 +40,19 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-10 offset-sm-2">
-            <h2 class="high-text">Nova <span class="destaque-text">autoavaliação</span></h2>
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nova autoavaliação</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+            <h2 class="high-text">Nova autoavaliação</h2>
         </div>
     </div>
 
@@ -52,9 +62,12 @@
     if(isset($_SESSION['msg'])) {
         ?>
 		<div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm">
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
 		</div>
@@ -73,7 +86,7 @@
     if(mysqli_num_rows($query) == 0) {
         ?>
         <div class="row">
-            <div class="col-sm">
+            <div class="col-sm" style="text-align: center;">
                 <h5 class="text">A gestão ainda não te avaliou. Prossiga com sua autoavaliação ;D</h5>
             </div>
         </div>
@@ -82,7 +95,7 @@
         $fetch = $helper->select($select, 2);
         ?>
         <div class="row">
-            <div class="col-sm">
+            <div class="col-sm" style="text-align: center;">
                 <h5 class="text">Última avaliação realizada em <?php echo $fetch['criacao'] ?> por <?php echo $fetch['nome']; ?></h5>
             </div>
         </div>
@@ -97,7 +110,7 @@
     if(mysqli_num_rows($query_ata) == 0) {
         ?>
         <div class="row">
-            <div class="col-sm">
+            <div class="col-sm" style="text-align: center;">
                 <h5 class="text">Você ainda não fez nenhuma autoavaliação, siga em frente com sua primeira!</h5>
             </div>
         </div>
@@ -106,7 +119,7 @@
         $fetch = $helper->select($select_ata, 2);
         ?>
         <div class="row">
-            <div class="col-sm">
+            <div class="col-sm" style="text-align: center;">
                 <h5 class="text">Última autoavaliação realizada em <?php echo $fetch['preenchimento'] ?></h5>
             </div>
         </div>
@@ -418,13 +431,13 @@
 
     <hr class="hr-divide-light">
 
-    <div class="row">
-        <div class="col-sm-2 offset-sm-4">
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
             <input type="hidden" value="<?php echo $ata_id; ?>" name="ata_id">
             <input type="submit" value="Cadastrar" class="button button2" onclick="">
         </div>
-        <div class="col-sm-2">
-            <input type="reset" value="Limpar" class="button button1" onclick="">
+        <div class="col-sm">
+            <input type="reset" value="Limpar" class="button button2" onclick="">
         </div>
     </div>
     </form>

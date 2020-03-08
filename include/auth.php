@@ -7,7 +7,7 @@ ob_start();
     || !isset($_SESSION['empresa']) || $_SESSION['user']['permissao'] == "NULL") {
 
         $_SESSION['msg'] = 'Você não tem permissão para acessar esta página';
-        header('Location: ../index.html');
+        header('Location: ../');
         die();
     }
 

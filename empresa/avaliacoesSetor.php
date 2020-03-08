@@ -434,7 +434,7 @@
       </div>
       <div class="row" style="text-align: center;">
         <div class="col-sm">
-            <a href="printable/avaliacoesSetor.php?condicao=<?php echo $condicao ?>&filtros=<?php echo $filtros ?>&setor=<?php echo $setor->getID(); ?>" target="_blank"><button class="button button3">Imprimir relatório</button></a>
+            <a href="printable/avaliacoesSetor.php?condicao=<?php echo $condicao ?>&setor=<?php echo $setor->getID(); ?>&filtros=<?php echo $filtros ?>" target="_blank"><button class="button button3">Imprimir relatório</button></a>
         </div>  
       </div>
 

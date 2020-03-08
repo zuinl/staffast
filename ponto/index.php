@@ -89,7 +89,7 @@
         function identificarFuncionario(email) {
             var resposta = document.getElementById("funcionario");
             var xmlreq = CriaRequest();
-            resposta.innerHTML = 'Buscando...';
+            resposta.innerHTML = '<div class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div>';
             xmlreq.open("GET", "ajax/identificar.php?email=" + email, true);
             xmlreq.onreadystatechange = function(){
                 if (xmlreq.readyState == 4) {

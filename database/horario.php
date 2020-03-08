@@ -45,8 +45,11 @@
         $horario->setSaidaSunday($_REQUEST['saida_sunday']);
 
         $horario->setPausaFlexivel($_REQUEST['pausa_flexivel']);
+        $horario->setHorarioFlexivel($_REQUEST['horario_flexivel']);
+        $horario->setHoraExtra($_REQUEST['hora_extra']);
         $horario->setTolerancia($_REQUEST['tolerancia']);
         $horario->setNoturno($_REQUEST['noturno']);
+        $horario->setPontoSite($_REQUEST['ponto_site']);
 
         if($horario->atualizarHorario($_SESSION['empresa']['database'])) {
             $msg = 'Horários do funcionário atualizados';

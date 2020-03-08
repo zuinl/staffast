@@ -24,6 +24,8 @@ $helper = new QueryHelper($conn);
 
 if(isset($_GET['nova'])) {
 
+    var_dump($_POST); die();
+
     $colaborador = $_POST['colaborador'];
     $compet_um = $_POST['compet_um'];
     $compet_um_obs = addslashes($_POST['compet_um_obs']);

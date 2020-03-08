@@ -17,7 +17,7 @@ if(!isset($_GET['login'])) {
     die();
 }
 
-$email = addslashes($_POST['email']);
+    $email = addslashes($_POST['email']);
     
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $_SESSION['msg'] = 'Dados inválidos';
@@ -25,7 +25,9 @@ $email = addslashes($_POST['email']);
         mysqli_close($conn);
         die();
     }
+
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+
 $senha = filter_input(INPUT_POST, 'senha', FILTER_SANITIZE_STRING);
 
 include('../include/connect.php');
@@ -40,6 +42,8 @@ if(mysqli_num_rows($select) == 0) {
     $row = mysqli_fetch_assoc($select);
     $usu_id = $row['usu_id'];
     $senha_hash = $row['usu_senha'];
+    $token = $row['usu_token'];
+
     if(!password_verify($senha, $senha_hash)) {
         $ip = $_SERVER['REMOTE_ADDR'];
         $helper_p->insert("INSERT INTO tbl_acesso (acs_ip, acs_sucesso, usu_id) VALUES ('$ip', 0, '$usu_id')");
@@ -84,7 +88,7 @@ if(mysqli_num_rows($select) == 0) {
         $_SESSION['msg'] .= 'Senha inválida';
         header('Location: ../login.php');
         die();
-        }
+    }
 
         $usu_id = $row['usu_id'];
         $usu_email = $row['usu_email'];
@@ -268,15 +272,6 @@ if(mysqli_num_rows($select) == 0) {
         $ip = $_SERVER['REMOTE_ADDR'];
         $helper_p->insert("INSERT INTO tbl_acesso (acs_ip, acs_sucesso, usu_id) 
         VALUES ('$ip', 1, '$usu_id')");
-
-        // //Handling cookies
-        // if(isset($_COOKIE['user'])) {
-        //     unset($_COOKIE['user']);
-        //     // set the expiration date to one hour ago
-        //     setcookie("user", "", time() - 3600);
-        // }
-
-        // setcookie('user', $_SESSION['user'], time() + (86400 * 365), "/"); // 86400 = 1 day
 
         header('Location: ../empresa/home.php');
         die();

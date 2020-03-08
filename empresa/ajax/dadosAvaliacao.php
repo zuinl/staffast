@@ -19,7 +19,7 @@ WHERE t1.col_cpf = '$cpf' ORDER BY t1.ava_data_criacao DESC LIMIT 1";
 $query = $helper->select($select, 1);
 
 ?>
-<div class="row">
+<div class="row" style="text-align: center;">
     <div class="col-sm">
         <h5 class="text"><b>Informações relevantes</b></h5>
     </div>
@@ -28,7 +28,7 @@ $query = $helper->select($select, 1);
 
 if(mysqli_num_rows($query) == 0) {
     ?>
-    <div class="row">
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
             <p class="text">Nenhuma avaliação foi feita para este colaborador ainda. Faça a primeira!</p>
         </div>
@@ -37,7 +37,7 @@ if(mysqli_num_rows($query) == 0) {
 } else {
     $fetch = $helper->select($select, 2);
     ?>
-    <div class="row">
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
             <p class="text">Última avaliação realizada em <?php echo $fetch['criacao'] ?> por <?php echo $fetch['nome']; ?></p>
         </div>
@@ -53,7 +53,7 @@ $query_ata = $helper->select($select_ata, 1);
 if(mysqli_num_rows($query_ata) == 0) {
     ?>
     <div class="row">
-        <div class="col-sm">
+        <div class="col-sm" style="text-align: center;">
             <p class="text">O colaborador ainda não preencheu nenhuma autoavaliação</p>
         </div>
     </div>
@@ -62,7 +62,7 @@ if(mysqli_num_rows($query_ata) == 0) {
     $fetch = $helper->select($select_ata, 2);
     ?>
     <div class="row">
-        <div class="col-sm">
+        <div class="col-sm" style="text-align: center;">
             <p class="text">O colaborador preencheu uma autoavaliação pela última vez em <?php echo $fetch['preenchimento']; ?></p>
         </div>
     </div>

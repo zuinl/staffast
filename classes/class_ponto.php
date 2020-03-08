@@ -9,6 +9,7 @@
         private $tipo;
         private $latitude;
         private $longitude;
+        private $endereco;
         private $editado;
         private $cpfEdicao;
         private $dataEdicao;
@@ -265,7 +266,8 @@
             DATE_FORMAT(data, '%Y-%m-%d') as data_format,
             tipo,
             latitude,
-            longitude
+            longitude,
+            endereco
              FROM tbl_ponto WHERE id = $this->ID";
             $f = $helper->select($select, 2);
 
@@ -277,6 +279,7 @@
             $ponto->setTipo($f['tipo']);
             $ponto->setLatitude($f['latitude']);
             $ponto->setLongitude($f['longitude']);
+            $ponto->setEndereco($f['endereco']);
 
             return $ponto;
         }
@@ -525,6 +528,29 @@
                     case 6: return 'Sábado'; break;
                     default: return 'Dia da semana'; break;
                 }
+        }
+
+        //Retorna booleano informando se funcionário é autorizado a bater ponto no site
+        public function isAutorizadoSite($database_empresa, $cpf) {
+            require_once 'class_conexao_empresa.php';
+            require_once 'class_queryHelper.php';
+
+            $conexao = new ConexaoEmpresa($database_empresa);
+            $conn = $conexao->conecta();
+            $helper = new QueryHelper($conn);
+
+            $select = "SELECT ponto_site FROM tbl_funcionario_horario WHERE cpf = '$cpf' AND dt_final IS NULL";
+            $query = $helper->select($select, 1);
+
+            if(mysqli_num_rows($query) > 0) {
+                $f = mysqli_fetch_assoc($query);
+                $ponto_site = (int)$f['ponto_site'];
+
+                if($ponto_site === 1) return true;
+                else return false;
+            } else {
+                return false;
+            }
         }
 
 
@@ -788,6 +814,26 @@
         public function setData_format($data_format)
         {
                 $this->data_format = $data_format;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of endereco
+         */ 
+        public function getEndereco()
+        {
+                return $this->endereco;
+        }
+
+        /**
+         * Set the value of endereco
+         *
+         * @return  self
+         */ 
+        public function setEndereco($endereco)
+        {
+                $this->endereco = $endereco;
 
                 return $this;
         }
