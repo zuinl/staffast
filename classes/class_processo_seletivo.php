@@ -113,8 +113,8 @@ class ProcessoSeletivo {
         $conexao = $conexao->conecta();
         $helper = new QueryHelper($conexao);
 
-        $select = "SELECT sel_id as id, ges_cpf as cpf, DATE_FORMAT(sel_data_criacao, '%d/%m/%Y %H:%i:%s') as criacao, 
-        DATE_FORMAT(sel_data_encerramento, '%d/%m/%Y %H:%i:%s') as encerramento, 
+        $select = "SELECT sel_id as id, ges_cpf as cpf, DATE_FORMAT(sel_data_criacao, '%d/%m/%Y %H:%i') as criacao, 
+        DATE_FORMAT(sel_data_encerramento, '%d/%m/%Y %H:%i') as encerramento, 
         DATE_FORMAT(sel_data_encerramento, '%Y-%m-%d') as encerramento_format,
         sel_titulo as titulo, sel_vagas as vagas,
         sel_descricao as descricao FROM tbl_processo_seletivo WHERE sel_id = '$this->ID'";

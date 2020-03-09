@@ -3,31 +3,18 @@
     //Teste de chamada da API teste.php desta mesma pasta
 
     //URL da API
-    $url = 'http://localhost/staffast/api/historicoPonto.php';
+    $latitude = "-22.9982128";
+    $longitude = "-45.5284302";
+    //$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&key=AIzaSyBs89DVkWnqf6u_CxyNXVg9NKgH3c5sEco";
     
-    //Cria instância da cURL
-    $ch = curl_init($url);
+    // get the json response
+    $resp_json = file_get_contents($url);
+     
+    // decode the json
+    $resp = json_decode($resp_json, true);
 
-    //Cria objeto a ser enviado
-    $data = array(
-        "email" => 'leonardosoareszuin@gmail.com',
-        "token" => "c0a5fb68a6e5b84b58287ceff6d3e251"
-    );
+    var_dump($resp);
 
-    $json = json_encode($data);
-
-    //Anexa o JSON ao POST
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
-
-    //Setando o conteúdo para JSON
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-
-    //Retorna resposta ao invés de imprimir
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-    $result = curl_exec($ch);
-
-    var_dump($result);
-
-    curl_close($ch);
+    echo $resp['status'];
+    echo $resp['results'][0]['formatted_address'];
 ?>

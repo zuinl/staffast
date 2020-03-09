@@ -42,14 +42,9 @@
         <div class="col-sm-1">
             <img src="img/factory.png" width="60">
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-11">
             <h2 class="high-text">Todos os <i><span class="destaque-text">setores</span></i> desativados de <?php echo $_SESSION['empresa']['nome']; ?></h2>
         </div>
-        <?php if($_SESSION['empresa']['logotipo'] != "") { ?>
-        <div class="col-sm-1">
-            <img src="<?php echo $_SESSION['empresa']['logotipo']; ?>" width="100">
-        </div>
-        <?php } ?>
     </div>
 
     <hr class="hr-divide">

@@ -220,6 +220,7 @@ CREATE TABLE IF NOT EXISTS `tbl_mensagem_funcionario` (
             `ava_data_criacao` DATETIME NOT NULL DEFAULT NOW(),
             `ava_data_liberacao` DATETIME NOT NULL,
             `ava_visualizada` INT NOT NULL DEFAULT 0,
+            `ava_modelo_id` INT NOT NULL DEFAULT 0,
             `ava_sessao_um` INT NOT NULL,
             `ava_sessao_um_obs` VARCHAR(400) NULL,
             `ava_sessao_dois` INT NOT NULL,
@@ -574,6 +575,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pdi_competencia_meta` (
   `data_edicao` DATETIME NULL DEFAULT NULL,
   `motivo_edicao` TEXT NULL DEFAULT NULL,
   `anotacoes` TEXT NULL DEFAULT NULL,
+  `app` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`));
 
   CREATE TABLE IF NOT EXISTS `tbl_funcionario_horario` ( 
@@ -645,14 +647,6 @@ CREATE TABLE IF NOT EXISTS `tbl_pdi_competencia_meta` (
     `vinte` VARCHAR(35) NULL DEFAULT NULL,
     `ativo` INT NOT NULL DEFAULT 1,
     PRIMARY KEY (`id`));
-
-    CREATE TABLE IF NOT EXISTS `tbl_agendamento_avaliacao` ( 
-      `id` INT NOT NULL AUTO_INCREMENT , 
-      `ges_cpf` VARCHAR(11) NOT NULL , 
-      `col_cpf` VARCHAR(11) NOT NULL , 
-      `data` DATETIME NULL DEFAULT NULL , 
-      `realizada` INT NOT NULL DEFAULT '0' , 
-      PRIMARY KEY (`id`));
 
       CREATE TABLE IF NOT EXISTS `tbl_colaborador_modelo_avaliacao` ( 
         `col_cpf` VARCHAR(11) NOT NULL , 

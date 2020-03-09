@@ -48,11 +48,6 @@
             <a href="novoSetor.php"><button class="button button1">Novo setor</button></a>
         </div>
         <?php } ?>
-        <?php if($_SESSION['empresa']['logotipo'] != "") { ?>
-        <div class="col-sm-1">
-            <img src="<?php echo $_SESSION['empresa']['logotipo']; ?>" width="100">
-        </div>
-        <?php } ?>
     </div>
 
     <hr class="hr-divide">

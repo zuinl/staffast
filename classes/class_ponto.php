@@ -15,6 +15,7 @@
         private $dataEdicao;
         private $motivoEdicao;
         private $anotacoes;
+        private $app;
 
         //Esta função identifica o funcionário e retorna seu nome, cpf e nome da empresa
         public function identificarFuncionario($email) {
@@ -103,7 +104,7 @@
         }
 
         //Registrar o ponto
-        public function registrarPonto($tipo, $data, $cpf, $database_empresa, $latitude = '', $longitude = '') {
+        public function registrarPonto($tipo, $data, $cpf, $database_empresa, $latitude = '', $longitude = '', $app = 0) {
             require_once 'class_conexao_empresa.php';
             require_once 'class_queryHelper.php';
 
@@ -118,6 +119,11 @@
 
             $data_inicio = substr($data, 0, 10).' 00:00:00';
             $data_fim = substr($data, 0, 10).' 23:59:59';
+
+            //Getting address using lat and long
+            if($latitude != '' && $longitude != '') $endereco = $this->retornarEndereco($latitude, $longitude);
+            else $endereco = 'Sem dados';
+
             switch($tipo) {
                 case 1:
                     $select = "SELECT id FROM tbl_ponto 
@@ -137,13 +143,17 @@
                     data,
                     tipo,
                     latitude,
-                    longitude
+                    longitude,
+                    endereco,
+                    app
                     ) VALUES (
                     '$cpf',
                     '$data',
                     $tipo,
                     '$latitude',
-                    '$longitude'
+                    '$longitude',
+                    '$endereco',
+                    $app
                     )";
                     if($helper->insert($insert)) return true;
                     else return 3;
@@ -165,13 +175,17 @@
                     data,
                     tipo,
                     latitude,
-                    longitude
+                    longitude,
+                    endereco,
+                    app
                     ) VALUES (
                     '$cpf',
                     '$data',
                     $tipo,
                     '$latitude',
-                    '$longitude'
+                    '$longitude',
+                    '$endereco',
+                    $app
                     )";
                     if($helper->insert($insert)) return true;
                     else return 5;
@@ -193,13 +207,17 @@
                     data,
                     tipo,
                     latitude,
-                    longitude
+                    longitude,
+                    endereco,
+                    app
                     ) VALUES (
                     '$cpf',
                     '$data',
                     $tipo,
                     '$latitude',
-                    '$longitude'
+                    '$longitude',
+                    '$endereco',
+                    $app
                     )";
                     if($helper->insert($insert)) return true;
                     else return 7;
@@ -223,13 +241,17 @@
                     data,
                     tipo,
                     latitude,
-                    longitude
+                    longitude,
+                    endereco,
+                    app
                     ) VALUES (
                     '$cpf',
                     '$data',
                     $tipo,
                     '$latitude',
-                    '$longitude'
+                    '$longitude',
+                    '$endereco',
+                    $app
                     )";
                     if($helper->insert($insert)) return true;
                     else return 9;
@@ -267,7 +289,8 @@
             tipo,
             latitude,
             longitude,
-            endereco
+            endereco,
+            app
              FROM tbl_ponto WHERE id = $this->ID";
             $f = $helper->select($select, 2);
 
@@ -280,6 +303,7 @@
             $ponto->setLatitude($f['latitude']);
             $ponto->setLongitude($f['longitude']);
             $ponto->setEndereco($f['endereco']);
+            $ponto->setApp($f['app']);
 
             return $ponto;
         }
@@ -370,6 +394,11 @@
                         $longitude_retorno = "";
                         $longitude_saida = "";
 
+                        $endereco_entrada = "";
+                        $endereco_pausa = "";
+                        $endereco_retorno = "";
+                        $endereco_saida = "";
+
                         $anotacao = "";
 
                         //Percorrendo todos os pontos daquele dia
@@ -386,21 +415,25 @@
                                         $entrada = $ponto->getHora(); 
                                         $latitude_entrada = $ponto->getLatitude();
                                         $longitude_entrada = $ponto->getLongitude();
+                                        $endereco_entrada = $ponto->getEndereco();
                                         break;
                                 case 2: 
                                         $pausa = $ponto->getHora(); 
                                         $latitude_pausa = $ponto->getLatitude();
                                         $longitude_pausa = $ponto->getLongitude();
+                                        $endereco_pausa = $ponto->getEndereco();
                                         break;
                                 case 3: 
                                         $retorno = $ponto->getHora(); 
                                         $latitude_retorno = $ponto->getLatitude();
                                         $longitude_retorno = $ponto->getLongitude();
+                                        $endereco_retorno = $ponto->getEndereco();
                                         break;
                                 case 4: 
                                         $saida = $ponto->getHora(); 
                                         $latitude_saida = $ponto->getLatitude();
                                         $longitude_saida = $ponto->getLongitude();
+                                        $endereco_saida = $ponto->getEndereco();
                                         break;
                                 }
                         }
@@ -412,15 +445,19 @@
                                 "entrada" => $entrada,
                                 "entrada_latitude" => $latitude_entrada,
                                 "entrada_longitude" => $longitude_entrada,
+                                "entrada_endereco" => $endereco_entrada,
                                 "pausa" => $pausa,
                                 "pausa_latitude" => $latitude_pausa,
                                 "pausa_longitude" => $longitude_pausa,
+                                "pausa_endereco" => $endereco_pausa,
                                 "retorno" => $retorno,
                                 "retorno_latitude" => $latitude_retorno,
                                 "retorno_longitude" => $longitude_retorno,
+                                "retorno_endereco" => $endereco_retorno,
                                 "saida" => $saida,
                                 "saida_latitude" => $latitude_saida,
                                 "saida_longitude" => $longitude_saida,
+                                "saida_endereco" => $endereco_saida,
                                 "anotacao" => $anotacao
                         );
                         $i++;
@@ -550,6 +587,29 @@
                 else return false;
             } else {
                 return false;
+            }
+        }
+
+        //Retorna o endereço formatado usando a requisição com a API Google Geocoding -- Informações sobre a API estão no Trello do Staffast
+        public function retornarEndereco($latitude, $longitude) {
+            if($latitude != "" && $longitude != "") {
+                $latitude = (string)$latitude;
+                $longitude = (string)$longitude;
+
+                //URL da API
+                $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&key=AIzaSyBs89DVkWnqf6u_CxyNXVg9NKgH3c5sEco";
+    
+                // get the json response
+                $resp_json = file_get_contents($url);
+     
+                // decode the json
+                $resp = json_decode($resp_json, true);      
+                
+                if($resp['status'] == "OK") {
+                    return $resp['results'][0]['formatted_address'];
+                } else {
+                    return "Erro";
+                }
             }
         }
 
@@ -834,6 +894,26 @@
         public function setEndereco($endereco)
         {
                 $this->endereco = $endereco;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of app
+         */ 
+        public function getApp()
+        {
+                return $this->app;
+        }
+
+        /**
+         * Set the value of app
+         *
+         * @return  self
+         */ 
+        public function setApp($app)
+        {
+                $this->app = $app;
 
                 return $this;
         }

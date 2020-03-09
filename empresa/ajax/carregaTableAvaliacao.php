@@ -35,7 +35,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_um" id="compet_um" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_um_obs" class="all-input"></textarea>
+                <textarea name="compet_um_obs" id="compet_um_obs" class="all-input"></textarea>
             </td>
         </tr>
         <tr>
@@ -49,7 +49,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_dois" id="compet_dois" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_dois_obs" class="all-input"></textarea>
+                <textarea name="compet_dois_obs" id="compet_dois_obs" class="all-input"></textarea>
             </td>
         </tr>
         <tr>
@@ -63,7 +63,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_tres" id="compet_tres" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_tres_obs" class="all-input"></textarea>
+                <textarea name="compet_tres_obs" id="compet_tres_obs" class="all-input"></textarea>
             </td>
         </tr>
         <tr>
@@ -77,7 +77,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_quatro" id="compet_quatro" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_quatro_obs" class="all-input"></textarea>
+                <textarea name="compet_quatro_obs" id="compet_quatro_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php if($_SESSION['empresa']['compet_cinco'] != "") { ?>
@@ -92,7 +92,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_cinco" id="compet_cinco" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_cinco_obs" class="all-input"></textarea>
+                <textarea name="compet_cinco_obs" id="compet_cinco_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -108,7 +108,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_seis" id="compet_seis" id="compet_seis" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_seis_obs" class="all-input"></textarea>
+                <textarea name="compet_seis_obs" id="compet_seis_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -124,7 +124,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_sete" id="compet_sete" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_sete_obs" class="all-input"></textarea>
+                <textarea name="compet_sete_obs" id="compet_sete_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -140,7 +140,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_oito" id="compet_oito" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_oito_obs" class="all-input"></textarea>
+                <textarea name="compet_oito_obs" id="compet_oito_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -156,7 +156,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_nove" id="compet_nove" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_nove_obs" class="all-input"></textarea>
+                <textarea name="compet_nove_obs" id="compet_nove_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -172,7 +172,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_dez" id="compet_dez" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_dez_obs" class="all-input"></textarea>
+                <textarea name="compet_dez_obs" id="compet_dez_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -188,7 +188,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_onze" id="compet_onze" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_onze_obs" class="all-input"></textarea>
+                <textarea name="compet_onze_obs" id="compet_onze_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -204,7 +204,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_doze" id="compet_doze" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_doze_obs" class="all-input"></textarea>
+                <textarea name="compet_doze_obs" id="compet_doze_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -220,7 +220,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_treze" id="compet_treze" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_treze_obs" class="all-input"></textarea>
+                <textarea name="compet_treze_obs" id="compet_treze_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -236,7 +236,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_quatorze" id="compet_quatorze" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_quatorze_obs" class="all-input"></textarea>
+                <textarea name="compet_quatorze_obs" id="compet_quatorze_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -252,7 +252,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_quinze" id="compet_quinze" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_quinze_obs" class="all-input"></textarea>
+                <textarea name="compet_quinze_obs" id="compet_quinze_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -268,7 +268,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_dezesseis" id="compet_dezesseis" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_dezesseis_obs" class="all-input"></textarea>
+                <textarea name="compet_dezesseis_obs" id="compet_dezesseis_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -284,7 +284,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_dezessete" id="compet_dezessete" id="compet_dezessete" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_dezessete_obs" class="all-input"></textarea>
+                <textarea name="compet_dezessete_obs" id="compet_dezessete_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -300,7 +300,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_dezoito" id="compet_dezoito" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_dezoito_obs" class="all-input"></textarea>
+                <textarea name="compet_dezoito_obs" id="compet_dezoito_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -316,7 +316,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_dezenove" id="compet_dezenove" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_dezenove_obs" class="all-input"></textarea>
+                <textarea name="compet_dezenove_obs" id="compet_dezenove_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -332,7 +332,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_vinte" id="compet_vinte" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_vinte_obs" class="all-input"></textarea>
+                <textarea name="compet_vinte_obs" id="compet_vinte_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -368,7 +368,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_um" id="compet_um" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_um_obs" class="all-input"></textarea>
+                <textarea name="compet_um_obs" id="compet_um_obs" class="all-input"></textarea>
             </td>
         </tr>
         <tr>
@@ -382,7 +382,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_dois" id="compet_dois" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_dois_obs" class="all-input"></textarea>
+                <textarea name="compet_dois_obs" id="compet_dois_obs" class="all-input"></textarea>
             </td>
         </tr>
         <tr>
@@ -396,7 +396,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_tres" id="compet_tres" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_tres_obs" class="all-input"></textarea>
+                <textarea name="compet_tres_obs" id="compet_tres_obs" class="all-input"></textarea>
             </td>
         </tr>
         <tr>
@@ -410,7 +410,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_quatro" id="compet_quatro" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_quatro_obs" class="all-input"></textarea>
+                <textarea name="compet_quatro_obs" id="compet_quatro_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php if($modelo->getCinco() != "") { ?>
@@ -425,7 +425,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_cinco" id="compet_cinco" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_cinco_obs" class="all-input"></textarea>
+                <textarea name="compet_cinco_obs" id="compet_cinco_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -441,7 +441,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_seis" id="compet_seis" id="compet_seis" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_seis_obs" class="all-input"></textarea>
+                <textarea name="compet_seis_obs" id="compet_seis_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -457,7 +457,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_sete" id="compet_sete" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_sete_obs" class="all-input"></textarea>
+                <textarea name="compet_sete_obs" id="compet_sete_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -473,7 +473,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_oito" id="compet_oito" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_oito_obs" class="all-input"></textarea>
+                <textarea name="compet_oito_obs" id="compet_oito_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -489,7 +489,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_nove" id="compet_nove" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_nove_obs" class="all-input"></textarea>
+                <textarea name="compet_nove_obs" id="compet_nove_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -505,7 +505,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_dez" id="compet_dez" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_dez_obs" class="all-input"></textarea>
+                <textarea name="compet_dez_obs" id="compet_dez_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -521,7 +521,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_onze" id="compet_onze" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_onze_obs" class="all-input"></textarea>
+                <textarea name="compet_onze_obs" id="compet_onze_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -537,7 +537,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_doze" id="compet_doze" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_doze_obs" class="all-input"></textarea>
+                <textarea name="compet_doze_obs" id="compet_doze_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -553,7 +553,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_treze" id="compet_treze" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_treze_obs" class="all-input"></textarea>
+                <textarea name="compet_treze_obs" id="compet_treze_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -569,7 +569,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_quatorze" id="compet_quatorze" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_quatorze_obs" class="all-input"></textarea>
+                <textarea name="compet_quatorze_obs" id="compet_quatorze_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -585,7 +585,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_quinze" id="compet_quinze" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_quinze_obs" class="all-input"></textarea>
+                <textarea name="compet_quinze_obs" id="compet_quinze_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -601,7 +601,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_dezesseis" id="compet_dezesseis" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_dezesseis_obs" class="all-input"></textarea>
+                <textarea name="compet_dezesseis_obs" id="compet_dezesseis_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -617,7 +617,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_dezessete" id="compet_dezessete" id="compet_dezessete" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_dezessete_obs" class="all-input"></textarea>
+                <textarea name="compet_dezessete_obs" id="compet_dezessete_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -633,7 +633,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_dezoito" id="compet_dezoito" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_dezoito_obs" class="all-input"></textarea>
+                <textarea name="compet_dezoito_obs" id="compet_dezoito_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -649,7 +649,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_dezenove" id="compet_dezenove" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_dezenove_obs" class="all-input"></textarea>
+                <textarea name="compet_dezenove_obs" id="compet_dezenove_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>
@@ -665,7 +665,7 @@ if($modelo_id == 0) {
                 <input type="radio" name="compet_vinte" id="compet_vinte" value="5" class="radioMy" required style="margin-left: 2em;"> <img src="img/happy.png" width="30">
             </td>
             <td>
-                <textarea name="compet_vinte_obs" class="all-input"></textarea>
+                <textarea name="compet_vinte_obs" id="compet_vinte_obs" class="all-input"></textarea>
             </td>
         </tr>
         <?php } ?>

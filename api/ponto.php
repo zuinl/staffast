@@ -65,7 +65,7 @@
         date_default_timezone_set('America/Sao_Paulo');
         $data = date('Y-m-d').' '.$hora;
 
-        $ret = $ponto->registrarPonto($tipo, $data, $cpf, $database, $latitude, $longitude);
+        $ret = $ponto->registrarPonto($tipo, $data, $cpf, $database, $latitude, $longitude, 1);
 
         if($ret === true) {
             if(trim($anotacao) != "") $ponto->anotar($cpf, $anotacao, $database);

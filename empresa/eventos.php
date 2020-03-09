@@ -93,12 +93,22 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="home.php">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Próximos eventos</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <div class="row">
         <div class="col-sm-1">
             <img src="img/calendar.png" width="60">
         </div>
-        <div class="col-sm">
-            <h1 class="high-text">Próximos <span class="destaque-text">eventos</span></h1>
+        <div class="col-sm-5">
+            <h2 class="high-text">Próximos <span class="destaque-text">eventos</span></h2>
         </div>
         <?php if($_SESSION['user']['permissao'] == "GESTOR-1" || $_SESSION['user']['permissao'] == "GESTOR-2") { ?>
         <div class="col-sm">
@@ -117,9 +127,12 @@
     if(isset($_SESSION['msg'])) {
         ?>
 		<div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm">
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
 		</div>

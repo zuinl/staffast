@@ -223,11 +223,15 @@
             <th>Data</th>
             <th>Entrada</th>
             <th>Atraso entrada</th>
+            <th>Endereço entrada</th>
             <th>Pausa</th>
             <th>Atraso pausa</th>
+            <th>Endereço pausa</th>
             <th>Retorno</th>
+            <th>Endereço retorno</th>
             <th>Saída</th>
             <th>Extra</th>
+            <th>Endereço saída</th>
             <th>Anotações</th>
             <th>Editar</th>
         </tr>
@@ -333,11 +337,15 @@
             <td><b><?php echo $historico[$i]["data"]; ?></b></td>
             <td><?php echo $historico[$i]["entrada"]; ?></td>
             <td><?php echo $atrasoEntrada; ?></td>
+            <td><?php echo $historico[$i]["entrada_endereco"]; ?></td>
             <td><?php echo $historico[$i]["pausa"]; ?></td>
             <td><?php echo $atrasoPausa; ?></td>
+            <td><?php echo $historico[$i]["pausa_endereco"]; ?></td>
             <td><?php echo $historico[$i]["retorno"]; ?></td>
+            <td><?php echo $historico[$i]["retorno_endereco"]; ?></td>
             <td><?php echo $historico[$i]["saida"]; ?></td>
             <td><?php echo $extraSaida; ?></td>
+            <td><?php echo $historico[$i]["saida_endereco"]; ?></td>
             <td><?php echo $anotacao; ?></td>
             <td>
                 <?php if($historico[$i]["data"] != "Sem registros") { ?>

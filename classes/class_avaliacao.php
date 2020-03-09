@@ -6,6 +6,7 @@
         private $dataCriacao;
         private $dataLiberacao;
         private $visualizada;
+        private $modeloID;
         private $sessaoUm;
         private $sessaoUmObs;
         private $sessaoDois;
@@ -69,7 +70,7 @@
             ava_sessao_quinze, ava_sessao_quinze_obs, ava_sessao_dezesseis, ava_sessao_dezesseis_obs,
             ava_sessao_dezessete, ava_sessao_dezessete_obs, ava_sessao_dezoito, ava_sessao_dezoito_obs,
             ava_sessao_dezenove, ava_sessao_dezenove_obs, ava_sessao_vinte, ava_sessao_vinte_obs,
-            ges_cpf, col_cpf) VALUES 
+            ges_cpf, col_cpf, ava_modelo_id) VALUES 
             (DATE_ADD(NOW(), INTERVAL 30 DAY), '$this->sessaoUm', '$this->sessaoUmObs', '$this->sessaoDois', 
             '$this->sessaoDoisObs', '$this->sessaoTres', '$this->sessaoTresObs', '$this->sessaoQuatro', '$this->sessaoQuatroObs',
             '$this->sessaoCinco', '$this->sessaoCincoObs', '$this->sessaoSeis', '$this->sessaoSeisObs',
@@ -80,7 +81,7 @@
             '$this->sessaoQuinze', '$this->sessaoQuinzeObs', '$this->sessaoDezesseis', '$this->sessaoDezesseisObs',
             '$this->sessaoDezessete', '$this->sessaoDezesseteObs', '$this->sessaoDezoito', '$this->sessaoDezoitoObs',
             '$this->sessaoDezenove', '$this->sessaoDezenoveObs', '$this->sessaoVinte', '$this->sessaoVinteObs',
-            '$this->cpfGestor', '$this->cpfColaborador')";
+            '$this->cpfGestor', '$this->cpfColaborador', $this->modeloID)";
 
             if($helper->insert($insert)) return true;
             else return false;
@@ -168,7 +169,7 @@
             ava_sessao_dezessete as s17, ava_sessao_dezessete_obs as s17_obs, 
             ava_sessao_dezoito as s18, ava_sessao_dezoito_obs as s18_obs, 
             ava_sessao_dezenove as s19, ava_sessao_dezenove_obs as s19_obs, 
-            ava_sessao_vinte as s20, ava_sessao_vinte_obs as s20_obs, 
+            ava_sessao_vinte as s20, ava_sessao_vinte_obs as s20_obs, ava_modelo_id as modelo, 
             ges_cpf as ges, col_cpf as col FROM tbl_avaliacao WHERE ava_id = '$this->ID'";
 
             $fetch = $helper->select($select, 2);
@@ -218,6 +219,7 @@
             $ava->setSessaoVinteObs($fetch['s20_obs']);
             $ava->setCpfGestor($fetch['ges']);
             $ava->setCpfColaborador($fetch['col']);
+            $ava->setModeloID($fetch['modelo']);
 
             return $ava;
 
@@ -234,7 +236,7 @@
 
             $select = "SELECT DATE_FORMAT(t1.ava_data_criacao, '%d/%m/%Y %H:%i') as criacao, t2.ges_primeiro_nome 
             as gestor FROM tbl_avaliacao t1 INNER JOIN tbl_gestor t2 ON t2.ges_cpf = t1.ges_cpf WHERE t1.col_cpf = 
-            '$this->cpfColaborador' AND t1.ava_data_liberacao <= NOW() ORDER BY t1.ava_data_criacao DESC LIMIT 1";
+            '$this->cpfColaborador' AND t1.ava_data_liberacao <= NOW() AND ava_modelo_id = 0 ORDER BY t1.ava_data_criacao DESC LIMIT 1";
 
             $query = $helper->select($select, 1);
 
@@ -260,7 +262,7 @@
 
             $select = "SELECT DATE_FORMAT(ava_data_criacao, '%d/%m/%Y %H:%i:%s') as criacao
             FROM tbl_avaliacao WHERE col_cpf = '$this->cpfColaborador' AND ava_data_liberacao < NOW()
-            ORDER BY ava_data_criacao DESC LIMIT 1";
+            AND ava_modelo_id = 0 ORDER BY ava_data_criacao DESC LIMIT 1";
 
             $query = $helper->select($select, 1);
 
@@ -284,7 +286,7 @@
             $helper = new QueryHelper($conn);
 
             $select = "SELECT COUNT(ava_id) as total FROM tbl_avaliacao WHERE col_cpf = '$this->cpfColaborador' 
-            AND ava_data_liberacao <= NOW()";
+            AND ava_data_liberacao <= NOW() AND ava_modelo_id = 0";
 
             $fetch = $helper->select($select, 2);
 
@@ -328,7 +330,7 @@
                 ROUND(AVG(ava_sessao_quinze), 1) as quinze, ROUND(AVG(ava_sessao_dezesseis), 1) as dezesseis,
                 ROUND(AVG(ava_sessao_dezessete), 1) as dezessete, ROUND(AVG(ava_sessao_dezoito), 1) as dezoito,
                 ROUND(AVG(ava_sessao_dezenove), 1) as dezenove, ROUND(AVG(ava_sessao_vinte), 1) as vinte
-                FROM tbl_avaliacao WHERE ava_data_liberacao <= NOW()";
+                FROM tbl_avaliacao WHERE ava_data_liberacao <= NOW() AND ava_modelo_id = 0";
 
                 $query = $helper->select($select, 1);
 
@@ -384,7 +386,7 @@
 
         }
 
-        function calcularMedias($database_empresa) {
+        function calcularMedias($database_empresa, $modelo = 0) {
 
                 require_once('class_conexao_empresa.php');
                 require_once('class_queryHelper.php');
@@ -403,7 +405,8 @@
                 ROUND(AVG(ava_sessao_quinze), 1) as quinze, ROUND(AVG(ava_sessao_dezesseis), 1) as dezesseis,
                 ROUND(AVG(ava_sessao_dezessete), 1) as dezessete, ROUND(AVG(ava_sessao_dezoito), 1) as dezoito,
                 ROUND(AVG(ava_sessao_dezenove), 1) as dezenove, ROUND(AVG(ava_sessao_vinte), 1) as vinte
-                FROM tbl_avaliacao WHERE col_cpf = '$this->cpfColaborador' AND ava_data_liberacao <= NOW()";
+                FROM tbl_avaliacao WHERE col_cpf = '$this->cpfColaborador' 
+                AND ava_data_liberacao <= NOW() AND ava_modelo_id = $modelo";
 
                 $query = $helper->select($select, 1);
 
@@ -479,7 +482,7 @@
                 ROUND(AVG(ava_sessao_dezessete), 1) as dezessete, ROUND(AVG(ava_sessao_dezoito), 1) as dezoito,
                 ROUND(AVG(ava_sessao_dezenove), 1) as dezenove, ROUND(AVG(ava_sessao_vinte), 1) as vinte
                 FROM tbl_avaliacao WHERE col_cpf = '$this->cpfColaborador' AND ava_data_liberacao <= NOW() 
-                AND ava_data_criacao >= DATE_SUB(NOW(), INTERVAL 30 DAY)";
+                AND ava_data_criacao >= DATE_SUB(NOW(), INTERVAL 30 DAY) AND ava_modelo_id = 0";
 
                 $query = $helper->select($select, 1);
 
@@ -555,7 +558,7 @@
                 ROUND(AVG(ava_sessao_dezessete), 1) as dezessete, ROUND(AVG(ava_sessao_dezoito), 1) as dezoito,
                 ROUND(AVG(ava_sessao_dezenove), 1) as dezenove, ROUND(AVG(ava_sessao_vinte), 1) as vinte
                 FROM tbl_avaliacao WHERE col_cpf = '$this->cpfColaborador' AND ava_data_liberacao <= NOW() 
-                AND ava_data_criacao >= DATE_SUB(NOW(), INTERVAL 90 DAY)";
+                AND ava_data_criacao >= DATE_SUB(NOW(), INTERVAL 90 DAY) AND ava_modelo_id = 0";
 
                 $query = $helper->select($select, 1);
 
@@ -631,7 +634,7 @@
                 ROUND(AVG(ava_sessao_dezessete), 1) as dezessete, ROUND(AVG(ava_sessao_dezoito), 1) as dezoito,
                 ROUND(AVG(ava_sessao_dezenove), 1) as dezenove, ROUND(AVG(ava_sessao_vinte), 1) as vinte
                 FROM tbl_avaliacao WHERE col_cpf = '$this->cpfColaborador' AND ava_data_liberacao <= NOW() 
-                AND ava_data_criacao >= DATE_SUB(NOW(), INTERVAL 180 DAY)";
+                AND ava_data_criacao >= DATE_SUB(NOW(), INTERVAL 180 DAY) AND ava_modelo_id = 0";
 
                 $query = $helper->select($select, 1);
 
@@ -707,7 +710,7 @@
                 ROUND(AVG(ava_sessao_dezessete), 1) as dezessete, ROUND(AVG(ava_sessao_dezoito), 1) as dezoito,
                 ROUND(AVG(ava_sessao_dezenove), 1) as dezenove, ROUND(AVG(ava_sessao_vinte), 1) as vinte
                 FROM tbl_avaliacao WHERE col_cpf = '$this->cpfColaborador' AND ava_data_liberacao <= NOW() 
-                AND ava_data_criacao >= DATE_SUB(NOW(), INTERVAL 365 DAY)";
+                AND ava_data_criacao >= DATE_SUB(NOW(), INTERVAL 365 DAY) AND ava_modelo_id = 0";
 
                 $query = $helper->select($select, 1);
 
@@ -783,7 +786,7 @@
                 ROUND(AVG(ava_sessao_dezessete), 1) as dezessete, ROUND(AVG(ava_sessao_dezoito), 1) as dezoito,
                 ROUND(AVG(ava_sessao_dezenove), 1) as dezenove, ROUND(AVG(ava_sessao_vinte), 1) as vinte
                 FROM tbl_avaliacao WHERE col_cpf = '$this->cpfColaborador' AND ava_data_liberacao <= NOW() 
-                AND ava_data_criacao >= DATE_SUB(NOW(), INTERVAL 15 DAY)";
+                AND ava_data_criacao >= DATE_SUB(NOW(), INTERVAL 15 DAY) AND ava_modelo_id = 0";
 
                 $query = $helper->select($select, 1);
 
@@ -859,7 +862,7 @@
                 ROUND(AVG(ava_sessao_dezessete), 1) as dezessete, ROUND(AVG(ava_sessao_dezoito), 1) as dezoito,
                 ROUND(AVG(ava_sessao_dezenove), 1) as dezenove, ROUND(AVG(ava_sessao_vinte), 1) as vinte
                 FROM tbl_avaliacao WHERE col_cpf = '$this->cpfColaborador' AND ava_data_liberacao <= NOW() 
-                AND ava_data_criacao >= DATE_SUB(NOW(), INTERVAL 7 DAY)";
+                AND ava_data_criacao >= DATE_SUB(NOW(), INTERVAL 7 DAY) AND ava_modelo_id = 0";
 
                 $query = $helper->select($select, 1);
 
@@ -1486,6 +1489,14 @@
         function getCpfColaborador() {
             return $this->cpfColaborador;
         }
+
+        function setModeloID($modeloID) {
+                $this->modeloID = $modeloID;
+            }
+    
+            function getModeloID() {
+                return $this->modeloID;
+            }
 
     }
 

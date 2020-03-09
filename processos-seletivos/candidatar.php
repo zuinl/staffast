@@ -96,7 +96,7 @@ if($num_perguntas == 0) {
             <h6 class="text"><b>Você está se candidatando a: </b><?php echo $ps->getTitulo(); ?></h6>
         </div>
         <div class="col-sm">
-            <h6 class="text"><?php echo $ps->getDescricao(); ?></h6>
+            <h6 class="text">Descrição: <?php echo $ps->getDescricao(); ?></h6>
         </div>
     </div>
     <div class="row">
@@ -117,9 +117,12 @@ if($num_perguntas == 0) {
     if(isset($_SESSION['msg'])) {
         ?>
 		<div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm">
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
 		</div>
@@ -128,33 +131,37 @@ if($num_perguntas == 0) {
     ?>
 
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm">
             <form action="db_candidatar.php" method="POST" enctype="multipart/form-data">
             <label class="text">Nome completo *</label>
             <input type="text" class="all-input" name="nome" maxlength="80" required>
         </div>
-        <div class="col-sm-3">
+    </div>
+    <div class="row">
+        <div class="col-sm">
             <label class="text">LinkedIn</label>
             <input type="text" class="all-input" name="linkedin" placeholder="Link para perfil, se tiver" maxlength="120">
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm">
             <label class="text">Telefone *</label>
             <input type="text" class="all-input" name="telefone" id="telefone" maxlength="14" required>
         </div>
-        <div class="col-sm-3">
+    </div>
+    <div class="row">
+        <div class="col-sm">
             <label class="text">Apresentação</label>
             <textarea name="apresentacao" class="all-input" maxlength="1000"></textarea>
         </div>
     </div> 
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm">
             <label class="text">E-mail *</label>
             <input type="email" class="all-input" name="email" id="email" maxlength="120" required>
         </div>
         <div class="col-sm">
             <label class="text">Envie seu currículo</label>
             <input type="file" name="cv" class="button button3" required>
-            <small class="text">Dê preferência para arquivos em PDF ou DOCX</small>
+            <br><small class="text">Dê preferência para arquivos em PDF ou DOCX</small>
         </div>
     </div>
     <?php
@@ -175,7 +182,7 @@ if($num_perguntas == 0) {
             $perg_opc_quatro = $fetch['quatro'];
             ?>
 
-            <hr class="hr-divide-light">
+            <hr class="hr-divide-super-light">
 
             <div class="row">
                 <div class="col-sm">
@@ -192,17 +199,23 @@ if($num_perguntas == 0) {
                 <div class="col-sm-6">
                     <input type="radio" name="<?php echo $id_alter; ?>" value="1"> <?php echo $perg_opc_um; ?>
                 </div>
+                <?php if($perg_opc_dois != "") { ?>
                 <div class="col-sm-6">
                     <input type="radio" name="<?php echo $id_alter; ?>" value="2"> <?php echo $perg_opc_dois; ?>
                 </div>
+                <?php } ?>
             </div>
             <div class="row">
+                <?php if($perg_opc_tres != "") { ?>
                 <div class="col-sm-6">
                     <input type="radio" name="<?php echo $id_alter; ?>" value="3"> <?php echo $perg_opc_tres; ?>
                 </div>
+                <?php } ?>
+                <?php if($perg_opc_quatro != "") { ?>
                 <div class="col-sm-6">
                     <input type="radio" name="<?php echo $id_alter; ?>" value="4"> <?php echo $perg_opc_quatro; ?>
                 </div>
+                <?php } ?>
             </div>
 
             <?php
@@ -211,7 +224,7 @@ if($num_perguntas == 0) {
 
     }
     ?>
-    <div class="row">
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
             <input type="hidden" name="database" value="<?php echo $empresa->getDatabase(); ?>">
             <input type="hidden" name="num_perguntas" value="<?php echo $num_perguntas; ?>">

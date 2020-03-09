@@ -134,7 +134,8 @@
     ava_sessao_dezessete_obs as dezessete_obs, ava_sessao_dezoito_obs as dezoito_obs,
     ava_sessao_dezenove_obs as dezenove_obs, ava_sessao_vinte_obs as vinte_obs,
     DATE_FORMAT(ava_data_criacao, '%d/%m/%Y') as data
-    FROM tbl_avaliacao WHERE col_cpf = '$id' AND ava_data_liberacao < NOW() ORDER BY ava_data_criacao DESC LIMIT 10";
+    FROM tbl_avaliacao WHERE col_cpf = '$id' AND ava_data_liberacao < NOW() 
+    AND ava_modelo_id = 0 ORDER BY ava_data_criacao DESC LIMIT 10";
 
     $query = mysqli_query($conn, $select);
 
@@ -346,27 +347,6 @@
 
     //
 
-    //COLETANDO SETORES INSERIDO
-
-    $select = "SELECT t2.set_nome as setor, t2.set_id as id FROM tbl_setor_funcionario t1 INNER JOIN tbl_setor t2 
-    ON t2.set_id = t1.set_id WHERE t1.col_cpf = '".$colaborador->getCpf()."'";
-
-    $query = $helper->select($select, 1);
-
-    $num_setores = mysqli_num_rows($query);
-
-    $setores = array("id"=>array(), "setor"=>array());
-    $i = 0;
-    if($num_setores > 0) {
-      while($f = mysqli_fetch_assoc($query)) {
-        $setores["id"][$i] = $f['id'];
-        $setores["setor"][$i] = $f['setor'];
-        $i++;
-      }
-    }
-
-    //
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -392,6 +372,26 @@
           }
 
           window.location.href = "verAutoavaliacao.php?id="+id+"&col="+id_col;
+        }
+        function verAvaliacaoModelo(id_col) {
+          var id = document.getElementById("avaliacao_modelo").value;
+
+          if(id == 0 || id == "0") {
+            alert("Selecione uma avaliação com modelo para visualizar");
+            return true;
+          }
+
+          window.location.href = "verAvaliacaoModelo.php?id="+id+"&col="+id_col;
+        }
+        function verResultadoModelo(id_col) {
+          var id = document.getElementById("resultado_modelo").value;
+
+          if(id == 0 || id == "0") {
+            alert("Selecione um modelo para visualizar resultados");
+            return true;
+          }
+
+          window.location.href = "resultadosModelo.php?id="+id+"&col="+id_col;
         }
         function verAvaAta(id_col) {
           var id_ava = document.getElementById("avaliacao").value;
@@ -422,16 +422,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_um']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
 
         chart.draw(data, options);
       }
@@ -453,16 +454,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_dois']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart1'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart1'));
 
         chart.draw(data, options);
       }
@@ -484,16 +486,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_tres']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart2'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart2'));
 
         chart.draw(data, options);
       }
@@ -515,16 +518,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_quatro']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart3'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart3'));
 
         chart.draw(data, options);
       }
@@ -547,16 +551,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_cinco']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart4'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart4'));
 
         chart.draw(data, options);
       }
@@ -581,16 +586,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_seis']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart5'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart5'));
 
         chart.draw(data, options);
       }
@@ -615,16 +621,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_sete']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart6'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart6'));
 
         chart.draw(data, options);
       }
@@ -649,16 +656,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_oito']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart7'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart7'));
 
         chart.draw(data, options);
       }
@@ -683,16 +691,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_nove']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart8'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart8'));
 
         chart.draw(data, options);
       }
@@ -717,16 +726,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_dez']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart9'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart9'));
 
         chart.draw(data, options);
       }
@@ -751,16 +761,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_onze']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart10'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart10'));
 
         chart.draw(data, options);
       }
@@ -785,16 +796,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_doze']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart11'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart11'));
 
         chart.draw(data, options);
       }
@@ -819,16 +831,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_treze']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart12'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart12'));
 
         chart.draw(data, options);
       }
@@ -853,16 +866,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_quatorze']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart13'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart13'));
 
         chart.draw(data, options);
       }
@@ -887,16 +901,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_quinze']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart14'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart14'));
 
         chart.draw(data, options);
       }
@@ -921,16 +936,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_dezesseis']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart15'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart15'));
 
         chart.draw(data, options);
       }
@@ -955,16 +971,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_dezessete']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart16'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart16'));
 
         chart.draw(data, options);
       }
@@ -989,16 +1006,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_dezoito']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart17'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart17'));
 
         chart.draw(data, options);
       }
@@ -1023,16 +1041,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_dezenove']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart18'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart18'));
 
         chart.draw(data, options);
       }
@@ -1057,16 +1076,17 @@
           title: '<?php echo $_SESSION['empresa']['compet_vinte']; ?> ',
           curveType: 'function',
           legend: { position: 'bottom' },
+          colors: ['#13A330', '#1386A3'],
           vAxis: {
             viewWindow: {
                 min: 0,
-                max: 5.5
+                max: 5.8
             },
             ticks: [0, 1, 2, 3, 4, 5] // display labels every 25
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart19'));
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart19'));
 
         chart.draw(data, options);
       }
@@ -1077,8 +1097,19 @@
 <?php
     include('../include/navbar.php');
 ?>
-<div class="container">
+<div class="container-fluid">
 
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item"><a href="painelAvaliacao.php">Painel de Avaliações</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Relatório de resultados de <?php echo $colaborador->getNomeCompleto(); ?></li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+</div> 
+<div class="container">
     <div class="row" style="text-align: center;">
       <div class="col-sm">
           <h3 class="high-text">Relatório de resultados</h3>
@@ -1087,6 +1118,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
           <a href="printable/resultados.php?id=<?php echo base64_encode($colaborador->getCpf()); ?>" target="_blank"><button class="button button3">Imprimir este relatório</button></a>
+      </div>
+    </div>
+    <div class="row" style="text-align: center;">
+      <div class="col-sm">
+        <small class="text">Caso <?php echo $colaborador->getPrimeiroNome(); ?> tenha sido avaliado(a) usando algum modelo de avaliação personalizado, os resultados não estão embutidos neste relatório.</small>
       </div>
     </div>
 
@@ -1131,7 +1167,7 @@
         <?php if($_SESSION['empresa']['compet_dezenove'] != "") { ?><?php echo '<br>'.$_SESSION['empresa']['compet_dezenove']; ?>: <?php echo number_format($medias[19], 1, ',', ''); ?> <?php } ?>
     </div>
     <div class="col-sm">
-        <br><?php echo $_SESSION['empresa']['compet_dois']; ?>: <?php echo number_format($medias[2], 1, ',', ''); ?>
+        <?php echo $_SESSION['empresa']['compet_dois']; ?>: <?php echo number_format($medias[2], 1, ',', ''); ?>
         <br><?php echo $_SESSION['empresa']['compet_quatro']; ?>: <?php echo number_format($medias[4], 1, ',', ''); ?>
         <?php if($_SESSION['empresa']['compet_seis'] != "") { ?><?php echo '<br>'.$_SESSION['empresa']['compet_seis']; ?>: <?php echo number_format($medias[6], 1, ',', ''); ?> <?php } ?>
         <?php if($_SESSION['empresa']['compet_oito'] != "") { ?><?php echo '<br>'.$_SESSION['empresa']['compet_oito']; ?>: <?php echo number_format($medias[8], 1, ',', ''); ?> <?php } ?>
@@ -1161,7 +1197,9 @@
             $select = "SELECT t1.ava_id as id, 
             CONCAT(DATE_FORMAT(t1.ava_data_criacao, '%d/%m/%Y'), ' - Avaliado por ', t2.ges_primeiro_nome) as avaliacao 
             FROM tbl_avaliacao t1 
-            INNER JOIN tbl_gestor t2 ON t2.ges_cpf = t1.ges_cpf WHERE t1.col_cpf = '$cpf' AND t1.ava_data_liberacao <= NOW() 
+            INNER JOIN tbl_gestor t2 ON t2.ges_cpf = t1.ges_cpf 
+            WHERE t1.col_cpf = '$cpf' AND t1.ava_data_liberacao <= NOW() 
+            AND ava_modelo_id = 0 
             ORDER BY t1.ava_data_criacao DESC";
             $query = $helper->select($select, 1);
             while($fetch = mysqli_fetch_assoc($query)) {
@@ -1208,6 +1246,61 @@
     <hr class="hr-divide-super-light">
 
     <div class="row" style="text-align: center;">
+      <div class="col-sm">
+        <h5 class="text">Visualizar avaliações feitas com modelos</h5>
+      </div>
+    </div>
+    <div class="row" style="text-align: center;">
+      <div class="col-sm">
+        <label class="text">Selecione uma avaliaçao com modelo</label>
+        <select class="all-input" name="avaliacao_modelo" id="avaliacao_modelo">
+            <option selected value="0">-- Selecione --</option>
+            <?php
+            $cpf = $colaborador->getCpf();
+            $select = "SELECT t1.ava_id as id, 
+            CONCAT(DATE_FORMAT(t1.ava_data_criacao, '%d/%m/%Y'), ' - Avaliado por ', t2.ges_primeiro_nome) as avaliacao,
+            t3.titulo as titulo 
+            FROM tbl_avaliacao t1 
+            INNER JOIN tbl_gestor t2 ON t2.ges_cpf = t1.ges_cpf 
+            INNER JOIN tbl_modelo_avaliacao t3 ON t3.id = t1.ava_modelo_id
+            WHERE t1.col_cpf = '$cpf' AND t1.ava_data_liberacao <= NOW() 
+            AND t1.ava_modelo_id != 0 ORDER BY t1.ava_data_criacao DESC";
+            $query = $helper->select($select, 1);
+            while($fetch = mysqli_fetch_assoc($query)) {
+              echo '<option value="'.$fetch['id'].'">'.$fetch['avaliacao'].' - Modelo: '.$fetch['titulo'].'</option>';
+            }
+            ?>
+        </select>
+        <small class="text">Aqui aparecem as avaliações já liberadas</small>
+      </div>
+      <div class="col-sm">
+        <label class="text">Selecione um modelo</label>
+        <select class="all-input" name="resultado_modelo" id="resultado_modelo">
+            <option selected value="0">-- Selecione --</option>
+            <?php
+            $cpf = $colaborador->getCpf();
+            $select = "SELECT DISTINCT t1.modelo_id as id, t2.titulo as titulo FROM tbl_colaborador_modelo_avaliacao t1 
+            INNER JOIN tbl_modelo_avaliacao t2 ON t2.id = t1.modelo_id WHERE t1.col_cpf = '$cpf' ORDER BY t2.titulo ASC";
+            $query = $helper->select($select, 1);
+            while($fetch = mysqli_fetch_assoc($query)) {
+              echo '<option value="'.$fetch['id'].'">'.$fetch['titulo'].'</option>';
+            }
+            ?>
+        </select>
+      </div>
+    </div>
+    <div class="row" style="text-align: center;">
+      <div class="col-sm">
+        <input type="button" id="btnAvaliacaoModelo" value="Ver resultados da avaliação com modelo" class="button button2" onclick="verAvaliacaoModelo('<?php echo base64_encode($colaborador->getCpf()); ?>');">
+      </div>
+      <div class="col-sm">
+        <input type="button" id="btnModelo" value="Ver resultados do modelo" class="button button2" onclick="verResultadoModelo('<?php echo base64_encode($colaborador->getCpf()); ?>');">
+      </div>
+    </div>
+
+    <hr class="hr-divide-super-light">
+
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
             <h4 class="text">Avisos</h4>
         </div>  
@@ -1234,11 +1327,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_um']; ?></b><?php echo $ata_um_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_um']; ?></b><?php echo $ata_um_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_um']; ?></b><?php echo $ava_um_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_um']; ?></b><?php echo $ava_um_obs; ?>
       </div>
     </div>
 
@@ -1252,11 +1345,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_dois']; ?></b><?php echo $ata_dois_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_dois']; ?></b><?php echo $ata_dois_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_dois']; ?></b><?php echo $ava_dois_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_dois']; ?></b><?php echo $ava_dois_obs; ?>
       </div>
     </div>
 
@@ -1270,11 +1363,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_tres']; ?></b><?php echo $ata_tres_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_tres']; ?></b><?php echo $ata_tres_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_tres']; ?></b><?php echo $ava_tres_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_tres']; ?></b><?php echo $ava_tres_obs; ?>
       </div>
     </div>
 
@@ -1288,11 +1381,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_quatro']; ?></b><?php echo $ata_quatro_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_quatro']; ?></b><?php echo $ata_quatro_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_quatro']; ?></b><?php echo $ava_quatro_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_quatro']; ?></b><?php echo $ava_quatro_obs; ?>
       </div>
     </div>
 
@@ -1307,11 +1400,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_cinco']; ?></b><?php echo $ata_cinco_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_cinco']; ?></b><?php echo $ata_cinco_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_cinco']; ?></b><?php echo $ava_cinco_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_cinco']; ?></b><?php echo $ava_cinco_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1327,11 +1420,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_seis']; ?></b><?php echo $ata_seis_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_seis']; ?></b><?php echo $ata_seis_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_seis']; ?></b><?php echo $ava_seis_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_seis']; ?></b><?php echo $ava_seis_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1347,11 +1440,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_sete']; ?></b><?php echo $ata_sete_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_sete']; ?></b><?php echo $ata_sete_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_sete']; ?></b><?php echo $ava_sete_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_sete']; ?></b><?php echo $ava_sete_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1368,11 +1461,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_oito']; ?></b><?php echo $ata_oito_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_oito']; ?></b><?php echo $ata_oito_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_oito']; ?></b><?php echo $ava_oito_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_oito']; ?></b><?php echo $ava_oito_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1388,11 +1481,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_nove']; ?></b><?php echo $ata_nove_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_nove']; ?></b><?php echo $ata_nove_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_nove']; ?></b><?php echo $ava_nove_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_nove']; ?></b><?php echo $ava_nove_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1408,11 +1501,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_dez']; ?></b><?php echo $ata_dez_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_dez']; ?></b><?php echo $ata_dez_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_dez']; ?></b><?php echo $ava_dez_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_dez']; ?></b><?php echo $ava_dez_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1428,11 +1521,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_onze']; ?></b><?php echo $ata_onze_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_onze']; ?></b><?php echo $ata_onze_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_onze']; ?></b><?php echo $ava_onze_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_onze']; ?></b><?php echo $ava_onze_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1448,11 +1541,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_doze']; ?></b><?php echo $ata_doze_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_doze']; ?></b><?php echo $ata_doze_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_doze']; ?></b><?php echo $ava_doze_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_doze']; ?></b><?php echo $ava_doze_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1468,11 +1561,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_treze']; ?></b><?php echo $ata_treze_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_treze']; ?></b><?php echo $ata_treze_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_treze']; ?></b><?php echo $ava_treze_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_treze']; ?></b><?php echo $ava_treze_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1488,11 +1581,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_quatorze']; ?></b><?php echo $ata_quatorze_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_quatorze']; ?></b><?php echo $ata_quatorze_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_quatorze']; ?></b><?php echo $ava_quatorze_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_quatorze']; ?></b><?php echo $ava_quatorze_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1508,11 +1601,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_quinze']; ?></b><?php echo $ata_quinze_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_quinze']; ?></b><?php echo $ata_quinze_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_quinze']; ?></b><?php echo $ava_quinze_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_quinze']; ?></b><?php echo $ava_quinze_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1528,11 +1621,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_dezesseis']; ?></b><?php echo $ata_dezesseis_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_dezesseis']; ?></b><?php echo $ata_dezesseis_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_dezesseis']; ?></b><?php echo $ava_dezesseis_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_dezesseis']; ?></b><?php echo $ava_dezesseis_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1548,11 +1641,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_dezessete']; ?></b><?php echo $ata_dezessete_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_dezessete']; ?></b><?php echo $ata_dezessete_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_dezessete']; ?></b><?php echo $ava_dezessete_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_dezessete']; ?></b><?php echo $ava_dezessete_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1568,11 +1661,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_dezoito']; ?></b><?php echo $ata_dezoito_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_dezoito']; ?></b><?php echo $ata_dezoito_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_dezoito']; ?></b><?php echo $ava_dezoito_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_dezoito']; ?></b><?php echo $ava_dezoito_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1588,11 +1681,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_dezenove']; ?></b><?php echo $ata_dezenove_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_dezenove']; ?></b><?php echo $ata_dezenove_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_dezenove']; ?></b><?php echo $ava_dezenove_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_dezenove']; ?></b><?php echo $ava_dezenove_obs; ?>
       </div>
     </div>
     <?php } ?>
@@ -1608,11 +1701,11 @@
     <div class="row" style="text-align: center;">
       <div class="col-sm">
         <h6 class="text">COLABORADOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_vinte']; ?></b><?php echo $ata_vinte_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_vinte']; ?></b><?php echo $ata_vinte_obs; ?>
       </div>
       <div class="col-sm">
         <h6 class="text">GESTOR</h6>
-        <br><b class="text"><?php echo $_SESSION['empresa']['compet_vinte']; ?></b><?php echo $ava_vinte_obs; ?>
+        <b class="text"><?php echo $_SESSION['empresa']['compet_vinte']; ?></b><?php echo $ava_vinte_obs; ?>
       </div>
     </div>
     <?php } ?>

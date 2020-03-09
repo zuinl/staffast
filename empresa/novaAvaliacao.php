@@ -16,20 +16,6 @@
     <title>Nova avaliação</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>
-        function setValor(span, valor) {
-            span.innerHTML = valor;
-        }
-        function validaForm() {
-            var form = document.getElementById("form");
-            var colaborador = document.getElementById("colaborador").value;
-
-            if(colaborador == "") {
-                alert("Selecione o colaborador que está avaliando");
-                return true;
-            } else {
-                form.submit();
-            }
-        }
 
         function CriaRequest() {
             try{
@@ -109,31 +95,51 @@
         }
 
         function validaForm(num_competencias) {
+            var colaborador = $('#colaborador').val();
+            var modelo = $('#modelo').val();
+            var numCompetencias = 0;
+
+            if(colaborador == "") {
+                alert('Selecione o colaborador que está avaliando');
+                return false;
+            }
+
+            var url = "/staffast/database/avaliacao.php?nova=true&colaborador="+colaborador+"&modelo="+modelo;
             if (!$("input[name='compet_um']:checked").val()) {
                 alert('Selecione uma nota para a 1ª competência');
                 return false;
             }
+            url = url + "&compet_um="+$("input[name='compet_um']:checked").val()+"&compet_um_obs="+$('#compet_um_obs').val();
+            numCompetencias = numCompetencias + 1;
 
             if (!$("input[name='compet_dois']:checked").val()) {
                 alert('Selecione uma nota para a 2ª competência');
                 return false;
             }
+            url = url + "&compet_dois="+$("input[name='compet_dois']:checked").val()+"&compet_dois_obs="+$('#compet_dois_obs').val();
+            numCompetencias = numCompetencias + 1;
 
             if (!$("input[name='compet_tres']:checked").val()) {
                 alert('Selecione uma nota para a 3ª competência');
                 return false;
             }
+            url = url + "&compet_tres="+$("input[name='compet_tres']:checked").val()+"&compet_tres_obs="+$('#compet_tres_obs').val();
+            numCompetencias = numCompetencias + 1;
 
             if (!$("input[name='compet_quatro']:checked").val()) {
                 alert('Selecione uma nota para a 4ª competência');
                 return false;
             }
+            url = url + "&compet_quatro="+$("input[name='compet_quatro']:checked").val()+"&compet_quatro_obs="+$('#compet_quatro_obs').val();
+            numCompetencias = numCompetencias + 1;
 
             if(num_competencias >= 5) {
                 if (!$("input[name='compet_cinco']:checked").val()) {
                     alert('Selecione uma nota para a 5ª competência');
                     return false;
                 }
+                url = url + "&compet_cinco="+$("input[name='compet_cinco']:checked").val()+"&compet_cinco_obs="+$('#compet_cinco_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 6) {
@@ -141,6 +147,8 @@
                     alert('Selecione uma nota para a 6ª competência');
                     return false;
                 }
+                url = url + "&compet_seis="+$("input[name='compet_seis']:checked").val()+"&compet_seis_obs="+$('#compet_seis_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 7) {
@@ -148,6 +156,8 @@
                     alert('Selecione uma nota para a 7ª competência');
                     return false;
                 }
+                url = url + "&compet_sete="+$("input[name='compet_sete']:checked").val()+"&compet_sete_obs="+$('#compet_sete_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 8) {
@@ -155,6 +165,8 @@
                     alert('Selecione uma nota para a 8ª competência');
                     return false;
                 }
+                url = url + "&compet_oito="+$("input[name='compet_oito']:checked").val()+"&compet_oito_obs="+$('#compet_oito_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 9) {
@@ -162,6 +174,8 @@
                     alert('Selecione uma nota para a 9ª competência');
                     return false;
                 }
+                url = url + "&compet_nove="+$("input[name='compet_nove']:checked").val()+"&compet_nove_obs="+$('#compet_nove_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 10) {
@@ -169,6 +183,8 @@
                     alert('Selecione uma nota para a 10ª competência');
                     return false;
                 }
+                url = url + "&compet_dez="+$("input[name='compet_dez']:checked").val()+"&compet_dez_obs="+$('#compet_dez_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 11) {
@@ -176,6 +192,8 @@
                     alert('Selecione uma nota para a 11ª competência');
                     return false;
                 }
+                url = url + "&compet_onze="+$("input[name='compet_onze']:checked").val()+"&compet_onze_obs="+$('#compet_onze_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 12) {
@@ -183,6 +201,8 @@
                     alert('Selecione uma nota para a 12ª competência');
                     return false;
                 }
+                url = url + "&compet_doze="+$("input[name='compet_doze']:checked").val()+"&compet_doze_obs="+$('#compet_doze_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 13) {
@@ -190,6 +210,8 @@
                     alert('Selecione uma nota para a 13ª competência');
                     return false;
                 }
+                url = url + "&compet_treze="+$("input[name='compet_treze']:checked").val()+"&compet_treze_obs="+$('#compet_treze_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 14) {
@@ -197,6 +219,8 @@
                     alert('Selecione uma nota para a 14ª competência');
                     return false;
                 }
+                url = url + "&compet_quatorze="+$("input[name='compet_quatorze']:checked").val()+"&compet_quatorze_obs="+$('#compet_quatorze_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 15) {
@@ -204,6 +228,8 @@
                     alert('Selecione uma nota para a 15ª competência');
                     return false;
                 }
+                url = url + "&compet_quinze="+$("input[name='compet_quinze']:checked").val()+"&compet_quinze_obs="+$('#compet_quinze_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 16) {
@@ -211,6 +237,8 @@
                     alert('Selecione uma nota para a 16ª competência');
                     return false;
                 }
+                url = url + "&compet_dezesseis="+$("input[name='compet_dezesseis']:checked").val()+"&compet_dezesseis_obs="+$('#compet_dezesseis_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 17) {
@@ -218,6 +246,8 @@
                     alert('Selecione uma nota para a 17ª competência');
                     return false;
                 }
+                url = url + "&compet_dezessete="+$("input[name='compet_dezessete']:checked").val()+"&compet_dezessete_obs="+$('#compet_dezessete_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 18) {
@@ -225,6 +255,8 @@
                     alert('Selecione uma nota para a 18ª competência');
                     return false;
                 }
+                url = url + "&compet_dezoito="+$("input[name='compet_dezoito']:checked").val()+"&compet_dezoito_obs="+$('#compet_dezoito_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 19) {
@@ -232,6 +264,8 @@
                     alert('Selecione uma nota para a 19ª competência');
                     return false;
                 }
+                url = url + "&compet_dezenove="+$("input[name='compet_dezenove']:checked").val()+"&compet_dezenove_obs="+$('#compet_dezenove_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
             if(num_competencias >= 20) {
@@ -239,9 +273,12 @@
                     alert('Selecione uma nota para a 20ª competência');
                     return false;
                 }
+                url = url + "&compet_vinte="+$("input[name='compet_vinte']:checked").val()+"&compet_vinte_obs="+$('#compet_vinte_obs').val();
+                numCompetencias = numCompetencias + 1;
             }
 
-            //Enviar por AJAX ou GET
+            //Enviar por GET
+            window.location.href = url+"&numCompetencias="+numCompetencias;
         }
     </script>
     <style>
@@ -313,6 +350,8 @@
         </div>
     </div>
     <?php } ?>
+
+    <hr class="hr-divide-super-light">
     
     <div id="resposta"></div>
 

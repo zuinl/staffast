@@ -24,145 +24,146 @@ $helper = new QueryHelper($conn);
 
 if(isset($_GET['nova'])) {
 
-    var_dump($_POST); die();
-
-    $colaborador = $_POST['colaborador'];
-    $compet_um = $_POST['compet_um'];
-    $compet_um_obs = addslashes($_POST['compet_um_obs']);
-    $compet_dois = $_POST['compet_dois'];
-    $compet_dois_obs = addslashes($_POST['compet_dois_obs']);
-    $compet_tres = $_POST['compet_tres'];
-    $compet_tres_obs = addslashes($_POST['compet_tres_obs']);
-    $compet_quatro = $_POST['compet_quatro'];
-    $compet_quatro_obs = addslashes($_POST['compet_quatro_obs']);
+    $numCompetencias = $_GET['numCompetencias'];
+    $colaborador = $_GET['colaborador'];
+    $compet_um = $_GET['compet_um'];
+    $compet_um_obs = addslashes($_GET['compet_um_obs']);
+    $compet_dois = $_GET['compet_dois'];
+    $compet_dois_obs = addslashes($_GET['compet_dois_obs']);
+    $compet_tres = $_GET['compet_tres'];
+    $compet_tres_obs = addslashes($_GET['compet_tres_obs']);
+    $compet_quatro = $_GET['compet_quatro'];
+    $compet_quatro_obs = addslashes($_GET['compet_quatro_obs']);
     
-    if($_SESSION['empresa']['compet_cinco'] != "") {
-        $compet_cinco = $_POST['compet_cinco'];
-        $compet_cinco_obs = addslashes($_POST['compet_cinco_obs']);
+    if($numCompetencias >= 5) {
+        $compet_cinco = $_GET['compet_cinco'];
+        $compet_cinco_obs = addslashes($_GET['compet_cinco_obs']);
     } else {
         $compet_cinco = 0;
         $compet_cinco_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_seis'] != "") {
-        $compet_seis = $_POST['compet_seis'];
-        $compet_seis_obs = addslashes($_POST['compet_seis_obs']);
+    if($numCompetencias >= 6) {
+        $compet_seis = $_GET['compet_seis'];
+        $compet_seis_obs = addslashes($_GET['compet_seis_obs']);
     } else {
         $compet_seis = 0;
         $compet_seis_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_sete'] != "") {
-        $compet_sete = $_POST['compet_sete'];
-        $compet_sete_obs = addslashes($_POST['compet_sete_obs']);
+    if($numCompetencias >= 7) {
+        $compet_sete = $_GET['compet_sete'];
+        $compet_sete_obs = addslashes($_GET['compet_sete_obs']);
     } else {
         $compet_sete = 0;
         $compet_sete_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_oito'] != "") {
-        $compet_oito = $_POST['compet_oito'];
-        $compet_oito_obs = addslashes($_POST['compet_oito_obs']);
+    if($numCompetencias >= 8) {
+        $compet_oito = $_GET['compet_oito'];
+        $compet_oito_obs = addslashes($_GET['compet_oito_obs']);
     } else {
         $compet_oito = 0;
         $compet_oito_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_nove'] != "") {
-        $compet_nove = $_POST['compet_nove'];
-        $compet_nove_obs = addslashes($_POST['compet_nove_obs']);
+    if($numCompetencias >= 9) {
+        $compet_nove = $_GET['compet_nove'];
+        $compet_nove_obs = addslashes($_GET['compet_nove_obs']);
     } else {
         $compet_nove = 0;
         $compet_nove_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_dez'] != "") {
-        $compet_dez = $_POST['compet_dez'];
-        $compet_dez_obs = addslashes($_POST['compet_dez_obs']);
+    if($numCompetencias >= 10) {
+        $compet_dez = $_GET['compet_dez'];
+        $compet_dez_obs = addslashes($_GET['compet_dez_obs']);
     } else {
         $compet_dez = 0;
         $compet_dez_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_onze'] != "") {
-        $compet_onze = $_POST['compet_onze'];
-        $compet_onze_obs = addslashes($_POST['compet_onze_obs']);
+    if($numCompetencias >= 11) {
+        $compet_onze = $_GET['compet_onze'];
+        $compet_onze_obs = addslashes($_GET['compet_onze_obs']);
     } else {
         $compet_onze = 0;
         $compet_onze_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_doze'] != "") {
-        $compet_doze = $_POST['compet_doze'];
-        $compet_doze_obs = addslashes($_POST['compet_doze_obs']);
+    if($numCompetencias >= 12) {
+        $compet_doze = $_GET['compet_doze'];
+        $compet_doze_obs = addslashes($_GET['compet_doze_obs']);
     } else {
         $compet_doze = 0;
         $compet_doze_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_treze'] != "") {
-        $compet_treze = $_POST['compet_treze'];
-        $compet_treze_obs = addslashes($_POST['compet_treze_obs']);
+    if($numCompetencias >= 13) {
+        $compet_treze = $_GET['compet_treze'];
+        $compet_treze_obs = addslashes($_GET['compet_treze_obs']);
     } else {
         $compet_treze = 0;
         $compet_treze_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_quatorze'] != "") {
-        $compet_quatorze = $_POST['compet_quatorze'];
-        $compet_quatorze_obs = addslashes($_POST['compet_quatorze_obs']);
+    if($numCompetencias >= 14) {
+        $compet_quatorze = $_GET['compet_quatorze'];
+        $compet_quatorze_obs = addslashes($_GET['compet_quatorze_obs']);
     } else {
         $compet_quatorze = 0;
         $compet_quatorze_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_quinze'] != "") {
-        $compet_quinze = $_POST['compet_quinze'];
-        $compet_quinze_obs = addslashes($_POST['compet_quinze_obs']);
+    if($numCompetencias >= 15) {
+        $compet_quinze = $_GET['compet_quinze'];
+        $compet_quinze_obs = addslashes($_GET['compet_quinze_obs']);
     } else {
         $compet_quinze = 0;
         $compet_quinze_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_dezesseis'] != "") {
-        $compet_dezesseis = $_POST['compet_dezesseis'];
-        $compet_dezesseis_obs = addslashes($_POST['compet_dezesseis_obs']);
+    if($numCompetencias >= 16) {
+        $compet_dezesseis = $_GET['compet_dezesseis'];
+        $compet_dezesseis_obs = addslashes($_GET['compet_dezesseis_obs']);
     } else {
         $compet_dezesseis = 0;
         $compet_dezesseis_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_dezessete'] != "") {
-        $compet_dezessete = $_POST['compet_dezessete'];
-        $compet_dezessete_obs = addslashes($_POST['compet_dezessete_obs']);
+    if($numCompetencias >= 17) {
+        $compet_dezessete = $_GET['compet_dezessete'];
+        $compet_dezessete_obs = addslashes($_GET['compet_dezessete_obs']);
     } else {
         $compet_dezessete = 0;
         $compet_dezessete_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_dezoito'] != "") {
-        $compet_dezoito = $_POST['compet_dezoito'];
-        $compet_dezoito_obs = addslashes($_POST['compet_dezoito_obs']);
+    if($numCompetencias >= 18) {
+        $compet_dezoito = $_GET['compet_dezoito'];
+        $compet_dezoito_obs = addslashes($_GET['compet_dezoito_obs']);
     } else {
         $compet_dezoito = 0;
         $compet_dezoito_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_dezenove'] != "") {
-        $compet_dezenove = $_POST['compet_dezenove'];
-        $compet_dezenove_obs = addslashes($_POST['compet_dezenove_obs']);
+    if($numCompetencias >= 19) {
+        $compet_dezenove = $_GET['compet_dezenove'];
+        $compet_dezenove_obs = addslashes($_GET['compet_dezenove_obs']);
     } else {
         $compet_dezenove = 0;
         $compet_dezenove_obs = "";
     }
 
-    if($_SESSION['empresa']['compet_vinte'] != "") {
-        $compet_vinte = $_POST['compet_vinte'];
-        $compet_vinte_obs = addslashes($_POST['compet_vinte_obs']);
+    if($numCompetencias >= 20) {
+        $compet_vinte = $_GET['compet_vinte'];
+        $compet_vinte_obs = addslashes($_GET['compet_vinte_obs']);
     } else {
         $compet_vinte = 0;
         $compet_vinte_obs = "";
     }
+
+    $modelo_id = (int)$_GET['modelo'];
 
     $avaliacao = new Avaliacao();
     $avaliacao->setCpfColaborador($colaborador);
@@ -207,6 +208,7 @@ if(isset($_GET['nova'])) {
     $avaliacao->setSessaoDezenoveObs($compet_dezenove_obs);
     $avaliacao->setSessaoVinteObs($compet_vinte_obs);
     $avaliacao->setCpfGestor($_SESSION['user']['cpf']);
+    $avaliacao->setModeloID($modelo_id);
 
     if($avaliacao->cadastrar($_SESSION['empresa']['database'])) {
 
@@ -254,7 +256,7 @@ if(isset($_GET['nova'])) {
         $log->setIDUser($_SESSION['user']['usu_id']);
         $log->salvar();
 
-        $_SESSION['msg'] = 'Avaliação cadastrada com sucesso';
+        $_SESSION['msg'] = 'Avaliação cadastrada com sucesso!';
     } else {
         $_SESSION['msg'] = 'Algo errado aconteceu ao cadastrar avaliação';
     }

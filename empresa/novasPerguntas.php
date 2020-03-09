@@ -9,7 +9,7 @@
 
     if(!isset($_POST)) die("Erro");
 
-    if(isset($_POST['sem_perguntas'])) {
+    if(isset($_POST['sem_perguntas']) || $_POST['perguntas'] == 0) {
        require_once("../classes/class_processo_seletivo.php");
        $ps = new ProcessoSeletivo();
        $ps->setTitulo(addslashes($_POST['titulo']));
@@ -22,7 +22,7 @@
 
        $_SESSION['msg'] = "Processo seletivo cadastrado. Nenhuma pergunta foi atribuída.";
        var_dump($_POST);
-       header('Location: novoProcessoSeletivo.php');
+       header('Location: processosSeletivos.php');
        die();
     }
     
@@ -37,9 +37,20 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-10 offset-sm-2">
-            <h2 class="high-text">Criação de <span class="destaque-text">novas perguntas</span></h2>
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="home.php">Início</a></li>
+            <li class="breadcrumb-item"><a href="novoProcessoSeletivo.php">Criação de processo seletivo</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Novas perguntas para o processo seletivo</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+            <h2 class="high-text">Criação de novas perguntas</h2>
         </div>
     </div>
 
@@ -49,9 +60,12 @@
     if(isset($_SESSION['msg'])) {
         ?>
 		<div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm">
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
 		</div>
@@ -84,7 +98,7 @@ for($i = 1; $i <= $_POST['perguntas']; $i++) {
         
         <td>
             <input type="text" name="alter_um_<?php echo $i; ?>" class="all-input" placeholder="Alternativa 1" maxlength="80">
-            <select name="compet_um_<?php echo $i; ?>" class="all-input">
+            <select name="compet_um_<?php echo $i; ?>" class="all-input" style="margin-top: 0.7em;">
                 <option selected disabled>Competência avaliada</option>
                 <option value="0">Nenhuma</option>
                 <option value="<?php echo $_SESSION['empresa']['compet_um']; ?>"><?php echo $_SESSION['empresa']['compet_um']; ?></option>
@@ -111,7 +125,7 @@ for($i = 1; $i <= $_POST['perguntas']; $i++) {
         </td>
         <td>
             <input type="text" name="alter_dois_<?php echo $i; ?>" class="all-input" placeholder="Alternativa 2" maxlength="80">
-            <select name="compet_dois_<?php echo $i; ?>" class="all-input">
+            <select name="compet_dois_<?php echo $i; ?>" class="all-input" style="margin-top: 0.7em;">
                 <option selected disabled>Competência avaliada</option>
                 <option value="0">Nenhuma</option>
                 <option value="<?php echo $_SESSION['empresa']['compet_um']; ?>"><?php echo $_SESSION['empresa']['compet_um']; ?></option>
@@ -138,7 +152,7 @@ for($i = 1; $i <= $_POST['perguntas']; $i++) {
         </td>
         <td>
             <input type="text" name="alter_tres_<?php echo $i; ?>" class="all-input" placeholder="Alternativa 3" maxlength="80">
-            <select name="compet_tres_<?php echo $i; ?>" class="all-input">
+            <select name="compet_tres_<?php echo $i; ?>" class="all-input" style="margin-top: 0.7em;">
                 <option selected disabled>Competência avaliada</option>
                 <option value="0">Nenhuma</option>
                 <option value="<?php echo $_SESSION['empresa']['compet_um']; ?>"><?php echo $_SESSION['empresa']['compet_um']; ?></option>
@@ -165,7 +179,7 @@ for($i = 1; $i <= $_POST['perguntas']; $i++) {
         </td>
         <td>
             <input type="text" name="alter_quatro_<?php echo $i; ?>" class="all-input" placeholder="Alternativa 4" maxlength="80">
-            <select name="compet_quatro_<?php echo $i; ?>" class="all-input">
+            <select name="compet_quatro_<?php echo $i; ?>" class="all-input" style="margin-top: 0.7em;">
                 <option selected disabled>Competência avaliada</option>
                 <option value="0">Nenhuma</option>
                 <option value="<?php echo $_SESSION['empresa']['compet_um']; ?>"><?php echo $_SESSION['empresa']['compet_um']; ?></option>

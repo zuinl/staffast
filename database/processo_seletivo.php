@@ -61,7 +61,7 @@ require_once('../classes/class_log_alteracao.php');
 
             $_SESSION['msg'] = "Processo seletivo com ".$i." perguntas cadastradas";
 
-            header('Location: ../empresa/novoProcessoSeletivo.php');
+            header('Location: ../empresa/processosSeletivos.php');
 
         }
 

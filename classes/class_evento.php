@@ -68,8 +68,9 @@
             eve_status as status,
             DATE_FORMAT(eve_data_inicial, '%d/%m/%Y') as dataI,
             DATE_FORMAT(eve_data_final, '%d/%m/%Y') as dataF,
-            DATE_FORMAT(eve_data_criacao, '%d/%m/%Y %H:%i:%s') as criacao,
-            eve_hora_inicial as horaI, eve_hora_final as horaF, ges_cpf as gestor,
+            DATE_FORMAT(eve_data_criacao, '%d/%m/%Y %H:%i') as criacao,
+            DATE_FORMAT(eve_hora_inicial, '%H:%i') as horaI, DATE_FORMAT(eve_hora_final, '%H:%i') as horaF, 
+            ges_cpf as gestor,
             eve_data_inicial as dataI_format, eve_data_final as dataF_format
             FROM tbl_evento WHERE eve_id = '$this->ID'";
 

@@ -49,7 +49,7 @@ class Resposta {
         $conn = $conexao->conecta();
         $helper = new QueryHelper($conn);
 
-        $select = "SELECT per_id as id FROM tbl_pergunta_resposta ORDER BY per_id DESC LIMIT 1";
+        $select = "SELECT res_id as id FROM tbl_pergunta_resposta ORDER BY res_id DESC LIMIT 1";
 
         $fetch = $helper->select($select, 2);
 

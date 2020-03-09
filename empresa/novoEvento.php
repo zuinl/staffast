@@ -50,9 +50,20 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-4 offset-sm-2">
-            <h1 class="high-text"><?= isset($_GET['editar']) ? 'Editar' : 'Novo'; ?> <span class="destaque-text">evento</span></h1>
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="home.php">Início</a></li>
+            <li class="breadcrumb-item"><a href="eventos.php">Próximos eventos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Novo evento</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+            <h2 class="high-text"><?= isset($_GET['editar']) ? 'Editar' : 'Novo'; ?> evento</h2>
         </div>
     </div>
 
@@ -62,9 +73,12 @@
     if(isset($_SESSION['msg'])) {
         ?>
 		<div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm">
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
 		</div>

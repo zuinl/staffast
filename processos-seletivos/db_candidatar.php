@@ -37,7 +37,7 @@ if($_FILES["cv"]["error"] == 0){
         if(!file_exists($diretorio)){
             mkdir($diretorio);
         }
-    $arqNome = $diretorio.$cv['name'];
+    $arqNome = $diretorio.md5($cv['name']);
     move_uploaded_file($cv['tmp_name'], $arqNome);
 
     $candidato->setID($can_id);

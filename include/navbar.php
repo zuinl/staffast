@@ -78,7 +78,7 @@ $(function () {
           <?php if($_SESSION['user']['permissao'] == 'GESTOR-1' || $_SESSION['user']['permissao'] == 'GESTOR-2') { ?>
           <a class="dropdown-item" href="novaAvaliacao.php">Nova avaliação de colaborador</a>
           <a class="dropdown-item" href="verModelosAvaliacao.php">Ver modelos de avalição</a>
-          <a class="dropdown-item" href="agendamentosAvaliacao.php">Agendamentos de avaliação</a>
+          <!-- <a class="dropdown-item" href="agendamentosAvaliacao.php">Agendamentos de avaliação</!-->
           <?php } ?>
           <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?>
           <!-- <a class="dropdown-item" href="novoModeloAvaliacao.php">Novo modelo de avaliação</a> -->
@@ -123,7 +123,7 @@ $(function () {
       </li>
       <li class="nav-item dropdown" style="margin-left:1em;">
         <a class="nav-link dropdown-toggle text" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="/staffast/include/icon/feedback.png" width="21" data-toggle="tooltip" data-placement="top" title="Feedback & DRs">
+          <img src="/staffast/include/icon/feedback.png" width="21" data-toggle="tooltip" data-placement="top" title="Feedback">
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="novoFeedback.php">Feedbacks</a>

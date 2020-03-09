@@ -918,6 +918,7 @@
                     <div class="col-sm">
                         <h3 class="text">Avaliações</h3>
                         <span style="font-size: 0.8em;"><a href="resultados.php?id=<?php echo base64_encode($colaborador->getCpf()); ?>" target="_blank"><button class="button button2">Ver detalhes</button></a></span>
+                        <br><small class="text">Os dados abaixo não incluem as avaliações realizadas utilizando modelos de avaliação. Para ver esses resultados, clique em "Ver detalhes" e encontre o modelo desejado</small>
                     </div>
                 </div>
             </div>

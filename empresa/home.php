@@ -404,7 +404,7 @@
             } else {
                 while($f = mysqli_fetch_assoc($query)) {
                     ?>
-                    <h6 class="text"><?php echo $f['hora'] ?>: <?php echo $f['pauta'] ?> - <a href="verReuniao?id=<?php echo $f['id']; ?>">Ver</a></h6>
+                    <h6 class="text"><?php echo $f['hora'] ?>: <?php echo $f['pauta'] ?> - <a href="verReuniao.php?id=<?php echo $f['id']; ?>">Ver</a></h6>
                     <?php
                 }
             }

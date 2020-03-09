@@ -4,6 +4,7 @@
     require_once('../classes/class_candidato.php');
     require_once('../classes/class_pergunta.php');
     require_once('../classes/class_resposta.php');
+    require_once('../classes/class_gestor.php');
     require_once('../classes/class_email.php');
     require_once('../classes/class_processo_seletivo.php');
     require_once('../classes/class_conexao_empresa.php');
@@ -88,6 +89,10 @@
     $select = "SELECT can_id as id, can_nome as nome, can_email as email FROM tbl_candidato WHERE sel_id = '$ps_id' ORDER BY can_id ASC";
 
     $queryCandidatos = $helper->select($select, 1);
+
+    $gestor = new Gestor();
+    $gestor->setCpf($ps->getCpfGestor());
+    $gestor = $gestor->retornarGestor($_SESSION['empresa']['database']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -114,19 +119,49 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="home.php">Início</a></li>
+            <li class="breadcrumb-item"><a href="processosSeletivos.php">Processos seletivos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Candidaturas de <?php echo $ps->getTitulo(); ?></li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <?php
     if(isset($_SESSION['msg'])) {
         ?>
         <div class="alert alert-info alert-dismissible fade show" role="alert">
             <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <?php
     }
     ?>
-    <div class="row">
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
             <h2 class="high-text"><?php echo $ps->getTitulo(); ?></h2>
         </div>
+    </div>
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+            <h6 class="high-text">Descrição: <?php echo $ps->getDescricao(); ?></h6>
+        </div>
+        <div class="col-sm">
+            <h6 class="high-text">Vagas: <?php echo $ps->getVagas(); ?></h6>
+        </div>
+        <div class="col-sm">
+            <h6 class="high-text">Criado por <?php echo $gestor->getNomeCompleto(); ?> em <?php echo $ps->getDataCriacao(); ?></h6>
+        </div>
+        <div class="col-sm">
+            <h6 class="high-text">Encerramento de candidaturas <?php echo $ps->getDataEncerramento(); ?></h6>
+        </div>
+    </div>
+    <div class="row" style="text-align: center;">
         <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?>
         <div class="col-sm">
             <input type="button" class="button button3" data-toggle="modal" data-target="#modal" value="Entrar em contato com candidatos"></a>
@@ -147,9 +182,9 @@
             $candidato = $candidato->retornarCandidato($_SESSION['empresa']['database']);
 
             ?>
-            <div class="row">
-                <div class="col-sm offset-sm-1">
-                    <h4 class="high-text"><?php echo $contador; ?>. <span class="destaque-text"><?php echo $candidato->getNome(); ?></span></h4>
+            <div class="row" style="text-align: center;">
+                <div class="col-sm">
+                    <h5 class="high-text"><?php echo $contador; ?>. <span class="destaque-text"><?php echo $candidato->getNome(); ?></span></h5>
                 </div>
             </div>
             <div class="row">
@@ -165,6 +200,8 @@
                     <label class="text"><b>E-mail</b></label>
                     <br class="text"><a href="mailto:<?php echo $candidato->getEmail(); ?>"><?php echo $candidato->getEmail(); ?></a>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-sm">
                     <label class="text"><b>Apresentação</b></label>
                     <br class="text"><?php echo $candidato->getApresentacao(); ?>
@@ -173,9 +210,10 @@
                     <label class="text"><b>Data candidatura</b></label>
                     <br class="text"><?php echo $candidato->getDataCadastro(); ?>
                 </div>
+            </div>
+            <div class="row" style="text-align: center;">
                 <div class="col-sm">
-                    <label class="text"><b>Currículo</b></label>
-                    <br class="text"><a href="../processos-seletivos/<?php echo $candidato->getCurriculo(); ?>" target="blank_"><button class="button button2" style="font-size: 0.7em;">Baixar</button></a>
+                    <br class="text"><a href="../processos-seletivos/<?php echo $candidato->getCurriculo(); ?>" target="blank_"><button class="button button2" style="font-size: 0.7em;">Baixar currículo de <?php echo $candidato->getNome(); ?></button></a>
                 </div>
             </div>
             <?php
@@ -189,6 +227,8 @@
                 $pergunta->setID($f['id']);
                 $pergunta = $pergunta->retornarPergunta($_SESSION['empresa']['database']);
                 ?>
+                <hr class="hr-divide-super-light">
+
                 <div class="row">
                     <div class="col-sm">
                         <h5 class="destaque-text">Pergunta<?php echo ' '.$contadorPer; ?>: <span class="high-text"><?php echo $pergunta->getTitulo(); ?></span></h5>
@@ -210,25 +250,23 @@
 
                     if ($resposta->getOpcUm() == 1) {
                         echo $pergunta->getOpcUm();
-                        if($pergunta->getCompetUm() != '') echo ' - <small>Você atribuiu a competência <b>'.$pergunta->getCompetUm().'</b> a esta resposta!</small>';
+                        if($pergunta->getCompetUm() != '') echo ' - <small>'.$_SESSION['empresa']['nome'].' atribuiu a competência <b>'.$pergunta->getCompetUm().'</b> a esta resposta!</small>';
                         echo '</p>';
                     } else if ($resposta->getOpcDois() == 1) {
                         echo $pergunta->getOpcDois();
-                        if($pergunta->getCompetDois() != '') echo '- <small>Você atribuiu a competência <b>'.$pergunta->getCompetDois().'</b> a esta resposta!</small>';
+                        if($pergunta->getCompetDois() != '') echo '- <small>'.$_SESSION['empresa']['nome'].' atribuiu a competência <b>'.$pergunta->getCompetDois().'</b> a esta resposta!</small>';
                         echo '</small>';
                     } else if ($resposta->getOpcTres() == 1) {
                         echo $pergunta->getOpcTres();
-                        if($pergunta->getCompetTres() != '') echo '- <small>Você atribuiu a competência <b>'.$pergunta->getCompetTres().'</b> a esta resposta!</small>';
+                        if($pergunta->getCompetTres() != '') echo '- <small>'.$_SESSION['empresa']['nome'].' atribuiu a competência <b>'.$pergunta->getCompetTres().'</b> a esta resposta!</small>';
                         echo '</p>';
                     } else if ($resposta->getOpcQuatro() == 1) {
                         echo $pergunta->getOpcQuatro();
-                        if($pergunta->getCompetQuatro() != '') echo '- <small>Você atribuiu a competência <b>'.$pergunta->getCompetQuatro().'</b> a esta resposta!</small>';
+                        if($pergunta->getCompetQuatro() != '') echo '- <small>'.$_SESSION['empresa']['nome'].' atribuiu a competência <b>'.$pergunta->getCompetQuatro().'</b> a esta resposta!</small>';
                         echo '</p>';
                     } else {
                         echo 'Não respondeu</p>';
                     }
-
-                    echo '<hr class="hr-divide-super-light">';
                 
             }
             
