@@ -102,7 +102,8 @@
                 $conn = $conexao->conecta();
             $helper = new QueryHelper($conn);
 
-            $update = "UPDATE tbl_key_result SET krs_current = (krs_current + '$this->current') WHERE krs_id = '$this->ID'";
+            $update = "UPDATE tbl_key_result SET krs_current = (krs_current + '$this->current'), 
+            krs_ultima_atualizacao = NOW() WHERE krs_id = '$this->ID'";
 
             if($helper->update($update)) return true;
             else return false;

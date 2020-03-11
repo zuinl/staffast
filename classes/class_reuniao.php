@@ -67,7 +67,7 @@
             reu_objetivo_atingido as atingido,
             DATE_FORMAT(reu_data, '%d/%m/%Y') as data,
             DATE_FORMAT(reu_hora, '%H:%i') as hora,
-            DATE_FORMAT(reu_data_criacao, '%d/%m/%Y %H:%i:%s') as criacao,
+            DATE_FORMAT(reu_data_criacao, '%d/%m/%Y %H:%i') as criacao,
             ges_cpf as gestor,
             reu_data as data_format
             FROM tbl_reuniao WHERE reu_id = '$this->ID'";

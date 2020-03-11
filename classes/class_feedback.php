@@ -4,14 +4,18 @@
 
         private $ID;
         private $texto;
+        private $comecar;
+        private $continuar;
+        private $parar;
         private $fee_cpf;
         private $ges_cpf;
         private $col_cpf;
         private $dataCriacao;
         private $remetente;
+        private $visualizado;
 
 
-        public function cadastrar($database_empresa) {
+        public function cadastrar($database_empresa, $id_pedido = 0) {
 
             require_once('class_conexao_empresa.php');
             require_once('class_queryHelper.php');
@@ -20,12 +24,37 @@
             $conn = $conexao_empresa->conecta();
             $helper = new QueryHelper($conn);
 
-            $insert = "INSERT INTO tbl_feedback (fee_texto, fee_cpf, ges_cpf, col_cpf) 
-            VALUES ('$this->texto', '$this->fee_cpf', '$this->ges_cpf', '$this->col_cpf')";
+            $insert = "INSERT INTO tbl_feedback (fee_texto, fee_comecar, fee_continuar, 
+            fee_parar, fee_cpf, ges_cpf, col_cpf) 
+            VALUES ('$this->texto', '$this->comecar', '$this->continuar', '$this->parar', 
+            '$this->fee_cpf', '$this->ges_cpf', '$this->col_cpf')";
 
-            $helper->insert($insert);
+            if($helper->insert($insert)) {
+                if($id_pedido != 0) $this->atualizarPedido($database_empresa, $id_pedido);
+                else return true;
+            } else {
+                return false;    
+            }
 
         }
+
+        public function atualizarPedido($database_empresa, $id_pedido) {
+
+                require_once('class_conexao_empresa.php');
+                require_once('class_queryHelper.php');
+    
+                $conexao_empresa = new ConexaoEmpresa($database_empresa);
+                $conn = $conexao_empresa->conecta();
+                $helper = new QueryHelper($conn);
+
+                $fee_id = $this->retornarUltimo($database_empresa);
+    
+                $update = "UPDATE tbl_feedback_pedido SET fee_id = $fee_id WHERE id = $id_pedido";
+    
+                if($helper->update($update)) return true;
+                else return false;
+    
+            }
 
         public function retornarFeedback($database_empresa) {
 
@@ -36,7 +65,8 @@
             $conn = $conexao_empresa->conecta();
             $helper = new QueryHelper($conn);
 
-            $select = "SELECT fee_id as id, fee_texto as texto, 
+            $select = "SELECT fee_id as id, fee_texto as texto,
+            fee_comecar as comecar, fee_continuar as continuar, fee_parar as parar, 
             DATE_FORMAT(fee_criacao, '%d/%m/%Y %H:%i') as criacao,
             fee_cpf as cpf, ges_cpf, col_cpf 
             FROM tbl_feedback WHERE fee_id = '$this->ID'";
@@ -46,6 +76,9 @@
             $feedback = new Feedback();
             $feedback->setID($fetch['id']);
             $feedback->setTexto($fetch['texto']);
+            $feedback->setComecar($fetch['comecar']);
+            $feedback->setContinuar($fetch['continuar']);
+            $feedback->setParar($fetch['parar']);
             $feedback->setDataCriacao($fetch['criacao']);
             $feedback->setFee_cpf($fetch['cpf']);
             $feedback->setGes_cpf($fetch['ges_cpf']);
@@ -82,6 +115,22 @@
 
             return $fetch['id'];
 
+        }
+
+        public function setarVisualizado($database_empresa) {
+
+                require_once('class_conexao_empresa.php');
+                require_once('class_queryHelper.php');
+    
+                $conexao_empresa = new ConexaoEmpresa($database_empresa);
+                $conn = $conexao_empresa->conecta();
+                $helper = new QueryHelper($conn);
+    
+                $update = "UPDATE tbl_feedback SET fee_visualizado = 1 WHERE fee_id = $this->ID";
+    
+                if($fetch = $helper->update($update)) return true;
+                else return false;
+    
         }
 
 
@@ -221,6 +270,86 @@
         public function setRemetente($remetente)
         {
                 $this->remetente = $remetente;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of visualizado
+         */ 
+        public function getVisualizado()
+        {
+                return $this->visualizado;
+        }
+
+        /**
+         * Set the value of visualizado
+         *
+         * @return  self
+         */ 
+        public function setVisualizado($visualizado)
+        {
+                $this->visualizado = $visualizado;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of comecar
+         */ 
+        public function getComecar()
+        {
+                return $this->comecar;
+        }
+
+        /**
+         * Set the value of comecar
+         *
+         * @return  self
+         */ 
+        public function setComecar($comecar)
+        {
+                $this->comecar = $comecar;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of continuar
+         */ 
+        public function getContinuar()
+        {
+                return $this->continuar;
+        }
+
+        /**
+         * Set the value of continuar
+         *
+         * @return  self
+         */ 
+        public function setContinuar($continuar)
+        {
+                $this->continuar = $continuar;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of parar
+         */ 
+        public function getParar()
+        {
+                return $this->parar;
+        }
+
+        /**
+         * Set the value of parar
+         *
+         * @return  self
+         */ 
+        public function setParar($parar)
+        {
+                $this->parar = $parar;
 
                 return $this;
         }

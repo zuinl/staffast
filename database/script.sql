@@ -445,10 +445,14 @@ CREATE TABLE IF NOT EXISTS `tbl_setor_competencia`
 
     CREATE TABLE IF NOT EXISTS `tbl_feedback` ( 
       `fee_id` INT NOT NULL AUTO_INCREMENT , 
-      `fee_texto` VARCHAR(200) NOT NULL , 
+      `fee_texto` VARCHAR(200) NOT NULL ,
+      `fee_comecar` VARCHAR(200) NULL , 
+      `fee_continuar` VARCHAR(200) NULL ,
+      `fee_parar` VARCHAR(200) NULL ,
       `ges_cpf` VARCHAR(11) NULL DEFAULT NULL, 
       `col_cpf` VARCHAR(11) NULL DEFAULT NULL, 
       `fee_cpf` VARCHAR(11) NOT NULL , 
+      `fee_visualizado` INT NOT NULL DEFAULT 0 , 
       `fee_criacao` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , 
       PRIMARY KEY (`fee_id`));
 
@@ -616,6 +620,14 @@ CREATE TABLE IF NOT EXISTS `tbl_pdi_competencia_meta` (
           `anotacao` TEXT NOT NULL , 
           `col_cpf` VARCHAR(11) NULL DEFAULT NULL , 
           `ges_cpf` VARCHAR(11) NULL DEFAULT NULL , PRIMARY KEY (`id`));
+
+    CREATE TABLE IF NOT EXISTS `tbl_feedback_pedido` ( 
+      `id` INT NOT NULL AUTO_INCREMENT , 
+      `data` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+      `motivo` TEXT NULL DEFAULT NULL , 
+      `cpf_solicitando` VARCHAR(11) NOT NULL , 
+      `cpf_destinatario` VARCHAR(11) NOT NULL , 
+      `fee_id` INT NULL DEFAULT NULL , PRIMARY KEY (`id`));
 
 
     

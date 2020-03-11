@@ -53,19 +53,39 @@
 <?php
     include('../include/navbar.php');
 ?>
-<div class="container-fluid">
+<div class="container-fluid" style="text-align: center;">
     <div class="row">
-        <div class="col-sm-1">
+        <!-- <div class="col-sm-1">
             <img src="img/report.png" width="60">
-        </div>
-        <div class="col-sm-2">
+        </div> -->
+        <div class="col-sm">
             <h2 class="high-text">Relatórios</h2>
         </div>
     </div>
 
-    <hr class="hr-divide">
+    <?php
+    if(isset($_SESSION['msg'])) {
+        ?>
+		<div class="row">
+            <div class="col-sm">
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+		</div>
+        <?php
+    }
+    ?>
 
-    <div class="row">
+    <hr class="hr-divide">
+</div>
+
+<div class="container">
+
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
             <h5 class="text">Avaliação por competência</h5>
         </div>
@@ -162,16 +182,16 @@
                 <?php } ?>
             </select>
         </div>
-        <div class="col-sm">
+        <div class="col-sm" style="margin-top: 1.5em;">
             <input type="submit" class="button button1" value="Gerar relatório">
             </form>
         </div>
     </div>
 
-    <hr class="hr-divide-light">
+    <hr class="hr-divide-super-light">
 
     <div class="row">
-        <div class="col-sm">
+        <div class="col-sm"  style="text-align: center;">
             <h5 class="text">Autoavaliação por competência</h5>
         </div>
     </div>
@@ -260,13 +280,13 @@
                 <?php } ?>
             </select>
         </div>
-        <div class="col-sm">
+        <div class="col-sm" style="margin-top: 1.5em;">
             <input type="submit" class="button button1" value="Gerar relatório">
             </form>
         </div>
     </div>
 
-    <hr class="hr-divide-light">
+    <hr class="hr-divide-super-light">
 
     <!-- <div class="row">
         <div class="col-sm">

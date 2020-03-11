@@ -36,9 +36,9 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-10 offset-sm-2">
-            <h1 class="high-text">Nova <span class="destaque-text">mensagem</span></h1>
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+            <h2 class="high-text">Nova mensagem</h2>
         </div>
     </div>
 
@@ -48,9 +48,12 @@
     if(isset($_SESSION['msg'])) {
         ?>
 		<div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm">
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
 		</div>
@@ -66,12 +69,14 @@
             <input type="text" name="titulo" id="titulo" class="all-input" maxlength="50" required="">
         </div>
         <div class="col-sm">
-            <label for="texto" class="text">Texto *</label>
-            <textarea name="texto" id="texto" class="all-input" maxlength="1200" required=""></textarea>
-        </div>
-        <div class="col-sm">
             <label for="data" class="text">Exibida até *</label>
             <input type="date" name="data" id="data" class="all-input" required="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <label for="texto" class="text">Texto *</label>
+            <textarea name="texto" id="texto" class="all-input" maxlength="1200" required=""></textarea>
         </div>
     </div>
 
@@ -116,22 +121,20 @@
         <?php } ?>
     </div>
 
-    <hr class="hr-divide-super-light">
-
-    <div class="row">
+    <div class="row" style="text-align: center; margin-top: 1em;">
         <div class="col-sm">
             <h6 class="text">As mensagens serão exibidas para todos os direcionados na tela inicial</h6>
         </div>
     </div>
 
-    <hr class="hr-divide-light">
+    <hr class="hr-divide-super-light">
 
-    <div class="row">
-        <div class="col-sm-2 offset-sm-4">
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
             <input type="submit" value="Cadastrar" class="button button2">
         </div>
-        <div class="col-sm-2">
-            <input type="reset" value="Limpar" class="button button1">
+        <div class="col-sm">
+            <input type="reset" value="Limpar" class="button button2">
         </div>
     </div>
     </form>

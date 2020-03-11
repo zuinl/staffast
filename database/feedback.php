@@ -16,10 +16,18 @@ $helper = new QueryHelper($conn);
 if(isset($_GET['novo'])) {
 
     $texto = addslashes($_POST['feedback']);
+    $comecar = addslashes($_POST['comecar']);
+    $continuar = addslashes($_POST['continuar']);
+    $parar = addslashes($_POST['parar']);
     $dono = $_POST['dono'];
+
+    $id_pedido = $_POST['id_pedido'];
 
     $feedback = new Feedback();
     $feedback->setTexto($texto);
+    $feedback->setComecar($comecar);
+    $feedback->setContinuar($continuar);
+    $feedback->setParar($parar);
     $feedback->setFee_cpf($dono);
 
     if($_SESSION['user']['permissao'] == 'GESTOR-1' || $_SESSION['user']['permissao'] == 'GESTOR-2') {
@@ -28,7 +36,7 @@ if(isset($_GET['novo'])) {
         $feedback->setCol_cpf($_SESSION['user']['cpf']);
     }
 
-    $feedback->cadastrar($_SESSION['empresa']['database']);
+    $feedback->cadastrar($_SESSION['empresa']['database'], $id_pedido);
     $fee_id = $feedback->retornarUltimo($_SESSION['empresa']['database']);
     $feedback->setID($fee_id);
     $feedback = $feedback->retornarFeedback($_SESSION['empresa']['database']);
@@ -85,6 +93,34 @@ if(isset($_GET['novo'])) {
     header("Location: ../empresa/novoFeedback.php");
     die();
 
+} else if (isset($_GET['pedir'])) {
+    $cpf = $_SESSION['user']['cpf'];
+
+    $destinatario = $_POST['destinatario'];
+    $motivo = addslashes($_POST['motivo']);
+
+    $insert = "INSERT INTO tbl_feedback_pedido (cpf_solicitante, cpf_destinatario, motivo) VALUES ('$cpf', '$destinatario', '$motivo')";
+
+    if($helper->insert($insert)) {
+        $_SESSION['msg'] = 'Feedback solicitado';
+    } else {
+        $_SESSION['msg'] = 'Houve um erro ao solicitar seu feedback';
+    }
+
+    header('Location: ../empresa/novoFeedback.php');
+    die();
+} else if (isset($_GET['visualizado'])) {
+    $feedback = new Feedback();
+    $feedback->setID($_GET['fee_id']);
+    
+    if($feedback->setarVisualizado($_SESSION['empresa']['database'])) {
+        $_SESSION['msg'] = 'Feedback marcado como visualizado';
+    } else {
+        $_SESSION['msg'] = 'Houve um erro ao marcar o feedback como visualizado';
+    }
+
+    header('Location: ../empresa/novoFeedback.php');
+    die();
 }
 
 
