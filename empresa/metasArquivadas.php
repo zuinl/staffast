@@ -20,7 +20,7 @@
                 DISTINCT t1.okr_id as id
                FROM tbl_okr_gestor t1
                INNER JOIN tbl_okr t2 
-                ON t2.okr_id = t1.okr_id AND t2.okr_arquivada = 0 AND (t2.okr_visivel = 1 OR t2.okr_visivel = 3)
+                ON t2.okr_id = t1.okr_id AND t2.okr_arquivada = 1 AND (t2.okr_visivel = 1 OR t2.okr_visivel = 3)
                WHERE t1.ges_cpf = '$cpf'"; 
     $query = $helper->select($select, 1);
 
@@ -34,7 +34,7 @@
                 DISTINCT t1.okr_id as id
                 FROM tbl_okr_colaborador t1
                 INNER JOIN tbl_okr t2 
-                ON t2.okr_id = t1.okr_id AND t2.okr_arquivada = 0 AND t2.okr_visivel = 1
+                ON t2.okr_id = t1.okr_id AND t2.okr_arquivada = 1 AND t2.okr_visivel = 1
                 WHERE t1.col_cpf = '$cpf'"; 
     $query = $helper->select($select, 1);
 
@@ -52,7 +52,7 @@
     //OKRs definidas como visível para apenas o criador
     $select = "SELECT
                 DISTINCT okr_id as id
-               FROM tbl_okr WHERE ges_cpf = '$cpf' AND okr_visivel = 2 AND okr_arquivada = 0"; 
+               FROM tbl_okr WHERE ges_cpf = '$cpf' AND okr_visivel = 2 AND okr_arquivada = 1"; 
     $query = $helper->select($select, 1);
 
     while($f = mysqli_fetch_assoc($query)) {
@@ -133,7 +133,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="home.php">Início</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Metas OKR</li>
+            <li class="breadcrumb-item"><a href="metas.php">Metas OKR</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Metas OKR - Arquivadas</li>
         </ol>
     </nav>
     <!-- FIM DA NAV DE CAMINHO DE TELA -->
@@ -143,18 +144,7 @@
             <img src="img/pie-chart.png" width="60">
         </div>
         <div class="col-sm-6">
-            <h2 class="high-text">Metas OKR</h2>
-        </div>
-        <?php if($_SESSION['user']['permissao'] == "GESTOR-1" || $_SESSION['user']['permissao'] == "GESTOR-2") { ?>
-        <div class="col-sm">
-            <a href="novaOKR.php"><input type="button" class="button button1" value="Criar meta OKR"></a>
-        </div>
-        <div class="col-sm">
-            <a href="metasArquivadas.php"><input type="button" class="button button1" value="Metas arquivadas"></a>
-        </div>
-        <?php } ?>
-        <div class="col-sm">
-            <input type="button" class="button button3" data-toggle="modal" data-target="#modal" value="Conheça as OKRs">       
+            <h2 class="high-text">Metas OKR arquivadas</h2>
         </div>
     </div>
 
@@ -213,7 +203,7 @@
                 <img src="img/goal.png" width="110">
             </div>
             <div class="col-sm-7" style="margin-top: 2em;">
-                <h4 class="text">Sem metas por enquanto.</h4>
+                <h4 class="text">Sem metas arquivadas por enquanto.</h4>
             </div>
          </div>
         <?php
@@ -255,58 +245,5 @@
  <?php } ?>
 </div>
 </body>
-
-<div class="modal" tabindex="-1" role="dialog" id="modal" data-target=".bd-example-modal-lg">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Metas <i>Objective Key Result</i></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-        <div class="row">
-            <div class="col-sm">
-                <h5 class="text">Quem pode criar uma meta OKR?</h5>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                <p class="text">O Staffast está configurado para permitir que Gestores Administrativos e Operacionais possam 
-                criar metas OKR a qualquer momento. Os Colaboradores, porém, não conseguem criar OKRs.</p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm">
-                <h5 class="text">Quem visualizará as metas OKR?</h5>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                <p class="text">No momento da criação da meta OKR, o gestor deve selecionar para quem a mesma estará visível. Se ele, por exemplo, selecionar "Apenas eu" e atribuir diversos colaboradores à meta, estes colaboradores <b>não conseguirão</b> acessar a meta. 
-                Os gestores Administrativos, no entanto, <b>conseguem acessar todas as metas OKR, independente da permissão no momento da criação</b>. A lista de metas, porém, é visível para todos na empresa.</p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm">
-                <h5 class="text">Como atualizar o andamento de uma meta?</h5>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                <p class="text">Apenas o <b>gestor que criou a meta pode atualizar seu andamento</b>, clicando em "Atualizar", ao lado de cada <i>Key Result</i> na página da meta.</p>
-            </div>
-        </div>
-        
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 </html>

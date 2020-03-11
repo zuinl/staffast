@@ -46,8 +46,8 @@
         $meta = 'Meta (R$): '.number_format($krs->getGoal(), 2, ",", ".");
         $andamento = 'Andamento (R$): '.number_format($krs->getCurrent(), 2, ",", ".");
     } else {
-        $meta = 'Meta: '.$krs->getGoal();
-        $andamento = 'Andamento: '.$krs->getCurrent();
+        $meta = 'Meta: '.number_format($krs->getGoal(), 0, '', '');
+        $andamento = 'Andamento: '.number_format($krs->getCurrent(), 0, '', '');
     } 
 ?>
 <!DOCTYPE html>
@@ -57,24 +57,44 @@
 </head>
 <body>
 <?php
-    //include('../include/navbar.php');
+    include('../include/navbar.php');
 ?>
 <div class="container-fluid">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="home.php">Início</a></li>
+            <li class="breadcrumb-item"><a href="metas.php">Metas OKR</a></li>
+            <li class="breadcrumb-item"><a href="verOKR.php?id=<?php echo $okr->getID(); ?>">Meta OKR - <?php echo $okr->getTitulo(); ?></a></li>
+            <li class="breadcrumb-item active" aria-current="page">Atualizar <i>Key Result</i></li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <?php
     if(isset($_SESSION['msg'])) {
         ?>
         <div class="alert alert-info alert-dismissible fade show" role="alert">
             <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <?php
     }
     ?>
-    <div class="row">
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
-            <h1 class="high-text">Atualizar Key Result <?php echo $krs->getTitulo(); ?> da meta OKR <?php echo $okr->getTitulo(); ?></h1>
+            <h4 class="high-text">Atualizar Key Result - <?php echo $krs->getTitulo(); ?> da meta OKR <?php echo $okr->getTitulo(); ?></h4>
         </div>
     </div>
-    <div class="row">
+
+    <hr class="hr-divide-super-light">
+</div>
+<div class="container">
+
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
             <h2 class="text"><?php echo $meta; ?></h2>
         </div>
@@ -82,15 +102,22 @@
             <h2 class="text"><?php echo $andamento; ?></h2>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="text-align: center; margin-top: 2em;">
         <div class="col-sm">
             <form action="atualizarKRS.php?atualizar=true&okr=<?php echo $okr->getID() ?>&krs=<?php echo $krs->getID() ?>" method="POST">
-            <input type="text" name="valor" class="all-input" placeholder="Insira no formato inteiro (Ex: 150) ou monetário (Ex: 1.500,00)">
-            <h5 class="text">LEMBRE-SE: este valor será <b>somado</b> ao valor do andamento atual. Por exemplo, se seu andamento atual é R$100,00 e você inserir R$120,00, o novo andamento constará como R$220,00.</h5>
+            <input type="text" name="valor" class="all-input" placeholder="Insira no formato inteiro (Ex: 150) ou monetário (Ex: 1.500,00)" required>
         </div>
+    </div>
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
-            <input type="submit" class="button button3" value="Atualizar">
+            <input type="submit" class="button button3" value="Atualizar o andamento do objetivo">
             </form>
+        </div>
+    </div>
+
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+            <small class="text">LEMBRE-SE: este valor será <b>somado</b> ao valor do andamento atual. Por exemplo, se seu andamento atual é R$100,00 e você inserir R$120,00, o novo andamento constará como R$220,00.</small>
         </div>
     </div>
     

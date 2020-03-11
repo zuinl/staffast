@@ -91,6 +91,17 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item"><a href="eventos.php">Eventos</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><?php echo $evento->getTitulo(); ?></li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <div class="row" style="text-align: center;">
         <div class="col-sm">
             <h3 class="high-text"><?php echo $evento->getTitulo(); ?></h3>

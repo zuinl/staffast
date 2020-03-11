@@ -120,13 +120,13 @@ color: white;
 }
 
 .hr-divide {
-border-width: 0.3em; 
-border-color: black
+border-width: 0.1em; 
+border-color: #13a378;
 }
 
 .hr-divide-light {
-border-width: 0.2em; 
-border-color: black;
+border-width: 0.1em; 
+border-color: rgb(59, 55, 55);
 }
 
 .hr-divide-super-light {

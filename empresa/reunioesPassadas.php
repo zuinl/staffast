@@ -37,12 +37,22 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Reuniões passadas</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <div class="row">
         <div class="col-sm-1">
             <img src="img/round-table.png" width="60">
         </div>
         <div class="col-sm">
-            <h1 class="high-text">Reuniões <span class="destaque-text">passadas</span></h1>
+            <h2 class="high-text">Reuniões passadas</h2>
         </div>
         <div class="col-sm">
             <a href="reunioes.php"><input type="button" class="button button1" value="Próximas reuniões"></a>
@@ -53,9 +63,12 @@
     if(isset($_SESSION['msg'])) {
         ?>
 		<div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm">
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
 		</div>

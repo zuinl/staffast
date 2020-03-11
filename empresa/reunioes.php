@@ -95,12 +95,22 @@
 ?>
 <div class="container-fluid">
 
-    <div class="row">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Reuniões</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
+    <div class="row" style="text-align: center;">
         <div class="col-sm-1">
             <img src="img/round-table.png" width="60">
         </div>
         <div class="col-sm">
-            <h1 class="high-text">Próximas <span class="destaque-text">reuniões</span></h1>
+            <h2 class="high-text">Próximas reuniões</h2>
         </div>
         <?php if($_SESSION['user']['permissao'] == "GESTOR-1" || $_SESSION['user']['permissao'] == "GESTOR-2") { ?>
         <div class="col-sm">

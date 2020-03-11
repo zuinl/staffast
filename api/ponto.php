@@ -9,6 +9,7 @@
     require_once '../classes/class_ponto.php';
     require_once '../classes/class_conexao_padrao.php';
     require_once '../classes/class_queryHelper.php';
+    date_default_timezone_set('America/Sao_Paulo');
 
     //Recebendo objeto JSON do POST
     $json = file_get_contents("php://input");
@@ -17,7 +18,8 @@
     $dados = json_decode($json);
 
     $email = $dados->email;
-    $hora = $dados->hora;
+    //$hora = $dados->hora; //desativado para testes - app estava com problemas de atraso
+    $hora = date('H:i:s');
     $latitude = $dados->latitude;
     $longitude = $dados->longitude;
     $tipo = $dados->tipo;
@@ -62,7 +64,6 @@
         $cpf = $funcionario['cpf'];
         $database = $funcionario['database'];
 
-        date_default_timezone_set('America/Sao_Paulo');
         $data = date('Y-m-d').' '.$hora;
 
         $ret = $ponto->registrarPonto($tipo, $data, $cpf, $database, $latitude, $longitude, 1);

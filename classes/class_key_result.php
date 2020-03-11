@@ -39,12 +39,28 @@
 
             $update = "UPDATE tbl_key_result SET krs_titulo = '$this->titulo', krs_tipo = '$this->tipo', 
             krs_goal = '$this->goal', krs_current = '$this->current', krs_ultima_atualizacao = NOW() 
-            WHERE krs_id = '$this->ID'";
+            WHERE krs_id = $this->ID";
 
             if($helper->update($update)) return true;
             else return false;
 
         }
+
+        function excluir($database_empresa) {
+
+                require_once("class_conexao_empresa.php");
+                require_once("class_queryHelper.php");
+    
+                $conexao = new ConexaoEmpresa($database_empresa);
+                    $conn = $conexao->conecta();
+                $helper = new QueryHelper($conn);
+    
+                $update = "DELETE FROM tbl_key_result WHERE krs_id = $this->ID";
+    
+                if($helper->update($update)) return true;
+                else return false;
+    
+            }
 
         function retornarKeyResult($database_empresa) {
 
@@ -57,8 +73,8 @@
 
             $select = "SELECT krs_id as id, krs_titulo as titulo, krs_tipo as tipo,
             krs_goal as goal, krs_current as current, okr_id as okr,  
-            DATE_FORMAT(krs_data_criacao, '%d/%m/%Y %H:%i:%s') as criacao,
-            DATE_FORMAT(krs_ultima_atualizacao, '%d/%m/%Y %H:%i:%s') as atualizacao 
+            DATE_FORMAT(krs_data_criacao, '%d/%m/%Y %H:%i') as criacao,
+            DATE_FORMAT(krs_ultima_atualizacao, '%d/%m/%Y %H:%i') as atualizacao 
             FROM tbl_key_result WHERE krs_id = '$this->ID'";
 
             $fetch = $helper->select($select, 2);
@@ -93,9 +109,26 @@
 
         }
 
-        	// Função de porcentagem: N é X% de N
+        // Função de porcentagem: N é X% de N
         function porcentagem () {
-                return number_format((($this->current * 100 ) / $this->goal), 1, ',', '');
+                $porcentagem = (($this->current * 100 ) / $this->goal);
+
+                if($porcentagem < 20) {
+                        $msg = '<span style="color: red">Ainda um pouco longe</span>';
+                } else if ($porcentagem >= 20 && $porcentagem < 40) {
+                        $msg = '<span style="color: orange">Está avançando</span>';
+                } else if ($porcentagem >= 40 && $porcentagem < 60) {
+                        $msg = '<span style="color: blue">Meio caminho andado!</span>';
+                } else if ($porcentagem >= 60 && $porcentagem < 100) {
+                        $msg = '<span style="color: green">A gente vai conseguir!</span>';
+                } else if ($porcentagem >= 100) {
+                        $msg = '<span style="color: green">Yeeeey! Arrasamos!</span>';
+                }
+
+                $porcentagem = number_format($porcentagem, 1, ',', '');
+
+                return $porcentagem.'% '.$msg;
+                
         }
 
 

@@ -1,23 +1,38 @@
 <?php
-    include('../include/auth.php');
-    include('../src/meta.php');
-    include('../classes/class_gestor.php');
-    include('../classes/class_setor.php');
-    include('../classes/class_colaborador.php');
+    require_once('../include/auth.php');
+    require_once('../src/meta.php');
+    require_once('../classes/class_gestor.php');
+    require_once('../classes/class_setor.php');
+    require_once('../classes/class_colaborador.php');
+    require_once('../classes/class_okr.php');
 
     if($_SESSION['user']['permissao'] != "GESTOR-1" && $_SESSION['user']['permissao'] != "GESTOR-2") {
         include("../include/acessoNegado.php");
         die();
     }
 
+    $okr = new OKR();
     $colaborador = new Colaborador();
     $gestor = new Gestor();
     $setor = new Setor();
+
+    if(isset($_GET['editar'])) {
+        $okr->setID($_GET['id']);
+        $okr = $okr->retornarOKR($_SESSION['empresa']['database']);
+
+        $title = 'Editar';
+        $action = 'editar';
+        $button = 'Salvar alterações';
+    } else {
+        $title = 'Nova';
+        $action = 'nova';
+        $button = 'Salvar minha OKR';
+    }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Nova meta OKR</title>    
+    <title><?php echo $title; ?> meta OKR</title>    
     <script>
         function isMoney(money = true) {
             document.getElementById("numberGoal").value = 0;
@@ -149,7 +164,7 @@
 </head>
 <body>
 <?php
-    include('../include/navbar.php');
+    require_once('../include/navbar.php');
 ?>
 <div class="container-fluid">
 
@@ -158,21 +173,23 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="home.php">Início</a></li>
             <li class="breadcrumb-item"><a href="metas.php">Metas OKR</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Nova meta OKR</li>
+            <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?> meta OKR <?php echo $okr->getTitulo(); ?></li>
         </ol>
     </nav>
     <!-- FIM DA NAV DE CAMINHO DE TELA -->
 
-    <div class="row">
-        <div class="col-sm-4 offset-sm-2">
-            <h2 class="high-text">Nova <span class="destaque-text">OKR</span></h2>
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+            <h2 class="high-text"><?php echo $title; ?> OKR</h2>
         </div>
+        <?php if(!isset($_GET['editar'])) { ?>
         <div class="col-sm">
             <input type="button" class="button button1" data-toggle="modal" data-target="#modal" value="Como criar minha OKR?">
         </div>
         <div class="col-sm">
             <input type="button" class="button button3" id="btnExemplo" value="Me mostre um exemplo" onclick="preencherExemplo();">
         </div>
+        <?php } ?>
     </div>
 
     <hr class="hr-divide">
@@ -181,9 +198,12 @@
     if(isset($_SESSION['msg'])) {
         ?>
 		<div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm">
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
 		</div>
@@ -194,16 +214,16 @@
 <div class="container">
     <div class="row" style="margin-top: 1em;">
         <div class="col-sm">
-        <form method="POST" action="../database/okr.php?nova=true" id="form">
+        <form method="POST" action="../database/okr.php?<?php echo $action; ?>=true" id="form">
             <label for="titulo" class="text">Objetivo *</label>
-            <input type="text" name="titulo" id="titulo" class="all-input" maxlength="60" required>
+            <input type="text" name="titulo" id="titulo" value="<?php echo $okr->getTitulo(); ?>" class="all-input" maxlength="60" required>
             <small class="text">Lembre-se: o objetivo de uma meta OKR deve ser único e direto. Exemplos: "Atingir excelência em atendimento ao cliente", "Construir o time de vendas perfeito" ou "Atingir 100% de segurança dos dados dos clientes"</small>
         </div>
     </div>
     <div class="row" style="margin-top: 1em;">
         <div class="col-sm">
             <label for="descricao" class="text">Descrição do objetivo *</label>
-            <input type="text" name="descricao" id="descricao" class="all-input" maxlength="300" required>
+            <input type="text" name="descricao" id="descricao" value="<?php echo $okr->getDescricao(); ?>" class="all-input" maxlength="500" required>
             <small class="text">Assim como o objetivo, a descrição precisa ser curta, citando, por exemplo, a principal vantagem que o objetivo trará</small>
         </div>
     </div>
@@ -212,22 +232,22 @@
             <label for="tipo" class="text">Categoria *</label>
             <select name="tipo" id="tipo" class="all-input" required>
                 <option value="">-- Selecione --</option>
-                <option value="Atendimento ao cliente">Atendimento ao cliente</option>
-                <option value="Orçamento">Orçamento</option>
-                <option value="Diminuição de perdas">Diminuição de perdas</option>
-                <option value="Aumento de equipe">Aumento de equipe</option>
-                <option value="Redução de equipe">Redução de equipe</option>
-                <option value="Capacitação de equipe">Capacitação de equipe</option>
-                <option value="Vendas">Vendas</option>
-                <option value="Outros">Outros</option>
+                <option value="Atendimento ao cliente" <?php if($okr->getTipo() == 'Atendimento ao cliente') echo 'selected'; ?>>Atendimento ao cliente</option>
+                <option value="Orçamento" <?php if($okr->getTipo() == 'Orçamento') echo 'selected'; ?>>Orçamento</option>
+                <option value="Diminuição de perdas" <?php if($okr->getTipo() == 'Diminuição de perdas') echo 'selected'; ?>>Diminuição de perdas</option>
+                <option value="Aumento de equipe" <?php if($okr->getTipo() == 'Aumento de equipe') echo 'selected'; ?>>Aumento de equipe</option>
+                <option value="Redução de equipe" <?php if($okr->getTipo() == 'Redução de equipe') echo 'selected'; ?>>Redução de equipe</option>
+                <option value="Capacitação de equipe" <?php if($okr->getTipo() == 'Capacitação de equipe') echo 'selected'; ?>>Capacitação de equipe</option>
+                <option value="Vendas" <?php if($okr->getTipo() == 'Vendas') echo 'selected'; ?>>Vendas</option>
+                <option value="Outros" <?php if($okr->getTipo() == 'Outros') echo 'selected'; ?>>Outros</option>
             </select>
         </div>
         <div class="col-sm">
             <label class="text">Quem verá <b>detalhes</b> desta meta?</label>
             <select name="visivel" id="visivel" class="all-input" required>
-                <option value="Todos" selected>Todos verão</option>
-                <option value="Apenas eu">Apenas eu</option>
-                <option value="Apenas os gestores">Apenas os gestores</option>
+                <option value="Todos" selected>Todos os integrantes verão</option>
+                <option value="Apenas eu" <?php if($okr->getVisivel() == 2) echo 'selected'; ?>>Apenas eu</option>
+                <option value="Apenas os gestores" <?php if($okr->getVisivel() == 3) echo 'selected'; ?>>Apenas os gestores</option>
             </select>
             <small class="text">Os não autorizados ainda a verão na lista de "Metas OKR", apenas</small>
         </div>
@@ -236,10 +256,11 @@
     <div class="row" style="margin-top: 1em;">
         <div class="col-sm">
             <label class="text">Prazo *</label>
-            <input type="date" name="prazo" id="prazo" class="all-input">
+            <input type="date" name="prazo" id="prazo" value="<?php echo $okr->getPrazo_format(); ?>" class="all-input">
         </div>   
     </div>
 
+    <?php if(!isset($_GET['editar'])) { ?>
     <div id="direcionados">
 
         <div class="row" style="margin-top: 1em;">
@@ -278,7 +299,10 @@
         </div>
 
     </div>
+    <?php } ?>
 
+
+    <?php if(!isset($_GET['editar'])) { ?>
     <hr class="hr-divide-super-light">
 
     <div class="row" style="margin-top: 1em;">
@@ -398,16 +422,20 @@
             <input type="text" name="metaOKR5" id="metaOKR5" class="all-input" placeholder="Ex: 2">
         </div>
     </div>
+    <?php } ?>
 
     <hr class="hr-divide-super-light">
 
-    <div class="row">
-        <div class="col-sm-2 offset-sm-4">
-            <input type="submit" value="Salvar" id="btnSalvar" class="button button1">
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+        <?php if(isset($_GET['editar'])) { ?> <input type="hidden" name="okr_id" value="<?php echo $okr->getID(); ?>"> <?php } ?>
+            <input type="submit" value="<?php echo $button; ?>" id="btnSalvar" class="button button1">
         </div>
-        <div class="col-sm-2">
+        <?php if(!isset($_GET['editar'])) { ?>
+        <div class="col-sm">
             <input type="reset" value="Limpar" id="btnLimpar" class="button button1">
         </div>
+        <?php } ?>
     </div>
     </form>
 </div>

@@ -163,7 +163,7 @@
                 $query = $helper->select($select, 1);
     
                 while($fetch = mysqli_fetch_assoc($query)) {
-                    echo '<input type="checkbox" name="colaboradores[]" id="colaboradores[]" value="'.$fetch['cpf'].'">'.$fetch['nome'].'<br>';
+                    echo '<input type="checkbox" name="colaboradores[]" id="colaboradores[]" value="'.$fetch['cpf'].'"> '.$fetch['nome'].'<br>';
                 }
         
             }
@@ -203,7 +203,7 @@
                 $query = $helper->select($select, 1);
     
                 while($fetch = mysqli_fetch_assoc($query)) {
-                    echo '<input type="checkbox" name="gestores[]" id="gestores[]" value="'.$fetch['cpf'].'">'.$fetch['nome'].'<br>';
+                    echo '<input type="checkbox" name="gestores[]" id="gestores[]" value="'.$fetch['cpf'].'"> '.$fetch['nome'].'<br>';
                 }
         
             }

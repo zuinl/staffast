@@ -474,7 +474,7 @@
             $query = $helper->select($select, 1);
 
             while($f = mysqli_fetch_assoc($query)) {
-                echo '<input type="checkbox" id="setores[]" name="setores[]" value='.$f['id'].'>'.$f['nome'].'<br>';
+                echo '<input type="checkbox" id="setores[]" name="setores[]" value='.$f['id'].'> '.$f['nome'].'<br>';
             }
     
         }

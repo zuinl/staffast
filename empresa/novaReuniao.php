@@ -56,6 +56,16 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nova reunião</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <div class="row" style="text-align: center;">
         <div class="col-sm">
             <h2 class="high-text"><?= isset($_GET['editar']) ? 'Editar' : 'Nova'; ?> reunião</h2>

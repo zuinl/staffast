@@ -121,17 +121,8 @@ $(function () {
       <li class="nav-item active" style="margin-left:1em;">
         <a class="nav-link high-text" href="metas.php"><img src="/staffast/include/icon/target.png" width="21" data-toggle="tooltip" data-placement="top" title="Metas"></a>
       </li>
-      <li class="nav-item dropdown" style="margin-left:1em;">
-        <a class="nav-link dropdown-toggle text" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="/staffast/include/icon/feedback.png" width="21" data-toggle="tooltip" data-placement="top" title="Feedback">
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="novoFeedback.php">Feedbacks</a>
-          <!-- <a class="dropdown-item" href="DR.php">DRs</a> -->
-          <?php if($_SESSION['user']['permissao'] == 'GESTOR-1' || $_SESSION['user']['permissao'] == 'GESTOR-2') { ?>
-          <!-- <a class="dropdown-item" href="novaDR.php">Criar DR</a> -->
-          <?php } ?>
-        </div>
+      <li class="nav-item active" style="margin-left:1em;">
+        <a class="nav-link high-text" href="novoFeedback.php"><img src="/staffast/include/icon/feedback.png" width="21" data-toggle="tooltip" data-placement="top" title="Feedback"></a>
       </li>
       <li class="nav-item active" style="margin-left:1em;">
         <a class="nav-link high-text" href="novaMensagem.php"><img src="/staffast/include/icon/envelope.png" width="21" data-toggle="tooltip" data-placement="top" title="Mensagem"></a>

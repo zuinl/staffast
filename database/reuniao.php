@@ -207,7 +207,7 @@ if(isset($_GET['nova'])) {
         $log->salvar();
 
     $_SESSION['msg'] = "Reunião atualizada com sucesso";
-    header("Location: ../empresa/reunioes.php");
+    header("Location: ../empresa/verReuniao.php?id=".$reu_id);
     die();
 
 } else if (isset($_GET['confirmar'])) {

@@ -28,7 +28,19 @@
 <?php
     include('../include/navbar.php');
 ?>
-<div class="container">
+<div class="container-fluid">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item"><a href="reunioes.php">Reuniões</a></li>
+            <li class="breadcrumb-item"><a href="reunioes.php">Reunião - <?php echo $reu->getPauta(); ?></a></li>
+            <li class="breadcrumb-item active" aria-current="page">Concluir reunião</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <?php
     if(isset($_SESSION['msg'])) {
         ?>
@@ -41,21 +53,25 @@
         <?php
     }
     ?>
-    <div class="row">
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
-            <h2 class="high-text">Atualizar Reunião <?php echo $reu->getPauta(); ?></h2>
+            <h3 class="high-text">Atualizar reunião: <?php echo $reu->getPauta(); ?></h3>
         </div>
     </div>
+
     <hr class="hr-divide">
+</div>
+
+<div class="container" style="text-align: center;">
     <div class="row">
         <div class="col-sm">
-            <h4 class="text">Objetivo da reunião: <?php echo $reu->getObjetivo(); ?></h4>
+            <h6 class="text"><b>Objetivo da reunião:</b> <?php echo $reu->getObjetivo(); ?></h6>
         </div>
     </div>
     <div class="row">
         <div class="col-sm">
             <form action="../database/reuniao.php?concluir=true&id=<?php echo $reu->getID() ?>" method="POST">
-            <input type="checkbox" name="atingido" value="1"> O objetivo foi atingido?
+            <input type="checkbox" name="atingido" value="1"> O objetivo foi atingido
         </div>
     </div>
     <div class="row">

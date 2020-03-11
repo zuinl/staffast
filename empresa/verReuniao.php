@@ -88,6 +88,17 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item"><a href="reunioes.php">Reuniões</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nova reunião</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <div class="row" style="text-align: center">
         <div class="col-sm">
             <h3 class="high-text"><?php echo $reuniao->getPauta(); ?></h3>
@@ -137,14 +148,16 @@
             <h6 class="text"><?php echo $atingido; ?></h6>       
         </div>
         <?php if($_SESSION['user']['permissao'] == "GESTOR-1" || $_SESSION['user']['cpf'] == $reuniao->getCpfGestor()) { ?>
+        <?php if($reuniao->getConcluida() == 0) { ?>
         <div class="col-sm">
             <a href="concluirReuniao.php?concluir=true&id=<?php echo $reuniao->getID(); ?>"><button class="button button2">Concluir reunião</button></a>
         </div>
+        <?php } ?>
         <div class="col-sm">
             <a href="novaReuniao.php?editar=true&id=<?php echo $reuniao->getID(); ?>"><button class="button button2">Editar reunião</button></a>
         </div>
         <div class="col-sm">
-            <input type="button" class="button button2" value="Gerenciar reunião" id="btnGerenciar" onclick="mostrarGerenciar();">
+            <input type="button" class="button button2" value="Gerenciar integrantes" id="btnGerenciar" onclick="mostrarGerenciar();">
         </div>
         <div class="col-sm">
             <input type="button" class="button button2" data-toggle="modal" data-target="#modal" value="Contatar integrantes">       
@@ -346,12 +359,12 @@
     <?php if($reuniao->getConcluida() == 1) { ?>
         <hr class="hr-divide-light">
         
-        <div class="row">
+        <div class="row" style="text-align: center;">
             <div class="col-sm">
                 <h4 class="text">Ata de encerramento</h4>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="text-align: center;">
             <div class="col-sm">
                 <p class="text"><?php echo $reuniao->getAta(); ?> </p>
             </div>

@@ -56,7 +56,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="home.php">Início</a></li>
             <li class="breadcrumb-item"><a href="eventos.php">Próximos eventos</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Novo evento</li>
+            <li class="breadcrumb-item active" aria-current="page"><?= isset($_GET['editar']) ? 'Editar' : 'Novo'; ?> evento</li>
         </ol>
     </nav>
     <!-- FIM DA NAV DE CAMINHO DE TELA -->

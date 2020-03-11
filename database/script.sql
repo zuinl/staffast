@@ -290,6 +290,7 @@ CREATE TABLE IF NOT EXISTS `tbl_mensagem_funcionario` (
             `set_id` INT NOT NULL AUTO_INCREMENT,
             `set_nome` VARCHAR(50) NOT NULL,
             `set_local` VARCHAR(80) NULL,
+            `set_ativo` INT NOT NULL DEFAULT 1,
             `set_descricao` VARCHAR(150) NULL,
             `set_data_cadastro` DATETIME NOT NULL DEFAULT NOW(),
             `set_data_alteracao` DATETIME NOT NULL DEFAULT NOW(),
@@ -308,16 +309,6 @@ CREATE TABLE IF NOT EXISTS `tbl_mensagem_funcionario` (
   CREATE TABLE IF NOT EXISTS `tbl_documento_dono` (
   `doc_id` INT NOT NULL,
   `cpf` VARCHAR(11) NOT NULL);
-
-  CREATE TABLE IF NOT EXISTS  tbl_campanha (
-	  cam_id INT NOT NULL AUTO_INCREMENT,
-    cam_titulo VARCHAR (100) NOT NULL,
-    cam_descricao LONGTEXT NOT NULL,
-    cam_caminho_banner VARCHAR (150),
-    cam_data_criacao DATETIME NOT NULL DEFAULT NOW(),
-    cam_data_expiracao DATETIME NOT NULL,
-    ges_cpf VARCHAR(11) NOT NULL,
-    PRIMARY KEY (cam_id));
 
     CREATE TABLE IF NOT EXISTS  tbl_ocorrencia (
   
@@ -345,6 +336,7 @@ CREATE TABLE IF NOT EXISTS  tbl_okr (
     okr_goal_number INT NOT NULL DEFAULT 0,
     okr_prazo DATETIME NOT NULL,
     okr_concluida INT NOT NULL DEFAULT 0,
+    okr_arquivada INT NOT NULL DEFAULT 0,
     okr_data_criacao DATETIME NOT NULL DEFAULT NOW(),
     ges_cpf VARCHAR(11) NOT NULL,
     PRIMARY KEY (okr_id));
@@ -375,42 +367,6 @@ CREATE TABLE IF NOT EXISTS  tbl_okr_gestor (
 CREATE TABLE IF NOT EXISTS  tbl_okr_setor (
 	okr_id INT NOT NULL,
     set_id INT NOT NULL
-);
-
-
-CREATE TABLE IF NOT EXISTS  tbl_financas (
-	fin_id INT NOT NULL AUTO_INCREMENT,
-    fin_data_criacao DATETIME NOT NULL DEFAULT NOW(),
-    fin_saldo_total FLOAT NOT NULL DEFAULT 0.0,
-    fin_saldo_dinheiro FLOAT NOT NULL DEFAULT 0.0,
-    fin_saldo_conta_corrente FLOAT NOT NULL DEFAULT 0.0,
-    fin_saldo_poupanca FLOAT NOT NULL DEFAULT 0.0,
-    cpf VARCHAR (11) NOT NULL,
-    PRIMARY KEY (fin_id));
-    
-CREATE TABLE IF NOT EXISTS  tbl_financas_movimentacao (
-   fin_id INT NOT NULL,
-   mov_data DATETIME NOT NULL DEFAULT NOW(),
-   mov_conta VARCHAR(30) NOT NULL,
-   mov_valor FLOAT NOT NULL,
-   mov_tipo VARCHAR(20) NOT NULL);
-   
-CREATE TABLE IF NOT EXISTS  tbl_cartao_credito (
-   cat_id INT NOT NULL AUTO_INCREMENT,
-   cat_titulo VARCHAR(70) NOT NULL,
-   cat_limite FLOAT NOT NULL DEFAULT 0.0,
-   cat_vencimento VARCHAR (2) NOT NULL DEFAULT '20',
-   PRIMARY KEY (cat_id));
-   
-CREATE TABLE IF NOT EXISTS  tbl_financas_cartao_credito (
-   fin_id INT NOT NULL,
-   cat_id INT NOT NULL);
-   
-CREATE TABLE IF NOT EXISTS  tbl_cartao_credito_movimento (
-    cat_id INT NOT NULL,
-    mov_data DATETIME NOT NULL,
-    mov_valor FLOAT NOT NULL,
-    mov_tipo VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `tbl_setor_competencia` 
@@ -652,6 +608,14 @@ CREATE TABLE IF NOT EXISTS `tbl_pdi_competencia_meta` (
         `col_cpf` VARCHAR(11) NOT NULL , 
         `modelo_id` INT NOT NULL, 
         `data_add` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP );
+
+        CREATE TABLE IF NOT EXISTS `tbl_krs_anotacao` ( 
+          `id` INT NOT NULL AUTO_INCREMENT , 
+          `krs_id` INT NOT NULL , 
+          `data` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+          `anotacao` TEXT NOT NULL , 
+          `col_cpf` VARCHAR(11) NULL DEFAULT NULL , 
+          `ges_cpf` VARCHAR(11) NULL DEFAULT NULL , PRIMARY KEY (`id`));
 
 
     
