@@ -133,28 +133,28 @@
     <div class="row" style="margin-top: 1em;">
         <div class="col-sm-3">
             <label for="colaboradores" class="text">Os seguintes colaboradores participarão...</label>
-            <div style="height:14em;; overflow:auto;">
+            <div class="div-checkboxes">
                 <?php $colaborador->popularSelectMultiple($_SESSION['empresa']['database']); ?>
             </div>
         </div>
 
         <div class="col-sm-3">
             <label for="gestores" class="text">... e os seguintes gestores...</label>
-            <div style="height:14em;; overflow:auto;">
+            <div class="div-checkboxes">
                 <?php $gestor->popularSelectMultiple($_SESSION['empresa']['database']); ?>
             </div>
         </div>
 
         <div class="col-sm-3">
             <label for="metas" class="text">... e as seguintes metas...</label>
-            <div style="height:14em;; overflow:auto;">
+            <div class="div-checkboxes">
                 <?php $metas->popularSelectMultiple($_SESSION['empresa']['database']); ?>
             </div>
         </div>
 
         <div class="col-sm-3">
             <label for="eventos" class="text">... e os seguintes eventos...</label>
-            <div style="height:14em;; overflow:auto;">
+            <div class="div-checkboxes">
                 <?php $eventos->popularSelectMultiple($_SESSION['empresa']['database']); ?>
             </div>
         </div>

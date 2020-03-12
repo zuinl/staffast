@@ -169,10 +169,13 @@
         <?php
             $cpf = $_SESSION['user']['cpf'];
             $select = "SELECT t1.fee_texto as texto, 
+                        t1.fee_comecar as comecar,
+                        t1.fee_continuar as continuar,
+                        t1.fee_parar as parar,
                         t1.fee_id as id,
                         t1.fee_visualizado as visualizado,
                         CASE 
-                            WHEN t1.ges_cpf IS NOT NULL THEN t2.ges_nome_completo
+                            WHEN t2.ges_nome_completo IS NOT NULL THEN t2.ges_nome_completo
                             ELSE t3.col_nome_completo END
                         AS remetente,
                         DATE_FORMAT(t1.fee_criacao, '%d/%m/%Y %H:%i') as data
@@ -194,7 +197,7 @@
             } else {
                 while($f = mysqli_fetch_assoc($query)) {       
             ?>
-                <div class="row" style="text-align: center;  margin-bottom: 1.5em;">
+                <div class="row" style="text-align: center;  margin-bottom: 2em;">
                     <div class="col-sm">
                         <h5 class="text"><b>Recebeu de: </b><?php echo $f['remetente']; ?></h5>
                         <small class="text"><?php echo $f['data']; ?></small>
@@ -203,6 +206,18 @@
                         <?php } ?>
 
                         <h6 class="text"><?php echo $f['texto']; ?></h6>
+
+                        <?php if($f['comecar'] != '') { ?>
+                            <h6 class="text"><b>Te orientou a começar a fazer: </b><?php echo $f['comecar']; ?></h6>
+                        <?php } ?>
+
+                        <?php if($f['continuar'] != '') { ?>
+                            <h6 class="text"><b>Te orientou a continuar fazendo: </b><?php echo $f['continuar']; ?></h6>
+                        <?php } ?>
+
+                        <?php if($f['parar'] != '') { ?>
+                            <h6 class="text"><b>Te orientou a parar de fazer: </b><?php echo $f['parar']; ?></h6>
+                        <?php } ?>
                     </div>
                 </div>  
             <?php } ?>   
@@ -215,6 +230,9 @@
         <?php
             $cpf = $_SESSION['user']['cpf'];
             $select = "SELECT t1.fee_texto as texto,
+                        t1.fee_comecar as comecar,
+                        t1.fee_continuar as continuar,
+                        t1.fee_parar as parar,
                         t1.fee_visualizado as visualizado, 
                         CASE 
                             WHEN t2.ges_nome_completo IS NOT NULL THEN t2.ges_nome_completo
@@ -245,13 +263,25 @@
                     $visualizado = '<span style="color: green;">O destinatário visualizou</span>';
                 }
             ?>
-                <div class="row" style="text-align: center;  margin-bottom: 1.5em;">
+                <div class="row" style="text-align: center;  margin-bottom: 2em;">
                     <div class="col-sm">
                         <h5 class="text"><b>Enviou para:</b> <?php echo $f['destinatario']; ?></h5>
                         <small class="text"><?php echo $f['data']; ?></small>
                         <br><small class="text"><?php echo $visualizado; ?></small>
 
                         <h6 class="text"><?php echo $f['texto']; ?></h6>
+
+                        <?php if($f['comecar'] != '') { ?>
+                            <h6 class="text"><b>Você orientou a começar a fazer: </b><?php echo $f['comecar']; ?></h6>
+                        <?php } ?>
+
+                        <?php if($f['continuar'] != '') { ?>
+                            <h6 class="text"><b>Você orientou a continuar fazendo: </b><?php echo $f['continuar']; ?></h6>
+                        <?php } ?>
+
+                        <?php if($f['parar'] != '') { ?>
+                            <h6 class="text"><b>Você orientou a parar de fazer: </b><?php echo $f['parar']; ?></h6>
+                        <?php } ?>
                     </div>
                 </div>  
             <?php } ?>   
@@ -299,14 +329,17 @@
                 $span_atendido = '<span style="color: orange;">Você ainda não enviou um feedback pra esta solicitação</span>';
             }
         ?>
-            <div class="row" style="text-align: center; margin-bottom: 1.5em;">
+            <div class="row" style="text-align: center; margin-bottom: 2em;">
                 <div class="col-sm">
                     <h5 class="text"><b>O pedido é de:</b> <?php echo $f['remetente']; ?></h5>
                     <small class="text"><?php echo $span_atendido; ?></small>
                     <br><small class="text"><?php echo $f['data']; ?></small>
 
                     <h6 class="text"><b>Motivo do pedido: </b><?php echo $f['motivo']; ?></h6>
-                    <input type="button" style="font-size: 0.6em;" class="button button2" value="Enviar feedback para <?php echo $f['remetente']; ?>" onclick="atenderPedido('<?php echo $f['cpf_solicitante']; ?>', '<?php echo $f['id_pedido']; ?>');" data-toggle="modal" data-target="#modal-novo">
+
+                    <?php if(!$atendido) { ?>
+                        <input type="button" style="font-size: 0.6em;" class="button button2" value="Enviar feedback para <?php echo $f['remetente']; ?>" onclick="atenderPedido('<?php echo $f['cpf_solicitante']; ?>', '<?php echo $f['id_pedido']; ?>');" data-toggle="modal" data-target="#modal-novo">
+                    <?php } ?>
                 </div>
             </div>  
         <?php } ?>   
@@ -352,7 +385,7 @@
                 $span_atendido = '<span style="color: orange;">O destinatário ainda não atendeu ao seu pedido</span>';
             }
         ?>
-            <div class="row" style="text-align: center; margin-bottom: 1.5em;">
+            <div class="row" style="text-align: center; margin-bottom: 2em;">
                 <div class="col-sm">
                     <h5 class="text"><b>Pediu para: </b><?php echo $f['destinatario']; ?></h5>
                     <small class="text"><?php echo $span_atendido; ?></small>

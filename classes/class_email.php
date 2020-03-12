@@ -83,7 +83,18 @@
 
         public function setMensagem($mensagem)
         {
-                $this->mensagem = '<link rel="stylesheet" type="text/css" href="https://sistemastaffast.com/staffast/src/site.css">'.$mensagem;
+                $this->mensagem = '
+                <html>
+                    <head>
+                        <title></title>
+                        <style></style>
+                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />   
+                        <link rel="stylesheet" type="text/css" href="http://sistemastaffast.com/staffast/src/site.css"> 
+                    </head>
+                    <body>
+                    '.$mensagem.'
+                    </body>
+                </html>';
 
                 return $this;
         }

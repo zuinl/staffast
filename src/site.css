@@ -144,9 +144,11 @@ border-color: rgb(59, 55, 55);
 }
 
   .div-checkboxes {
-	height:180px;
-	overflow:auto;
-	background:#fff;
+	height:14em; 
+	overflow: auto; 
+	border: 1px solid #13a378;
+	border-radius: 6px;
+	padding: 0.7em;
   }
 
   .img-perfil {

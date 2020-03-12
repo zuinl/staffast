@@ -158,7 +158,7 @@ if(isset($_GET['novoColaborador'])) {
             $email->setEmailFrom(0);
             $email->setEmailTo($usuario->getEmail());
 
-            $msg = '<h1 class="high-text">Oi, @'.$primeiroNome.'</h1>
+            $msg = '<h1 class="high-text">Oi, '.$primeiroNome.'</h1>
                     <h2 class="high-text">Você acaba de ser cadastrado como um colaborador 
                     em '.$_SESSION['empresa']['nome'].' :D</h2>
                     <h3 class="text">O Staffast é a plataforma de avaliação e gestão de equipe que sua empresa utiliza</h3>

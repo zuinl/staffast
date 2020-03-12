@@ -40,18 +40,25 @@ if(isset($_GET['novo'])) {
 
     if($_FILES["documento"]["error"] == 0){
         $arqNome = "";
-        $nome_dir = "../empresa/documentos/".date('Y-m-d')."/";
+        $nome_dir = "../empresa/documentos/".date('Y-m-d').'-emp'.$_SESSION['empresa']['emp_id']."/";
         $documento = $_FILES['documento'];
         $diretorio = $nome_dir;
+
+        $arq_tipo = strtolower(pathinfo($documento['name'],PATHINFO_EXTENSION));
 
             if(!file_exists($diretorio)){
                 mkdir($diretorio);
             }
-        $arqNome = $diretorio.$documento['name'];
-        move_uploaded_file($documento['tmp_name'], $arqNome);
-        $diretorio = date('Y-m-d')."/".$documento['name'];
+        $arqNome = $diretorio.md5(md5($documento['name'])).'.'.$arq_tipo;
+        if(move_uploaded_file($documento['tmp_name'], $arqNome)) {
+            $diretorio = date('Y-m-d')."/".md5(md5($documento['name'])).'.'.$arq_tipo;
+        } else {
+            $_SESSION['msg'] = "Houve um erro no upload do documento. Cód. 01";
+            header('Location: ../empresa/novoDocumento.php');
+            die();
+        }
     } else {
-        $_SESSION['msg'] = "Houve um erro no upload do documento";
+        $_SESSION['msg'] = "Houve um erro no upload do documento. Cód 02";
         header('Location: ../empresa/novoDocumento.php');
         die();
     }

@@ -95,14 +95,14 @@
     <div class="row">
         <div class="col-sm">
             <label for="colaboradores" class="text">Visível para os seguintes colaboradores</label>
-            <div style="height:14em;; overflow:auto;">
+            <div class="div-checkboxes">
                 <?php $colaborador->popularSelectMultiple($_SESSION['empresa']['database']); ?>
             </div>
         </div>
 
         <div class="col-sm">
             <label for="gestores" class="text">Visível para os seguintes gestores</label>
-            <div style="height:14em;; overflow:auto;">
+            <div class="div-checkboxes">
                 <?php $gestor->popularSelectMultiple($_SESSION['empresa']['database']); ?>
             </div>
         </div>
@@ -110,7 +110,7 @@
         <?php if($_SESSION['user']['permissao'] == "GESTOR-1") { ?>
         <div class="col-sm">
             <label for="setores" class="text">Visível para os seguintes setores</label>
-            <div style="height:14em;; overflow:auto;">
+            <div class="div-checkboxes">
                 <?php $setor->popularSelectMultiple($_SESSION['empresa']['database']); ?>
             </div>
         </div>
