@@ -85,7 +85,7 @@ if(isset($_GET['novo'])) {
         $email->enviar();
 
         $log = new LogAlteracao();
-        $log->setDescricao("Enviou um feedback para ".$dono);
+        $log->setDescricao("Enviou um feedback");
         $log->setIDUser($_SESSION['user']['usu_id']);
         $log->salvar();
 

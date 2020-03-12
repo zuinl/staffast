@@ -106,9 +106,19 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
-    <div class="row">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="home.php">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Relatório de ações</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
-            <h2 class="high-text">Relatório de <span class="destaque-text">alterações</span></h2>
+            <h2 class="high-text">Relatório de <span class="destaque-text">ações</span></h2>
         </div>
     </div>
 
@@ -119,6 +129,9 @@
             <div class="col-sm-6">
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
 		</div>

@@ -54,6 +54,16 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid" style="text-align: center;">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="home.php">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Relatórios</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <div class="row">
         <!-- <div class="col-sm-1">
             <img src="img/report.png" width="60">
@@ -92,7 +102,7 @@
     </div>
     <div class="row">
         <div class="col-sm">
-            <form action="relatorios/relatorio_avaliacao_competencia.php" method="POST">
+            <form action="relatorios/relatorio_avaliacao_competencia.php" target="_blank" method="POST">
             <?php if($_SESSION['user']['permissao'] != 'COLABORADOR') { ?>
             <label class="text">Colaborador</label>
             <select name="colaborador" id="colaborador" class="all-input" required>
@@ -197,7 +207,7 @@
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <form action="relatorios/relatorio_autoavaliacao_competencia.php" method="POST">
+            <form action="relatorios/relatorio_autoavaliacao_competencia.php" target="_blank" method="POST">
             <?php if($_SESSION['user']['permissao'] != 'COLABORADOR') { ?>
             <label class="text">Colaborador</label>
             <select name="colaborador" id="colaborador" class="all-input" required>

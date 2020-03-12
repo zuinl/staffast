@@ -146,16 +146,12 @@ $(function () {
           <a class="dropdown-item" href="meuUsuario.php">Minha conta</a>
           <a class="dropdown-item" href="minhaEmpresa.php">Minha empresa</a>
           <?php if($_SESSION['user']['permissao'] == "GESTOR-1") { ?>
-          <a class="dropdown-item" href="logAlteracoes.php">Relatório de alterações</a>
+          <a class="dropdown-item" href="logAlteracoes.php">Relatório de ações</a>
           <?php } ?>
-          <a class="dropdown-item" href="../ajuda.php" target="blank_">Ajuda</a>
-          <!-- <a class="dropdown-item" href="#">Campanhas - EM BREVE!</a>
-          <a class="dropdown-item" href="#">Ocorrências - EM BREVE!</a>
-          <a class="dropdown-item" href="#">Finanças pessoais - EM BREVE!</a> -->
-          <hr class="hr-divide-light">
-          <a class="dropdown-item" href="../novidades.php" target="blank_">Novidades do Staffast</a>
-          <a class="dropdown-item" href="../suporte/" target="blank_">Contatar o suporte / Relatar problema</a>
-          <a class="dropdown-item" href="../suporte/index.php?sugestao=true" target="blank_">Enviar sugestões de novas funcionalidades</a>
+          <a class="dropdown-item" href="../ajuda.php" target="_blank">Ajuda</a>
+          
+          <a class="dropdown-item" href="../suporte/" target="_blank">Contatar o suporte / Relatar problema</a>
+          <a class="dropdown-item" href="../suporte/index.php?sugestao=true" target="_blank">Enviar sugestões de novas funcionalidades</a>
           <!-- <a class="dropdown-item" href="#">Conferir novidades do Staffast</a> -->
         </div>
       </li>

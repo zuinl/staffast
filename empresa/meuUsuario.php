@@ -157,12 +157,29 @@ if(isset($_GET['email'])) {
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="home.php">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Minha Conta</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <?php
     if(isset($_SESSION['msg'])) {
         ?>
-        <div class="alert alert-info alert-dismissible fade show" role="alert">
-            <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
-        </div>
+        <div class="row">
+            <div class="col-sm">
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+		</div>
         <?php
     }
     ?>
@@ -179,21 +196,21 @@ if(isset($_GET['email'])) {
 
     <div class="row" style="text-align: center;">
         <div class="col-sm">
-            <h3 class="text">Estes são seus dados de acesso ao Staffast</h3>
+            <h4 class="text">Estes são seus dados de acesso ao Staffast</h4>
         </div>
     </div>
 
     <div class="row" style="text-align: center;">
         <div class="col-sm">
-            <h5 class="text">Seu <i>e-mail</i></h5>
+            <h6 class="text"><b>Seu e-mail</b></h6>
             <h6 class="text"><?php echo $usuario->getEmail();; ?></h6>
         </div>
-        <div class="col-sm">
-            <h5 class="text">Sua <i>senha</i></h5>
+        <!-- <div class="col-sm">
+            <h5 class="text"><b>Seu e-mail</b></h5>
             <span class="text"><h6>Alterada pela última vez em: <i><?php echo $usuario->getUltimaAlteracao(); ?></i></h6></span>
-        </div>
+        </div> -->
         <div class="col-sm">
-            <h5 class="text">Sua <i>empresa</i></h5>
+            <h6 class="text"><b>Sua empresa</b></h6>
             <h6 class="text"><?php echo $_SESSION['empresa']['nome']; ?></h6>
         </div>
     </div>
@@ -202,18 +219,23 @@ if(isset($_GET['email'])) {
 
     <div class="row" style="text-align: center;">
         <div class="col-sm">
-            <h5 class="text">Atualizar <i>senha</i></h5>
+            <h5 class="text">Alterar senha</h5>
+            <small class="text">Última alteração: <?php echo $usuario->getUltimaAlteracao(); ?></small>
         </div>
+    </div>
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
             <form action="meuUsuario.php?senha=true" method="POST">
-            <input type="password" name="senhaAtual" id="senhaAtual" class="all-input" placeholder="Insira senha atual">
+            <input type="password" name="senhaAtual" id="senhaAtual" class="all-input" placeholder="Insira senha atual" required>
         </div>
         <div class="col-sm">
-            <input type="password" name="novaSenha" id="novaSenha" class="all-input" placeholder="Insira nova senha">
+            <input type="password" name="novaSenha" id="novaSenha" class="all-input" placeholder="Insira nova senha" required>
         </div>
         <div class="col-sm">
-            <input type="password" name="confereSenha" id="confereSenha" class="all-input" placeholder="Repita nova senha">
+            <input type="password" name="confereSenha" id="confereSenha" class="all-input" placeholder="Repita nova senha" required>
         </div>
+    </div>
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
             <input type="submit" class="button button1" value="Alterar senha">
             </form>
@@ -222,17 +244,23 @@ if(isset($_GET['email'])) {
 
     <hr class="hr-divide-super-light">
 
-    <div class="row">
-        <div class="col-sm-3">
-            <h5 class="text">Atualizar <i>e-mail</i></h5>
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+            <h5 class="text">Atualizar e-mail</h5>
         </div>
-        <div class="col-sm-3">
+    </div>
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
             <form action="meuUsuario.php?email=true" method="POST">
-            <input type="email" name="email" id="email" class="all-input" placeholder="Insira novo e-mail">
+            <input type="email" name="email" id="email" class="all-input" placeholder="Insira novo e-mail" required>
         </div>
-        <div class="col-sm-2">
-            <input type="submit" class="button button1" value="Alterar senha">
+        <div class="col-sm">
+            <input type="submit" class="button button1" value="Alterar e-mail">
             </form>
+        </div>
+        <div class="col-sm">
+            <small class="text">Esta alteração afetará a forma como você acessa o Staffast, inclusive no aplicativo. 
+            Recomendamos que, após alterar o seu e-mail, desinstale o app do Staffast e o baixe novamente.</small>
         </div>
     </div>
 
@@ -241,10 +269,10 @@ if(isset($_GET['email'])) {
     <?php if($isGestor) { ?>
     <div class="row">
         <div class="col-sm">
-            <h5 class="text">Você está cadastrado como <i>gestor</i> no Staffast</h5>
+            <h6 class="text">Você está cadastrado como <i>gestor</i> no Staffast</h6>
         </div>
         <div class="col-sm">
-            <h5 class="text">Desde <?php echo $gestor->getdataCadastro(); ?></h5>
+            <h6 class="text">Desde <?php echo $gestor->getdataCadastro(); ?></h6>
         </div>
         <div class="col-sm">
             <a href="perfilGestor.php?id=<?php echo base64_encode($gestor->getCpf()); ?>"><button class="button button3">Ver meu perfil</button></a>
@@ -258,10 +286,10 @@ if(isset($_GET['email'])) {
     <hr class="hr-divide-super-light">
     <div class="row">
         <div class="col-sm">
-            <h5 class="text">Você está cadastrado como <i>colaborador</i> no Staffast</h5>
+            <h6 class="text">Você está cadastrado como <i>colaborador</i> no Staffast</h6>
         </div>
         <div class="col-sm">
-            <h5 class="text">Desde <?php echo $colaborador->getdataCadastro(); ?></h5>
+            <h6 class="text">Desde <?php echo $colaborador->getdataCadastro(); ?></h6>
         </div>
         <div class="col-sm">
             <a href="perfilColaborador.php?id=<?php echo base64_encode($colaborador->getCpf()); ?>"><button class="button button3">Ver meu perfil</button></a>

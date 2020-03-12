@@ -39,12 +39,29 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="home.php">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Minha empresa</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <?php
     if(isset($_SESSION['msg'])) {
         ?>
-        <div class="alert alert-info alert-dismissible fade show" role="alert">
-            <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
-        </div>
+        <div class="row">
+            <div class="col-sm">
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+		</div>
         <?php
     }
     ?>
@@ -61,11 +78,11 @@
 
     <div class="row" style="text-align: center;">
         <div class="col-sm">
-            <h4 class="text">Estes são seus dados da sua empresa no Staffast</h4>
+            <h4 class="text">Estes os dados da sua empresa no Staffast</h4>
         </div>
     </div>
 
-    <div class="row" style="text-align: center;">
+    <div class="row" style="text-align: center; margin-bottom: 1em;">
         <div class="col-sm">
             <h5 class="text">Nome</h5>
             <h6 class="text"><?php echo $empresa->getRazao(); ?></h6>
@@ -79,7 +96,7 @@
             <h6 class="text"><?php echo $empresa->getLinkedin(); ?></h6>        
         </div>
     </div>
-    <div class="row" style="text-align: center;">
+    <div class="row" style="text-align: center; margin-bottom: 1em;">
         <div class="col-sm">
             <h5 class="text">Website</h5>
             <h6 class="text"><a href="<?php echo $empresa->getWebsite(); ?>" target="blank_"><?php echo $empresa->getWebsite(); ?></a></h6>        
@@ -89,12 +106,12 @@
             <h6 class="text"><?php echo $empresa->getEndereco(); ?></h6>        
         </div>
         <div class="col-sm">
-            <h5 class="text">Data de adoção ao Staffast</h5>
+            <h5 class="text">Data de adesão ao Staffast</h5>
             <h6 class="text"><?php echo $empresa->getDataCadastro(); ?></h6>        
         </div>
     </div>
 
-    <div class="row" style="text-align: center;">
+    <div class="row" style="text-align: center; margin-bottom: 1em;">
         <div class="col-sm">
             <h5 class="text">Responsável (pelo Staffast)</h5>
             <h6 class="text"><?php echo $empresa->getResponsavel(); ?></h6>
@@ -104,7 +121,7 @@
             <h6 class="text"><?php echo $empresa->getEmailResponsavel(); ?></h6>        
         </div>
     </div>
-    <div class="row" style="text-align: center;">
+    <div class="row" style="text-align: center; margin-bottom: 1em;">
         <div class="col-sm">
             <h5 class="text">Orientações</h5>
             <h6 class="text">Qualquer solicitação de alteração, correção, atualização e/ou negociações 

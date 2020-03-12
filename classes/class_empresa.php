@@ -24,7 +24,7 @@
             $helper = new QueryHelper($conexao);
 
             $select = "SELECT t1.emp_id as id, t1.emp_razao_social as razao, t1.emp_database as db, t1.emp_telefone as telefone, 
-            t1.emp_linkedin as linkedin, DATE_FORMAT(t1.emp_data_cadastro, '%d/%m/%Y %H:%i:%s') as cadastro, t1.emp_logotipo as logotipo,
+            t1.emp_linkedin as linkedin, DATE_FORMAT(t1.emp_data_cadastro, '%d/%m/%Y') as cadastro, t1.emp_logotipo as logotipo,
             t2.res_nome as responsavel, t2.res_email as email_responsavel, t1.emp_website as website, t1.emp_endereco as endereco
             FROM tbl_empresa t1 INNER JOIN tbl_empresa_responsavel t2 ON t2.emp_id = t1.emp_id WHERE t1.emp_id = '$this->ID' AND t2.res_ativo = 1";
             
@@ -35,8 +35,11 @@
             $empresa->setRazao($fetch['razao']);
             $empresa->setDatabase($fetch['db']);
             $empresa->setEndereco($fetch['endereco']);
+                if($fetch['telefone'] == '') $fetch['telefone'] = 'Não informado';
             $empresa->setTelefone($fetch['telefone']);
+                if($fetch['linkedin'] == '') $fetch['linkedin'] = 'Não informado';
             $empresa->setLinkedin($fetch['linkedin']);
+                if($fetch['website'] == '') $fetch['website'] = 'Não informado';
             $empresa->setWebsite($fetch['website']);
             $empresa->setDataCadastro($fetch['cadastro']);
             $empresa->setResponsavel($fetch['responsavel']);
