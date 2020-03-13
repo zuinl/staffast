@@ -2,7 +2,8 @@
 session_start();
 include('src/meta.php');
 
-if(isset($_SESSION['user'])) header('Location: empresa/home.php');
+//if(isset($_SESSION['user'])) header('Location: empresa/home.php');
+
 if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] == "true") {
     $nome = addslashes($_POST['nome']);
     $email = $_POST['email'];
@@ -119,6 +120,9 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                 <a href="login.php"><button class="button button1">JÁ USA O STAFFAST? CLIQUE AQUI PARA ENTRAR</button></a>
             </div>
             <div class="col-sm">
+                <a href="planos.php"><button class="button button2">CONHEÇA OS PLANOS DO STAFFAST</button></a>
+            </div>
+            <div class="col-sm">
                 <a href="ponto/"><button class="button button3">REGISTRAR MEU PONTO</button></a>
             </div>
         </div>
@@ -128,14 +132,17 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                 <h1 class="display-4 high-text">Nossa missão é fazer você cumprir a <i>sua</i></h1>
                 <p class="lead">No século onde é difícil cuidar de nós mesmos, porque tem que ser tão complicado cuidar da sua equipe? 
                 <br> O Staffast oferece tudo o que você precisa para focar no que realmente te interessa: fazer sua empresa voar</p>
-                <a href="https://www.instagram.com/staffast_/" target="_blank"><img src="empresa/img/instagram.png" width="40"> <span style="font-size: 1.2em;">@staffast_</span></a>
+                <img src="empresa/img/instagram.png" width="40"><span style="font-size: 1.2em;"> <a href="https://www.instagram.com/staffast_/" target="_blank">@staffast_</span></a>
+                <img src="empresa/img/youtube.png" width="40" style="margin-left: 1.5em;"><span style="font-size: 1.2em;"> <a href="https://www.youtube.com/channel/UCFOx-xf2Iyv4kwkxekZcUaw" target="_blank">Youtube</span></a>
+                <img src="empresa/img/google-play.png" width="40" style="margin-left: 1.5em;"><span style="font-size: 1.2em;"> <a href="#" onclick="alert('Em breve!')">Baixe o app no seu Android</span></a>
+                <img src="empresa/img/app.png" width="40" style="margin-left: 1.5em;"><span style="font-size: 1.2em;"> <a href="#" onclick="alert('Em breve!')">Baixe o app no seu iOS</span></a>
             </div>
         </div>
     </div>
 
     <div class="container">
 
-        <!-- <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
                 <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
@@ -143,87 +150,54 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="img/logo_staffast.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block" style="color: black;">
-                        <h5>Avaliação por Competências</h5>
-                    </div>
+                    <img src="img/prints/home.png" class="d-block w-100">
                 </div>
+
                 <div class="carousel-item">
-                    <img src="img/logo_staffast.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Avaliação <i>vs.</i> Autoavaliação</h5>
-                    </div>
+                    <img src="img/prints/ponto.png" class="d-block w-100">
                 </div>
+
                 <div class="carousel-item">
-                    <img src="img/logo_staffast.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Modelos de avaliação</h5>
-                    </div>
+                    <img src="img/prints/grafico_gestor.png" class="d-block w-100">
                 </div>
+
                 <div class="carousel-item">
-                    <img src="img/logo_staffast.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Avaliação por setor</h5>
-                    </div>
+                    <img src="img/prints/modelo_avaliacao.png" class="d-block w-100">
                 </div>
+
                 <div class="carousel-item">
-                    <img src="img/logo_staffast.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Avaliação 360º</h5>
-                    </div>
+                    <img src="img/prints/painel_avaliacao.png" class="d-block w-100">
                 </div>
+
                 <div class="carousel-item">
-                    <img src="img/logo_staffast.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Destaques do mês</h5>
-                    </div>
+                    <img src="img/prints/reunioes.png" class="d-block w-100">
                 </div>
+
                 <div class="carousel-item">
-                    <img src="img/logo_staffast.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Reuniões</h5>
-                    </div>
+                    <img src="img/prints/documentos.png" class="d-block w-100">
                 </div>
+
                 <div class="carousel-item">
-                    <img src="img/logo_staffast.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Processos Seletivos</h5>
-                    </div>
+                    <img src="img/prints/processo_seletivo.png" class="d-block w-100">
                 </div>
+
                 <div class="carousel-item">
-                    <img src="img/logo_staffast.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Feedbacks</h5>
-                    </div>
+                    <img src="img/prints/evento.png" class="d-block w-100">
                 </div>
+
                 <div class="carousel-item">
-                    <img src="img/logo_staffast.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Documentos</h5>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="img/logo_staffast.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Ocorrências</h5>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="img/logo_staffast.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Controle de Ponto Eletrônico</h5>
-                    </div>
+                    <img src="img/prints/feedback.png" class="d-block w-100">
                 </div>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev" style="background-color: grey; width: 5%">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Anterior</span>
             </a>
-            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next" style="background-color: grey; width: 5%">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Próximo</span>
             </a>
-        </div> -->
+        </div>
 
         <hr class="hr-divide">
 
@@ -241,10 +215,11 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                     <img src="empresa/img/clock.png" width="170" style="margin-left: 35%; margin-top: 1em;" alt="Controle de Ponto">
                     <div class="card-body">
                         <p class="card-text" style="font-size: 1.7em;"><b>Controle de Ponto</b></p>
+                        <img src="empresa/img/google-play.png" width="20"><span style="font-size: 0.9em;"> Disponível no app </span><img src="empresa/img/app.png" width="20">
                         <p class="card-text" style="font-size: 1.2em;">Pra quem está procurando uma forma de controlar os horários da equipe ou pra quem quer <b>arrancar a máquina 
                         feia da parede</b>. 
-                        <br>O Staffast faz o registro eletrônico com autenticação por <b>impressão digital ou senha</b>, coletando o horário e localização do colaborador. Depois, joga tudo isso 
-                        em relatórios, pra ser tudo transparente.</p>
+                        <br>O Staffast faz o registro eletrônico coletando o <b>horário e localização</b> do colaborador. Depois, joga tudo isso 
+                        em relatórios, tornando o processo transparente e <b>reduzindo o trabalho manual</b> do RH.</p>
                     </div>
                 </div>
             </div>
@@ -289,7 +264,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                     <div class="card-body">
                         <p class="card-text" style="font-size: 1.7em;"><b>Processos Seletivos</b></p>
                         <p class="card-text" style="font-size: 1.2em;">Receba o currículo, dados pessoais e faça quantas perguntas quiser para os seus candidatos. 
-                        <br> Quando escolher o novo membro perfeito, <b>o Staffast o cadastra de forma automática</b></p>
+                        <br> E ainda é possível relacionar as perguntas com as <b>competências da sua empresa.</p>
                     </div>
                 </div>
             </div>
@@ -298,6 +273,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                     <img src="empresa/img/feedback.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
                     <div class="card-body">
                         <p class="card-text" style="font-size: 1.7em;"><b><i>Feedbacks</i></b></p>
+                        <img src="empresa/img/google-play.png" width="20"><span style="font-size: 0.9em;"> Em breve no app </span><img src="empresa/img/app.png" width="20">
                         <p class="card-text" style="font-size: 1.2em;">A gente quer acabar com as fofocas. 
                         <br>Por isso aqui, todos podem enviar <b>feedbacks instantâneos</b> e ajudar a equipe a melhorar e reconhecer suas habilidades</p>
                     </div>
@@ -308,7 +284,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
         <div class="row" style="margin-bottom: 3em;">
             <div class="col-sm">
                 <div class="card" style="text-align: center">
-                    <img src="empresa/img/goal.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
+                    <img src="empresa/img/goal.png" width="170" style="margin-left: 35%; margin-top: 1em;" alt="Controle de Ponto">
                     <div class="card-body">
                         <p class="card-text" style="font-size: 1.7em;"><b>Metas OKR</b></p>
                         <p class="card-text" style="font-size: 1.2em;">Deixe bem claro quais são as metas da sua empresa e use o mesmo método que a <b>Google usou pra se tornar gigante</b>. 
@@ -316,7 +292,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                     </div>
                 </div>
             </div>
-            <div class="col-sm">
+            <!-- <div class="col-sm">
                 <div class="card" style="text-align: center">
                     <img src="empresa/img/iteration.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
                     <div class="card-body">
@@ -325,15 +301,15 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                         nos <b>projetos da sua empresa</b> também.</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-sm">
                 <div class="card" style="text-align: center">
-                    <img src="empresa/img/pdi.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
+                    <img src="empresa/img/pdi.png" width="170" style="margin-left: 35%; margin-top: 1em;" alt="Controle de Ponto">
                     <div class="card-body">
                         <p class="card-text" style="font-size: 1.7em;"><b>PDIs</b></p>
                         <p class="card-text" style="font-size: 1.2em;">Não basta sua empresa ter metas e planos. 
                         <br><b>Sua equipe também.</b> 
-                        <br>No Staffast, todos podem ter seus próprios Planos de Desenvolvimento.</p>
+                        <br>No Staffast, todos podem ter seus próprios Planos de Desenvolvimento Individual e mostrar como estão crescendo.</p>
                     </div>
                 </div>
             </div>
@@ -355,7 +331,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                     <img src="empresa/img/file.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
                     <div class="card-body">
                         <p class="card-text" style="font-size: 1.7em;"><b>Documentos</b></p>
-                        <p class="card-text" style="font-size: 1.2em;">Chega de receber uma visita no RH de alguém querendo o holerite de 1999
+                        <p class="card-text" style="font-size: 1.2em;">Chega de receber uma visita no RH de alguém querendo o holerite de 1999.
                         <br>Enviando os documentos por aqui, o colaborador <b>salva no próprio Google Drive*</b> e tem uma cópia</p>
                     </div>
                 </div>
@@ -366,7 +342,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                     <div class="card-body">
                         <p class="card-text" style="font-size: 1.7em;"><b>Relatórios</b></p>
                         <p class="card-text" style="font-size: 1.2em;">Com taaaanta informação assim no Staffast, a gente monta alguns relatórios com <b>vários <i>insights</i></b> pra te ajudar 
-                        sempre mais no conhecimento e decições da sua empresa.</p>
+                        sempre mais no conhecimento e decisões da sua empresa.</p>
                     </div>
                 </div>
             </div>

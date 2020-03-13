@@ -17,9 +17,8 @@ $helper = new QueryHelper($conexao);
 
         $pdi = new PDI();
         $pdi->setTitulo(addslashes($_POST['titulo']));
-        $_POST['orientador'] = $_POST['orientador'];
-        $pdi->setCpfGestor($orientador);
         $pdi->setCpf($_POST['dono']);
+        $pdi->setCpfGestor($_POST['orientador']);
         $pdi->setPrazo($_POST['prazo'].' 23:59:59');
 
         $pdi->cadastrar($_SESSION['empresa']['database']);
@@ -31,24 +30,24 @@ $helper = new QueryHelper($conexao);
 
         $id_pdi = $pdi->retornarUltimo($_SESSION['empresa']['database']);
 
-        for($i = 1; $i <= $_POST['competencias']; $i++) {
-            $competencia = $_POST['competencia_'.$i];
-            $metas = $_POST['numMetas_'.$i];
+        $_SESSION['msg'] = 'Plano de Desenvolvimento Individual (PDI) criado com sucesso! <br>Agora você já pode adicionar competências e metas';
+        header('Location: ../empresa/verPDI.php?id='.$id_pdi);
 
-            //cadastrar competencia
-            $id_competencia = $pdi->cadastrarCompetencia($_SESSION['empresa']['database'], $id_pdi, $competencia);
+    } else if (isset($_GET['editar'])) {
+        $pdi = new PDI();
+        $pdi->setID($_POST['pdi_id']);
+        $pdi->setTitulo(addslashes($_POST['titulo']));
+        $pdi->setPrazo($_POST['prazo'].' 23:59:59');
 
-            for($j = 1; $j <= $metas; $j++) {
-                $meta = $_POST['competencia_'.$i.'&meta_'.$j];
+        $pdi->atualizar($_SESSION['empresa']['database']);
 
-                //cadastrar meta da competência
-                $pdi->cadastrarMeta($_SESSION['empresa']['database'], $id_competencia, $meta);
-            }
-        }
+        $log = new LogAlteracao();
+        $log->setDescricao("Atualizou PDI ".$_POST['titulo']);
+        $log->setIDUser($_SESSION['user']['usu_id']);
+        $log->salvar();
 
-        $_SESSION['msg'] = 'Plano de Desenvolvimento Individual (PDI) criado com sucesso!';
-        header('Location: ../empresa/PDIs.php');
-
+        $_SESSION['msg'] = 'Plano de Desenvolvimento Individual (PDI) atualizado com sucesso!';
+        header('Location: ../empresa/verPDI.php?id='.$_POST['pdi_id']);
     } else if (isset($_GET['atualizarTipo'])) {
         $tipo = $_POST['tipo'];
         $id = $_POST['id'];
@@ -94,5 +93,90 @@ $helper = new QueryHelper($conexao);
 
         $_SESSION['msg'] = 'Atualização realizada com sucesso';
         header('Location: ../empresa/verPDI.php?id='.$_GET['id_pdi']);
+    } else if (isset($_GET['novaCompetencia'])) {
+        $pdi_id = $_POST['pdi_id'];
+        $competencia = addslashes($_POST['competencia']);
+
+        $pdi = new PDI();
+
+        if($pdi->cadastrarCompetencia($_SESSION['empresa']['database'], $pdi_id, $competencia) === false) {
+            $_SESSION['msg'] = 'Houve um erro ao adicionar a competência';
+        } else {
+            $_SESSION['msg'] = 'Competência adicionada com sucesso';
+        }
+
+        header('Location: ../empresa/verPDI.php?id='.$pdi_id);
+        die();
+    } else if (isset($_GET['novaMeta'])) {
+        $pdi_id = $_POST['pdi_id'];
+        $compet_id = $_POST['new_compet_id'];
+        $meta = addslashes($_POST['meta']);
+
+        $pdi = new PDI();
+        
+        if($pdi->cadastrarMeta($_SESSION['empresa']['database'], $compet_id, $meta)) {
+            $_SESSION['msg'] = 'Meta adicionada com sucesso';
+        } else {
+            $_SESSION['msg'] = 'Houve um erro ao adicionar a meta';
+        }
+
+        header('Location: ../empresa/verPDI.php?id='.$pdi_id);
+        die();
+    } else if (isset($_GET['arquivar'])) {
+        $pdi_id = $_GET['id'];
+
+        $pdi = new PDI();
+        $pdi->setID($pdi_id);
+
+        if($pdi->arquivar($_SESSION['empresa']['database'])) {
+            $_SESSION['msg'] = 'Plano de Desenvolvimento Individual arquivado';
+        } else {
+            $_SESSION['msg'] = 'Houve um erro ao arquivar o PDI';
+        }
+
+        header('Location: ../empresa/verPDI.php?id='.$pdi_id);
+        die();
+    } else if (isset($_GET['desarquivar'])) {
+        $pdi_id = $_GET['id'];
+
+        $pdi = new PDI();
+        $pdi->setID($pdi_id);
+
+        if($pdi->desarquivar($_SESSION['empresa']['database'])) {
+            $_SESSION['msg'] = 'Plano de Desenvolvimento Individual desarquivado';
+        } else {
+            $_SESSION['msg'] = 'Houve um erro ao desarquivar o PDI';
+        }
+
+        header('Location: ../empresa/verPDI.php?id='.$pdi_id);
+        die();
+    } else if (isset($_GET['tornarPublico'])) {
+        $pdi_id = $_GET['id'];
+
+        $pdi = new PDI();
+        $pdi->setID($pdi_id);
+
+        if($pdi->tornarPublico($_SESSION['empresa']['database'])) {
+            $_SESSION['msg'] = 'Plano de Desenvolvimento Individual publicado para a empresa';
+        } else {
+            $_SESSION['msg'] = 'Houve um erro ao publicar o PDI';
+        }
+
+        header('Location: ../empresa/PDIs.php');
+        die();
+    } else if (isset($_GET['reverterPublico'])) {
+        $pdi_id = $_GET['id'];
+
+        $pdi = new PDI();
+        $pdi->setID($pdi_id);
+
+        if($pdi->reverterPublico($_SESSION['empresa']['database'])) {
+            $_SESSION['msg'] = 'Plano de Desenvolvimento Individual foi retirado do mural público';
+        } else {
+            $_SESSION['msg'] = 'Houve um erro ao retirar o PDI do mural público';
+        }
+
+        header('Location: ../empresa/verPDI.php?id='.$pdi_id);
+        die();
     }
 ?>

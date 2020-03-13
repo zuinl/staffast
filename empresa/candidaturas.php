@@ -151,6 +151,8 @@
         <div class="col-sm">
             <h6 class="high-text">Descrição: <?php echo $ps->getDescricao(); ?></h6>
         </div>
+    </div>
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
             <h6 class="high-text">Vagas: <?php echo $ps->getVagas(); ?></h6>
         </div>

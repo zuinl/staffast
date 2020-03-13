@@ -318,11 +318,23 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
+
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+            O Staffast Beta chegou. O que isso quer dizer? O Staffast está em sua melhor versão desde que começou a ser desenvolvido. 
+            Mas como tudo sempre pode ser melhorado, nós queremos e precisamos te ouvir. Se encontrar qualquer problema ou tiver qualquer 
+            sugestão, por favor, <a href="../suporte/" target="_blank">entre em contato conosco</a> ;)
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     <?php
     if(isset($_SESSION['msg'])) {
         ?>
         <div class="alert alert-info alert-dismissible fade show" role="alert">
             <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <?php
     }
@@ -533,7 +545,7 @@
                 else {
                     while($f = mysqli_fetch_assoc($query)) {
                         ?>
-                        <br class="text"><?php echo $f['titulo']." - ".$f['inicio']; ?>  - <a href="verEvento?id=<?php echo $f['id']; ?>">Ver</a>
+                        <br class="text"><?php echo $f['titulo']." - ".$f['inicio']; ?>  - <a href="verEvento.php?id=<?php echo $f['id']; ?>">Ver</a>
                         <?php
                     }
                 }
@@ -564,7 +576,7 @@
                 else {
                     while($f = mysqli_fetch_assoc($query)) {
                         ?>
-                        <br class="text"><b><?php echo $f['data']; ?></b>: <?php echo $f['pauta']; ?> - <a href="verReuniao?id=<?php echo $f['id']; ?>">Ver</a></span>
+                        <br class="text"><b><?php echo $f['data']; ?></b>: <?php echo $f['pauta']; ?> - <a href="verReuniao.php?id=<?php echo $f['id']; ?>">Ver</a></span>
                         <?php
                     }
                 }

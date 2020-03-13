@@ -482,6 +482,10 @@ CREATE TABLE IF NOT EXISTS `tbl_setor_competencia`
   `pdi_cpf` VARCHAR(11) NOT NULL,
   
   `pdi_status` INT NOT NULL DEFAULT 3,
+
+  `pdi_arquivado` INT NOT NULL DEFAULT 0,
+  
+  `pdi_publico` INT NOT NULL DEFAULT 0,
   
   `pdi_data_criacao` DATETIME NOT NULL DEFAULT NOW(),
   
@@ -625,7 +629,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pdi_competencia_meta` (
       `id` INT NOT NULL AUTO_INCREMENT , 
       `data` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
       `motivo` TEXT NULL DEFAULT NULL , 
-      `cpf_solicitando` VARCHAR(11) NOT NULL , 
+      `cpf_solicitante` VARCHAR(11) NOT NULL , 
       `cpf_destinatario` VARCHAR(11) NOT NULL , 
       `fee_id` INT NULL DEFAULT NULL , PRIMARY KEY (`id`));
 

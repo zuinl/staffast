@@ -17,7 +17,7 @@ if(!isset($_GET['login'])) {
     die();
 }
 
-    $email = addslashes($_POST['email']);
+    $email = addslashes($_REQUEST['email']);
     
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $_SESSION['msg'] = 'Dados inválidos';
@@ -26,9 +26,11 @@ if(!isset($_GET['login'])) {
         die();
     }
 
-$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+    if(!isset($_COOKIE['staffast_login_email'])) {
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
 
-$senha = filter_input(INPUT_POST, 'senha', FILTER_SANITIZE_STRING);
+        $senha = filter_input(INPUT_POST, 'senha', FILTER_SANITIZE_STRING);
+    }
 
 include('../include/connect.php');
 
@@ -36,6 +38,7 @@ $select = $helper_p->select("SELECT * FROM tbl_usuario WHERE usu_email = '$email
 
 if(mysqli_num_rows($select) == 0) {
     $_SESSION['msg'] = 'O e-mail inserido não consta como usuário do Staffast';
+    unset($_COOKIE['staffast_login_email']);
     header('Location: ../login.php');
     die();
 } else if (mysqli_num_rows($select) == 1) {
@@ -44,7 +47,7 @@ if(mysqli_num_rows($select) == 0) {
     $senha_hash = $row['usu_senha'];
     $token = $row['usu_token'];
 
-    if(!password_verify($senha, $senha_hash)) {
+    if(!password_verify($senha, $senha_hash) && !isset($_COOKIE['staffast_login_email'])) {
         $ip = $_SERVER['REMOTE_ADDR'];
         $helper_p->insert("INSERT INTO tbl_acesso (acs_ip, acs_sucesso, usu_id) VALUES ('$ip', 0, '$usu_id')");
 
@@ -273,7 +276,11 @@ if(mysqli_num_rows($select) == 0) {
         $helper_p->insert("INSERT INTO tbl_acesso (acs_ip, acs_sucesso, usu_id) 
         VALUES ('$ip', 1, '$usu_id')");
 
-        header('Location: ../empresa/home.php');
+        //Resetar $_COOKIE
+        setcookie("staffast_login_email", $email, time()+3600 * 365, "/");
+
+        if(isset($_GET['historicoPonto'])) header('Location: ../empresa/historicoPontos.php');
+        else header('Location: ../empresa/home.php');
         die();
     }
 ?>

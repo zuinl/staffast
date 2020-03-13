@@ -5,12 +5,15 @@ class PDI {
     private $ID;
     private $dataCriacao;
     private $prazo;
+    private $prazo_format;
     private $titulo;
     private $cpf;
     private $cpfGestor;
     private $dono;
     private $orientador;
     private $status;
+    private $arquivado;
+    private $publico;
 
     function cadastrar($database_empresa) {
 
@@ -87,23 +90,78 @@ class PDI {
         }
     }
 
-    // function atualizar($database_empresa) {
+    function arquivar($database_empresa) {
+        require_once('class_conexao_empresa.php');
+        require_once('class_queryHelper.php');
+        require_once('class_codigoPS.php');
 
-    //     require_once('class_conexao_empresa.php');
-    //     require_once('class_queryHelper.php');
-    //     require_once('class_codigoPS.php');
+        $conexao = new ConexaoEmpresa($database_empresa);
+        $conexao = $conexao->conecta();
+        $helper = new QueryHelper($conexao);
 
-    //     $conexao = new ConexaoEmpresa($database_empresa);
-    //     $conexao = $conexao->conecta();
-    //     $helper = new QueryHelper($conexao);
+        $update = "UPDATE tbl_pdi SET pdi_arquivado = 1 WHERE pdi_id = $this->ID";
+        if($helper->update($update)) return true;
+        else return false;
+    }
 
-    //     $update = "UPDATE tbl_processo_seletivo SET sel_titulo = '$this->titulo', sel_descricao = '$this->descricao', 
-    //     sel_vagas = '$this->vagas', sel_data_encerramento = '$this->dataEncerramento' WHERE sel_id = '$this->ID'";
+    function desarquivar($database_empresa) {
+        require_once('class_conexao_empresa.php');
+        require_once('class_queryHelper.php');
+        require_once('class_codigoPS.php');
 
-    //     if($helper->update($update)) return true;
-    //     else return false;
+        $conexao = new ConexaoEmpresa($database_empresa);
+        $conexao = $conexao->conecta();
+        $helper = new QueryHelper($conexao);
 
-    // }
+        $update = "UPDATE tbl_pdi SET pdi_arquivado = 0 WHERE pdi_id = $this->ID";
+        if($helper->update($update)) return true;
+        else return false;
+    }
+
+    function tornarPublico($database_empresa) {
+        require_once('class_conexao_empresa.php');
+        require_once('class_queryHelper.php');
+        require_once('class_codigoPS.php');
+
+        $conexao = new ConexaoEmpresa($database_empresa);
+        $conexao = $conexao->conecta();
+        $helper = new QueryHelper($conexao);
+
+        $update = "UPDATE tbl_pdi SET pdi_publico = 1 WHERE pdi_id = $this->ID";
+        if($helper->update($update)) return true;
+        else return false;
+    }
+
+    function reverterPublico($database_empresa) {
+        require_once('class_conexao_empresa.php');
+        require_once('class_queryHelper.php');
+        require_once('class_codigoPS.php');
+
+        $conexao = new ConexaoEmpresa($database_empresa);
+        $conexao = $conexao->conecta();
+        $helper = new QueryHelper($conexao);
+
+        $update = "UPDATE tbl_pdi SET pdi_publico = 0 WHERE pdi_id = $this->ID";
+        if($helper->update($update)) return true;
+        else return false;
+    }
+
+    function atualizar($database_empresa) {
+
+        require_once('class_conexao_empresa.php');
+        require_once('class_queryHelper.php');
+        require_once('class_codigoPS.php');
+
+        $conexao = new ConexaoEmpresa($database_empresa);
+        $conexao = $conexao->conecta();
+        $helper = new QueryHelper($conexao);
+
+        $update = "UPDATE tbl_pdi SET pdi_titulo = '$this->titulo', pdi_prazo = '$this->prazo' WHERE pdi_id = $this->ID";
+
+        if($helper->update($update)) return true;
+        else return false;
+
+    }
 
     function retornarPDI($database_empresa) {
 
@@ -117,10 +175,13 @@ class PDI {
         $select = "SELECT 
                     t1.pdi_id as id, 
                     t1.pdi_status as status,
+                    t1.pdi_arquivado as arquivado,
+                    t1.pdi_publico as publico,
                     t1.ges_cpf as cpf_orientador, 
                     DATE_FORMAT(t1.pdi_data_criacao, '%d/%m/%Y %H:%i') as criacao, 
                     t1.pdi_titulo as titulo, 
                     DATE_FORMAT(t1.pdi_prazo, '%d/%m/%Y') as prazo, 
+                    DATE_FORMAT(t1.pdi_prazo, '%Y-%m-%d') as prazo_format,
                     t1.pdi_cpf as cpf_dono,
                     CASE
                         WHEN t2.col_nome_completo IS NOT NULL THEN t2.col_nome_completo
@@ -147,11 +208,14 @@ class PDI {
         $pdi->setDataCriacao($fetch['criacao']);
         $pdi->setTitulo($fetch['titulo']);
         $pdi->setPrazo($fetch['prazo']);
+        $pdi->setPrazo_format($fetch['prazo_format']);
         $pdi->setCpfGestor($fetch['cpf_orientador']);
         $pdi->setCpf($fetch['cpf_dono']);
         $pdi->setDono($fetch['dono']);
         $pdi->setOrientador($fetch['orientador']);
         $pdi->setStatus($fetch['status']);
+        $pdi->setArquivado($fetch['arquivado']);
+        $pdi->setPublico($fetch['publico']);
 
         return $pdi;
 
@@ -245,6 +309,26 @@ class PDI {
     }
 
     /**
+     * Set the value of prazo_format
+     *
+     * @return  self
+     */ 
+    public function setPrazo_format($prazo_format)
+    {
+        $this->prazo_format = $prazo_format;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of prazo_format
+     */ 
+    public function getPrazo_format()
+    {
+        return $this->prazo_format;
+    }
+
+    /**
      * Set the value of prazo
      *
      * @return  self
@@ -332,6 +416,46 @@ class PDI {
     public function setStatus($status)
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of arquivado
+     */ 
+    public function getArquivado()
+    {
+        return $this->arquivado;
+    }
+
+    /**
+     * Set the value of arquivado
+     *
+     * @return  self
+     */ 
+    public function setArquivado($arquivado)
+    {
+        $this->arquivado = $arquivado;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of publico
+     */ 
+    public function getPublico()
+    {
+        return $this->publico;
+    }
+
+    /**
+     * Set the value of publico
+     *
+     * @return  self
+     */ 
+    public function setPublico($publico)
+    {
+        $this->publico = $publico;
 
         return $this;
     }

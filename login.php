@@ -2,6 +2,11 @@
 session_start();
 include('src/meta.php');
 if(isset($_SESSION['login']) && $_SESSION['login'] == 1) header('Location: empresa/home.php');
+
+if(isset($_COOKIE['staffast_login_email'])) header('Location: database/login.php?login=true&email='.$_COOKIE['staffast_login_email']);
+
+$action = '';
+if(isset($_GET['historicoPonto'])) $action = 'historicoPonto=true';
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,7 +25,7 @@ if(isset($_SESSION['login']) && $_SESSION['login'] == 1) header('Location: empre
 
         <div class="row">
             <div class="col-sm" style="text-align: center;">
-                <form action="database/login.php?login=true" method="POST">
+                <form action="database/login.php?login=true&<?php echo $action; ?>" method="POST">
                 <h5 class="text">E-mail</h5>
             </div>
         </div>

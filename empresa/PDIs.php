@@ -27,8 +27,29 @@
         ON t4.ges_cpf = t1.pdi_cpf
     LEFT JOIN tbl_gestor t5
         ON t5.ges_cpf = t1.ges_cpf
-    WHERE t1.pdi_cpf = '$cpf' OR t1.ges_cpf = '$cpf'";
+    WHERE t1.pdi_arquivado = 0 AND (t1.pdi_cpf = '$cpf' OR t1.ges_cpf = '$cpf')";
     $query = $helper->select($select, 1);
+
+
+    $select = "SELECT t1.pdi_id as id, t1.pdi_titulo as titulo,
+    t1.pdi_status as status,
+    CASE 
+        WHEN t3.col_nome_completo IS NOT NULL THEN t3.col_nome_completo
+        ELSE t4.ges_nome_completo 
+    END as dono,
+    CASE 
+        WHEN t5.ges_nome_completo IS NOT NULL THEN t5.ges_nome_completo
+        ELSE 'Nenhum'
+    END as orientador
+    FROM tbl_pdi t1 
+    LEFT JOIN tbl_colaborador t3 
+        ON t3.col_cpf = t1.pdi_cpf
+    LEFT JOIN tbl_gestor t4 
+        ON t4.ges_cpf = t1.pdi_cpf
+    LEFT JOIN tbl_gestor t5
+        ON t5.ges_cpf = t1.ges_cpf
+    WHERE t1.pdi_arquivado = 0 AND t1.pdi_publico = 1";
+    $query_publico = $helper->select($select, 1);
     
 ?>
 <!DOCTYPE html>
@@ -51,15 +72,20 @@
     </nav>
     <!-- FIM DA NAV DE CAMINHO DE TELA -->
 
-    <div class="row">
+    <div class="row" style="text-align: center;">
         <div class="col-sm-1">
             <img src="img/pdi.png" width="60">
         </div>
         <div class="col-sm">
             <h3 class="high-text">Planos de Desenvolvimento Individual</h3>
         </div>
+    </div>
+    <div class="row" style="text-align: center;">
         <div class="col-sm">
             <a href="novoPDI.php"><input type="button" class="button button1" value="Criar PDI"></a>
+        </div>
+        <div class="col-sm">
+            <a href="PDIsArquivados.php"><input type="button" class="button button1" value="PDIs arquivados"></a>
         </div>
         <div class="col-sm">
             <input type="button" class="button button3" data-toggle="modal" data-target="#modal" value="Dúvidas sobre PDI">       
@@ -123,6 +149,51 @@
     <?php } ?>   
     </table>
  <?php } ?>
+
+<div class="row" style="text-align: center; margin-top: 1em;">
+    <div class="col-sm">
+        <h4 class="text">PDIs públicos</h4>
+    </div>
+</div>
+
+<hr class="hr-divide-super-light">
+
+ <?php
+    if(mysqli_num_rows($query_publico) == 0) {
+        ?>
+        <div class="row">
+            <div class="col-sm-2 offset-sm-3">
+                <img src="img/pdi.png" width="110">
+            </div>
+            <div class="col-sm-7" style="margin-top: 2em;">
+                <h4 class="text">Sem PDIs públicos por enquanto.</h4>
+            </div>
+         </div>
+        <?php
+        } else {
+    ?>
+    
+    <table class="table-site">
+        <tr>
+            <th>Título</th>
+            <th>Dono</th>
+            <th>Orientador</th>
+            <th>Status</th>
+            <th>Ver</th>
+        </tr>
+        <?php
+            while($f = mysqli_fetch_assoc($query_publico)) {
+                $pdi = new PDI();
+        ?>
+        <tr>
+            <td><b><?php echo $f['titulo']; ?></b></td>
+            <td><?php echo $f['dono']; ?></td>
+            <td><?php echo $f['orientador']; ?></td>
+            <td><?php echo $pdi->traduzStatus($f['status']); ?></td>
+            <td><a href="verPDI.php?id=<?php echo $f['id']; ?>"><input type="button" class="button button3" value="Ver"></a></td>
+    <?php } ?>   
+    </table>
+ <?php } ?>
 </div>
 </body>
 
@@ -163,7 +234,7 @@
         <hr class="hr-divide-super-light">
         <div class="row">
             <div class="col-sm">
-                <p class="text"><b>Primeiro, </b> você deve definir um objetivo, que seje claro e direto (como "Ser fluente em inglês" ou "Ser promovido"). 
+                <p class="text"><b>Primeiro, </b> você deve definir um objetivo, que seja claro e direto (como "Ser fluente em inglês" ou "Ser promovido"). 
                 <br><b>Segundo, </b>defina as competências que devem ser desenvolvidas para que você atinja esse objetivo, 
                 como por exemplo "Gramática da Língua Inglesa", "Pronúncia da Língua Inglesa" ou "Trabalho em Equipe", "Mediação de Conflitos".
                 <br><b>Em seguida, </b>basta definir quais metas você deve bater pra desenvolver suas competências e, consequentemente, atingir seu objetivo ;)
