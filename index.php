@@ -150,43 +150,43 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="img/prints/home.png" class="d-block w-100">
+                    <img src="img/prints/home.PNG" class="d-block w-100">
                 </div>
 
                 <div class="carousel-item">
-                    <img src="img/prints/ponto.png" class="d-block w-100">
+                    <img src="img/prints/ponto.PNG" class="d-block w-100">
                 </div>
 
                 <div class="carousel-item">
-                    <img src="img/prints/grafico_gestor.png" class="d-block w-100">
+                    <img src="img/prints/grafico_gestor.PNG" class="d-block w-100">
                 </div>
 
                 <div class="carousel-item">
-                    <img src="img/prints/modelo_avaliacao.png" class="d-block w-100">
+                    <img src="img/prints/modelo_avaliacao.PNG" class="d-block w-100">
                 </div>
 
                 <div class="carousel-item">
-                    <img src="img/prints/painel_avaliacao.png" class="d-block w-100">
+                    <img src="img/prints/painel_avaliacao.PNG" class="d-block w-100">
                 </div>
 
                 <div class="carousel-item">
-                    <img src="img/prints/reunioes.png" class="d-block w-100">
+                    <img src="img/prints/reunioes.PNG" class="d-block w-100">
                 </div>
 
                 <div class="carousel-item">
-                    <img src="img/prints/documentos.png" class="d-block w-100">
+                    <img src="img/prints/documentos.PNG" class="d-block w-100">
                 </div>
 
                 <div class="carousel-item">
-                    <img src="img/prints/processo_seletivo.png" class="d-block w-100">
+                    <img src="img/prints/processo_seletivo.PNG" class="d-block w-100">
                 </div>
 
                 <div class="carousel-item">
-                    <img src="img/prints/evento.png" class="d-block w-100">
+                    <img src="img/prints/evento.PNG" class="d-block w-100">
                 </div>
 
                 <div class="carousel-item">
-                    <img src="img/prints/feedback.png" class="d-block w-100">
+                    <img src="img/prints/feedback.PNG" class="d-block w-100">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev" style="background-color: grey; width: 5%">
@@ -248,7 +248,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
         <hr class="hr-divide-super-light">
 
         <div class="row" style="margin-bottom: 3em;">
-            <div class="col-sm">
+            <div class="col-sm-4">
                 <div class="card" style="text-align: center">
                     <img src="empresa/img/round-table.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
                     <div class="card-body">
@@ -258,17 +258,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                     </div>
                 </div>
             </div>
-            <div class="col-sm">
-                <div class="card" style="text-align: center">
-                    <img src="empresa/img/interview.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
-                    <div class="card-body">
-                        <p class="card-text" style="font-size: 1.7em;"><b>Processos Seletivos</b></p>
-                        <p class="card-text" style="font-size: 1.2em;">Receba o currículo, dados pessoais e faça quantas perguntas quiser para os seus candidatos. 
-                        <br> E ainda é possível relacionar as perguntas com as <b>competências da sua empresa.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm">
+            <div class="col-sm-4">
                 <div class="card" style="text-align: center">
                     <img src="empresa/img/feedback.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
                     <div class="card-body">
@@ -276,6 +266,16 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                         <img src="empresa/img/google-play.png" width="20"><span style="font-size: 0.9em;"> Em breve no app </span><img src="empresa/img/app.png" width="20">
                         <p class="card-text" style="font-size: 1.2em;">A gente quer acabar com as fofocas. 
                         <br>Por isso aqui, todos podem enviar <b>feedbacks instantâneos</b> e ajudar a equipe a melhorar e reconhecer suas habilidades</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="text-align: center">
+                    <img src="empresa/img/interview.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
+                    <div class="card-body">
+                        <p class="card-text" style="font-size: 1.7em;"><b>Processos Seletivos</b></p>
+                        <p class="card-text" style="font-size: 1.2em;">Receba o currículo, dados pessoais e faça quantas perguntas quiser para os seus candidatos. 
+                        <br> E ainda é possível relacionar as perguntas com as <b>competências da sua empresa.</p>
                     </div>
                 </div>
             </div>

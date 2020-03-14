@@ -10,8 +10,6 @@ include('src/meta.php');
             function simular() {
                 var plano = document.getElementById('plano').value;
                 var numero = document.getElementById('numero').value;
-                var ponto = document.getElementById('ponto');
-                if(ponto.checked == true) ponto = true;
                 var preco = 0.00;
 
                 if(plano == 'Ponto') {
@@ -64,7 +62,7 @@ include('src/meta.php');
                     } 
                 }
 
-                document.getElementById('preco').innerHTML = "R$ "+preco.toFixed(2)+"/funcionário/mês";
+                document.getElementById('preco').innerHTML = "R$ "+preco.toFixed(2)+"/mês";
             }
         </script>
 </head>

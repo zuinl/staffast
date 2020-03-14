@@ -332,6 +332,13 @@
             }
 
             $anotacao = str_replace('<br>', '', $historico[$i]["anotacao"]) != "" ? $historico[$i]["anotacao"] : "Nenhuma";
+
+            //Jornada do dia e mensal
+            $jornadaDiaria = 0;
+                //Calculando intervalo entre entrada e pausa
+                if($historico[$i]["entrada"] != 'Sem registro' && $historico[$i]["pausa"] != 'Sem registro') {
+                    //$jornadaDiaria += ($historico[$i]["pausa"] - $historico[$i]["entrada"]);
+                }
         ?>
         <tr>
             <td><b><?php echo $historico[$i]["data"]; ?></b></td>

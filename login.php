@@ -1,9 +1,25 @@
 <?php
 session_start();
 include('src/meta.php');
-if(isset($_SESSION['login']) && $_SESSION['login'] == 1) header('Location: empresa/home.php');
+if(isset($_SESSION['login']) && $_SESSION['login'] == 1) {
+    //header('Location: empresa/home.php');    
+    ?>
+    <script>
+        window.location.replace("empresa/home.php");
+    </script>
+    <?php
+    die();
+}
 
-if(isset($_COOKIE['staffast_login_email'])) header('Location: database/login.php?login=true&email='.$_COOKIE['staffast_login_email']);
+if(isset($_COOKIE['staffast_login_email'])) {
+    //header('Location: database/login.php?login=true&email='.$_COOKIE['staffast_login_email']);
+    ?>
+    <script>
+        window.location.replace("database/login.php?login=true&email=" + '<?php echo $_COOKIE['staffast_login_email']; ?>');
+    </script>
+    <?php
+    die();
+} 
 
 $action = '';
 if(isset($_GET['historicoPonto'])) $action = 'historicoPonto=true';
