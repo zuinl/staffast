@@ -61,7 +61,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="./">Início</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Nova reunião</li>
+            <li class="breadcrumb-item active" aria-current="page"><?= isset($_GET['editar']) ? 'Editar' : 'Nova'; ?> reunião</li>
         </ol>
     </nav>
     <!-- FIM DA NAV DE CAMINHO DE TELA -->
@@ -112,11 +112,18 @@
         </div>
     </div>
     <div class="row" style="margin-top: 1em;">
-        <div class="col-sm" class="text">
-            <label>Local / descrição do local</label>
+        <div class="col-sm">
+            <label for="local" class="text">Local</label>
             <input type="text" name="local" id="local" value="<?php echo $reuniao->getLocal(); ?>" class="all-input" maxlength="150">
         </div>
     </div>
+    <?php if(isset($_GET['editar'])) { ?>
+    <div class="row" style="margin-top: 1em;">
+        <div class="col-sm" class="text">
+            <input type="checkbox" name="atingido" id="atingido" value="1" <?php if($reuniao->getAtingido() == 1) echo 'checked'; ?>> Objetivo atingido
+        </div>
+    </div>
+    <?php } ?>
 
     <div class="row" style="margin-top: 1em;">
         <div class="col-sm">

@@ -186,12 +186,20 @@ if(isset($_GET['nova'])) {
         die();
     }
 
-    $pauta = addslashes($_POST['pauta']);
-    $descricao = addslashes($_POST['descricao']);
-    $objetivo = addslashes($_POST['objetivo']);
-    $local = addslashes($_POST['local']);
     $data = $_POST['data'];
     $hora = $_POST['hora'];
+
+    //Verificando data e hora da reunião com as alterações
+    $notificar = false;
+    if($hora != $reu->getHora() || $data != $reu->getData_format()) {
+        $notificar = true;
+    }
+
+    $pauta = addslashes($_POST['pauta']);
+    $local = addslashes($_POST['local']);
+    $descricao = addslashes($_POST['descricao']);
+    $objetivo = addslashes($_POST['objetivo']);
+    $atingido = isset($_POST['atingido']) ? 1 : 0;
 
     $reu->setPauta($pauta);
     $reu->setDescricao($descricao);
@@ -199,14 +207,31 @@ if(isset($_GET['nova'])) {
     $reu->setObjetivo($objetivo);
     $reu->setData($data);
     $reu->setHora($hora);
-    $reu->atualizar($_SESSION['empresa']['database']);
+    $reu->setAtingido($atingido);
+    if($reu->atualizar($_SESSION['empresa']['database'])) {
+        if($notificar) {
+            $reu = $reu->retornarReuniao($_SESSION['empresa']['database']);
+            $msg = '<h1 class="high-text">Uma reunião que você é integrante sofreu alterações</h1>
+                    <h2 class="high-text">Olá. A reunião '.$reu->getPauta().' na empresa '.$_SESSION['empresa']['nome'].', a qual você 
+                    está inserido como integrante, sofreu alterações.</h2>
+                    <h3 class="text">Data: '.$reu->getData().'</h3>
+                    <h3 class="text">Hora: '.$reu->getHora().'</h3>
+                    <a href="https://sistemastaffast.com/staffast/" target="blank_"><button class="button button3">Acessar para ver</button></a>
+                    <h2 class="destaque-text">Por agora é só :D</h2>
+                    <h5 class="text">Equipe do Staffast</h5>';
+            $reu->notificarIntegrantes($_SESSION['empresa']['database'], 'Sua reunião foi alterada', $msg);
 
-    $log = new LogAlteracao();
-        $log->setDescricao("Editou a reunião ".$reu_id);
-        $log->setIDUser($_SESSION['user']['usu_id']);
-        $log->salvar();
+            $log = new LogAlteracao();
+            $log->setDescricao("Editou a reunião ".$reu_id);
+            $log->setIDUser($_SESSION['user']['usu_id']);
+            $log->salvar();
 
-    $_SESSION['msg'] = "Reunião atualizada com sucesso";
+            $_SESSION['msg'] = "Reunião atualizada com sucesso";
+        }
+    } else {
+        $_SESSION['msg'] = "Houve um erro ao atualizar sua reunião";
+    }
+
     header("Location: ../empresa/verReuniao.php?id=".$reu_id);
     die();
 

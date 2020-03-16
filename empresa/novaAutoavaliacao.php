@@ -9,10 +9,28 @@
     $ava->setCpfColaborador($_SESSION['user']['cpf']);
 
     if(!$ava->checarLiberada($_SESSION['empresa']['database'])) {
-        echo '<div class="container">
-            <h1 class="high-text">Olá, '.$_SESSION['user']['primeiro_nome'].', infelizmente não há autoavaliações 
-            liberadas pelos gestores para você ainda :(</h1>
-        </div>';
+        include('../include/navbar.php');
+        ?>
+        <body>
+        <div class="container" style="text-align: center;">
+
+            <div class="row">
+                <div class="col-sm">
+                    <img src="../img/logo_staffast.png" width="220">
+                </div>
+            </div>
+
+            <hr class="hr-divide-super-light">
+
+            <div class="row">
+                <div class="col-sm">
+                    <h2 class="text">Desculpe, <?php echo $_SESSION['user']['primeiro_nome']; ?>, 
+                    mas ainda não há autoavaliações liberadas pelos gestores para você</h2>
+                </div>
+            </div>
+        </div>
+    </body>
+        <?php
         die();
     }
 

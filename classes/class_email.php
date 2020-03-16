@@ -60,7 +60,7 @@
  
         public function setEmailFrom($emailFrom = 0)
         {
-                if($emailFrom == 0) $this->emailFrom = "suporte@sistemastaffast.com";
+                if($emailFrom == 0) $this->emailFrom = "contato@sistemastaffast.com";
                 else $this->emailFrom = $emailFrom;
         }
 

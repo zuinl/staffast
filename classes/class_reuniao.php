@@ -43,9 +43,17 @@
                 $conn = $conexao->conecta();
             $helper = new QueryHelper($conn);
 
-            $update = "UPDATE tbl_reuniao SET reu_pauta = '$this->pauta', reu_descricao = '$this->descricao',
-            reu_local = '$this->local', reu_data = '$this->data', reu_hora = '$this->hora',
-            reu_objetivo = '$this->objetivo', reu_data_atualizacao = NOW() WHERE reu_id = '$this->ID'";
+            $update = "UPDATE 
+                        tbl_reuniao 
+                       SET reu_pauta = '$this->pauta', 
+                        reu_descricao = '$this->descricao',
+                        reu_local = '$this->local', 
+                        reu_data = '$this->data', 
+                        reu_hora = '$this->hora',
+                        reu_objetivo = '$this->objetivo', 
+                        reu_objetivo_atingido = $this->atingido, 
+                        reu_data_atualizacao = NOW() 
+                       WHERE reu_id = $this->ID";
 
             if($helper->update($update)) return true;
             else return false;
@@ -286,6 +294,50 @@
                     echo '<option value="'.$fetch['cpf'].'">'.$fetch['nome'].'</option>';
                 }
         
+            }
+
+            function notificarIntegrantes($database_empresa, $assunto, $mensagem) {
+                require_once('class_conexao_empresa.php');
+                require_once('class_conexao_padrao.php');
+                require_once('class_email.php');
+                require_once('class_queryHelper.php');
+            
+                $conn = new ConexaoEmpresa($database_empresa);
+                $conexao = $conn->conecta();
+                $helper = new QueryHelper($conexao);
+
+                $connP = new ConexaoPadrao();
+                $conexaoP = $connP->conecta();
+                $helperP = new QueryHelper($conexaoP);
+
+                $reuniao = $this->retornarReuniao($database_empresa);
+
+                $select = "SELECT DISTINCT cpf as cpf FROM tbl_reuniao_integrante WHERE reu_id = $this->ID";
+                $query = $helper->select($select, 1);
+
+                while($f = mysqli_fetch_assoc($query)) {
+                    $cpf = $f['cpf'];
+
+                    $select2 = "SELECT usu_id as usu_id FROM tbl_colaborador WHERE col_cpf = '$cpf'";
+                    $query = $helper->select($select2, 1);
+                    if(mysqli_num_rows($query) == 0) {
+                        $select2 = "SELECT usu_id as usu_id FROM tbl_gestor WHERE ges_cpf = '$cpf'";
+                        $query = $helper->select($select2, 1);
+                    }
+                    $fetch = $helper->select($select2, 2);
+                    $usu_id = $fetch['usu_id'];
+                    
+                    $select = "SELECT usu_email as email FROM tbl_usuario WHERE usu_id = $usu_id";
+                    $fetch_email = $helperP->select($select, 2);
+                    $email = $fetch_email['email'];
+
+                    $mail = new Email();
+                    $mail->setEmailTo($email);
+                    $mail->setEmailFrom(0);
+                    $mail->setAssunto($assunto);
+                    $mail->setMensagem($mensagem);
+                    $mail->enviar();
+                }
             }
 
             function adicionarGestor($database_empresa, $ges_cpf) {
