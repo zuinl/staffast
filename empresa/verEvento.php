@@ -129,9 +129,12 @@
     if(isset($_SESSION['msg'])) {
         ?>
 		<div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm">
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
 		</div>
@@ -148,9 +151,17 @@
             <h5 class="text"><b><?= $evento->getStatus() == 1 ? '<span class="high-text">Evento ativo</span>' : '<span style="color:red;">Evento cancelado</span>'; ?></b></h5>       
         </div>
         <?php if($_SESSION['user']['permissao'] == "GESTOR-1" || $_SESSION['user']['cpf'] == $evento->getCpfGestor()) { ?>
-        <div class="col-sm">
-            <a href="../database/evento.php?cancelar=true&id=<?php echo $evento->getID(); ?>"><button class="button button2">Cancelar evento</button></a>
-        </div>
+            <?php if($evento->getStatus() == 1) { ?>
+            <div class="col-sm">
+                <a href="../database/evento.php?cancelar=true&id=<?php echo $evento->getID(); ?>"><button class="button button2">Cancelar evento</button></a>
+            </div>
+            <?php } else {
+                ?>
+                <div class="col-sm">
+                <a href="../database/evento.php?reverterCancelamento=true&id=<?php echo $evento->getID(); ?>"><button class="button button2">Reverter cancelamento</button></a>
+                </div>
+                <?php
+            } ?>
         <div class="col-sm">
             <a href="novoEvento.php?editar=true&id=<?php echo $evento->getID(); ?>"><button class="button button2">Editar evento</button></a>
         </div>

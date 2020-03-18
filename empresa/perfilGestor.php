@@ -537,9 +537,9 @@
         <li class="nav-item">
             <a class="nav-link" id="nav-pdis" href="#">PDIs</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" id="nav-ferias" href="#">Férias</a>
-        </li>
+        </li> -->
         <?php } ?>
     </ul>
     <!-- FIM DA NAV DE NAVEGAÇÃO ENTRE ABAS -->
@@ -583,7 +583,7 @@
 
             <?php
                 $select = "SELECT DISTINCT t1.okr_id as id, 
-                t2.okr_titulo as titutlo FROM tbl_okr_gestor t1 
+                t2.okr_titulo as titulo FROM tbl_okr_gestor t1 
                 INNER JOIN tbl_okr t2 ON t2.okr_id = t1.okr_id 
                 WHERE t1.ges_cpf = '$cpf'";
                 $query_m = $helper->select($select, 1);
@@ -677,7 +677,7 @@
             $select = "SELECT DISTINCT t1.reu_id as id, t2.reu_pauta as pauta, 
             DATE_FORMAT(t2.reu_data, '%d/%m/%Y') as data, DATE_FORMAT(t2.reu_hora, '%H:%i') as hora
             FROM tbl_reuniao_integrante t1 INNER JOIN tbl_reuniao t2 
-            ON t2.reu_id = t1.reu_id WHERE t1.cpf = '$cpf' AND t2.reu_data < '$hoje' AND reu_concluida = 1 ORDER BY t2.reu_data DESC";
+            ON t2.reu_id = t1.reu_id WHERE t1.cpf = '$cpf' AND (t2.reu_data < '$hoje' OR reu_concluida = 1) ORDER BY t2.reu_data DESC";
             $query_reu = $helper->select($select, 1);
             if(mysqli_num_rows($query_reu) == 0) {
                 ?>
@@ -886,7 +886,7 @@
     <!-- FIM DIV FEEDBACKS -->
 
     <!-- DIV FÉRIAS -->
-    <?php if($gestor->getCpf() == $_SESSION['user']['cpf'] || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
+    <!-- <?php if($gestor->getCpf() == $_SESSION['user']['cpf'] || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
     <div class="row" style="margin-top: 1.5em; display: none; text-align: center;" id="div-ferias" >
         <div class="col-sm">
             <h4 class="text">Férias</h4>
@@ -896,7 +896,7 @@
             <span class="text">Não há férias agendadas</span><br>
         </div>
     <?php } ?>
-    </div>
+    </div> -->
     <!-- FIM DIV FÉRIAS -->
 
 

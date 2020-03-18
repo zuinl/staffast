@@ -18,7 +18,7 @@
         $select = "SELECT DISTINCT reu_id as id FROM tbl_reuniao WHERE reu_data >= '$hoje' AND reu_hora >= '$hora' AND reu_concluida = 0 ORDER BY reu_data ASC";
     } else {
         $select = "SELECT DISTINCT t1.reu_id as id FROM tbl_reuniao_integrante t1 INNER JOIN tbl_reuniao t2 
-        ON t2.reu_id = t1.reu_id WHERE t1.cpf = '$cpf' AND t2.reu_data >= '$hoje' AND t2.reu_hora >= '$hora' AND reu_concluida = 0 ORDER BY t2.reu_data ASC";
+        ON t2.reu_id = t1.reu_id WHERE t1.cpf = '$cpf' AND (t2.reu_data >= '$hoje' OR (t2.reu_data = '$hoje' AND t2.reu_hora >= '$hora')) AND reu_concluida = 0 ORDER BY t2.reu_data ASC";
     }
     
     $query = $helper->select($select, 1);  

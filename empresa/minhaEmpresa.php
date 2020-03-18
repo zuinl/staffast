@@ -78,7 +78,7 @@
 
     <div class="row" style="text-align: center;">
         <div class="col-sm">
-            <h4 class="text">Estes os dados da sua empresa no Staffast</h4>
+            <h4 class="text">Estes são os dados da sua empresa no Staffast</h4>
         </div>
     </div>
 

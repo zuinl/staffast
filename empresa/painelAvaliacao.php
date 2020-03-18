@@ -15,7 +15,7 @@
     $cpf = $_SESSION['user']['cpf'];
 
     if($_SESSION['user']['permissao'] == 'GESTOR-1') $selectCol = "SELECT col_nome_completo as nome, col_cpf as cpf FROM tbl_colaborador ORDER BY col_nome_completo ASC";
-    else if($_SESSION['user']['permissao'] == 'GESTOR-2') $selectCol = "SELECT t2.col_nome_completo as nome, t2.col_cpf as cpf FROM tbl_setor_funcionario t1 INNER JOIN tbl_colaborador t2 ON t2.col_cpf = t1.col_cpf WHERE t1.ges_cpf = '$cpf' ORDER BY t2.col_nome_completo ASC";
+    else if($_SESSION['user']['permissao'] == 'GESTOR-2') $selectCol = "SELECT t2.col_nome_completo as nome, t2.col_cpf as cpf FROM tbl_gestor_funcionario t1 INNER JOIN tbl_colaborador t2 ON t2.col_cpf = t1.col_cpf WHERE t1.ges_cpf = '$cpf' ORDER BY t2.col_nome_completo ASC";
     else $selectCol = "SELECT col_nome_completo as nome, col_cpf as cpf FROM tbl_colaborador WHERE col_cpf = '$cpf'";
 
     $query = mysqli_query($conn, $selectCol);

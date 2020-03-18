@@ -148,6 +148,10 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item"><a href="gestores.php">Gestores</a></li> 
+            <?php if(isset($_GET['editar'])) { ?> 
+                <li class="breadcrumb-item"><a href="perfilGestor.php?id=<?php echo base64_encode($ges->getCpf()) ?>"><?php echo $ges->getNomeCompleto(); ?></a></li> 
+            <?php } ?>
             <li class="breadcrumb-item active" aria-current="page"><?php if(isset($_GET['editar'])) echo 'Editar gestor'; else echo 'Cadastrar gestor'; ?></li>
         </ol>
     </nav>
@@ -430,6 +434,7 @@
         </div>
     </div>
 
+    <?php if(!isset($_GET['editar'])) { ?>
     <div class="row" style="margin-top: 2.5em;">
         <div class="col-sm">
             <h4 class="high-text">Informações de acesso</h4>
@@ -439,7 +444,6 @@
     <hr class="hr-divide-super-light">
 
     <div class="row" style="margin-top:0.8em;">
-        <?php if(!isset($_GET['editar'])) { ?>
         <div class="col-sm">
             <label for="email" class="text">E-mail *</label>
             <input type="email" name="email" id="email" class="all-input" maxlength="120" required="">
@@ -453,8 +457,9 @@
         <div class="col-sm">
             <input type="checkbox" name="senhaPadrao" id="senhaPadrao" onclick="document.getElementById('senha').value = 'bemvindo123';"> <span class="text">Usar senha padrão ("bemvindo123"). O gestor <b>deverá alterá-la depois</b></span>
         </div>
-        <?php } ?>
     </div>
+    <?php } ?>
+    
     <div class="row" style="margin-top:0.8em;">
         <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?>
         <div class="col-sm">

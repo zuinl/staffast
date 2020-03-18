@@ -99,7 +99,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
         ?>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm">
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <?php echo $msg; unset($msg); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -117,7 +117,10 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
 
         <div class="row" style="text-align: center;">
             <div class="col-sm">
-                <a href="login.php"><button class="button button1">JÁ USA O STAFFAST? CLIQUE AQUI PARA ENTRAR</button></a>
+                <a href="login.php"><button class="button button1">JÁ USA O STAFFAST? CLIQUE PARA ENTRAR</button></a>
+            </div>
+            <div class="col-sm">
+                <a href="blog/"><button class="button button2">BLOG DO STAFFAST</button></a>
             </div>
             <div class="col-sm">
                 <a href="planos.php"><button class="button button2">CONHEÇA OS PLANOS DO STAFFAST</button></a>

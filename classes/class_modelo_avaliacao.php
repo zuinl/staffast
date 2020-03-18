@@ -239,7 +239,7 @@
                 }
         
                 while($f = mysqli_fetch_assoc($query)) {
-                    echo '<input type="checkbox" id="colaboradores[]" name="colaboradores[]" value='.$f['cpf'].'>'.strtoupper($f['nome']).'<br>';
+                    echo '<input type="checkbox" id="colaboradores[]" name="colaboradores[]" value='.$f['cpf'].'> '.strtoupper($f['nome']).'<br>';
                 }
         
             }

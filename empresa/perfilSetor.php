@@ -481,23 +481,21 @@
             <input type="button" class="button button2" data-toggle="modal" data-target="#modal" value="Informações de <?php echo $setor->getNome() ?>"></a>
         </div>
         <?php if($_SESSION['user']['permissao'] == 'GESTOR-1' || $setor->isGestorIn($_SESSION['empresa']['database'], $_SESSION['user']['cpf'])) { ?>
-        <div class="col-sm">
-            <input type="button" class="button button2" value="Gerenciar funcionários" id="btnGerenciar" onclick="mostrarGerenciar();">
-        </div>
-        <?php } ?>
-        <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?>
-        <div class="col-sm">
-            <input type="button" class="button button2" id="btnEdita" onclick="mostraEdicao();" value="Editar <?php echo $setor->getNome() ?>">
-        </div> 
-        <?php } ?>
-        <?php if($_SESSION['user']['permissao'] == 'GESTOR-1' && $setor->getAtivo() == 1) { ?>
-        <div class="col-sm">
-            <a href="../database/setor.php?desativa=true&id=<?php echo $setor->getID(); ?>"><input type="button" class="button button3" value="Desativar setor"></a>
-        </div>
-        <?php } else if ($_SESSION['user']['permissao'] == 'GESTOR-1' && $setor->getAtivo() == 0) { ?>
-        <div class="col-sm">
-            <a href="../database/setor.php?reativa=true&id=<?php echo $setor->getID(); ?>"><input type="button" class="button button3" value="Reativar setor"></a>
-        </div>
+            <div class="col-sm">
+                <input type="button" class="button button2" value="Gerenciar funcionários" id="btnGerenciar" onclick="mostrarGerenciar();">
+            </div>
+            <div class="col-sm">
+                <input type="button" class="button button2" id="btnEdita" onclick="mostraEdicao();" value="Editar <?php echo $setor->getNome() ?>">
+            </div> 
+            <?php if($setor->getAtivo() == 1) { ?>
+            <div class="col-sm">
+                <a href="../database/setor.php?desativa=true&id=<?php echo $setor->getID(); ?>"><input type="button" class="button button3" value="Desativar setor"></a>
+            </div>
+            <?php } else if ($setor->getAtivo() == 0) { ?>
+            <div class="col-sm">
+                <a href="../database/setor.php?reativa=true&id=<?php echo $setor->getID(); ?>"><input type="button" class="button button3" value="Reativar setor"></a>
+            </div>
+            <?php } ?>
         <?php } ?>
     </div>
 
@@ -506,7 +504,7 @@
 <div class="container">
 
     <!-- ------------------------- FORM PARA EDIÇÃO DE DADOS --------------------- -->
-    <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?>
+    <?php if($_SESSION['user']['permissao'] == 'GESTOR-1' || $setor->isGestorIn($_SESSION['empresa']['database'], $_SESSION['user']['cpf'])) { ?>
     <div id="edicao" style="display: none;">
     
             <div class="row">

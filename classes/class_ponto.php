@@ -469,15 +469,19 @@
                                 "entrada" => "Sem registros",
                                 "entrada_latitude" => "Sem registros",
                                 "entrada_longitude" => "Sem registros",
+                                "entrada_endereco" => "Sem registros",
                                 "pausa" => "Sem registros",
                                 "pausa_latitude" => "Sem registros",
                                 "pausa_longitude" => "Sem registros",
+                                "pausa_endereco" => "Sem registros",
                                 "retorno" => "Sem registros",
                                 "retorno_latitude" => "Sem registros",
                                 "retorno_longitude" => "Sem registros",
+                                "retorno_endereco" => "Sem registros",
                                 "saida" => "Sem registros",
                                 "saida_latitude" => "Sem registros",
                                 "saida_longitude" => "Sem registros",
+                                "saida_endereco" => "Sem registros",
                                 "anotacao" => ""
                             );
                 }

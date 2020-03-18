@@ -5,7 +5,7 @@
 
     $gestor = new Gestor();
 
-    if($_SESSION['user']['permissao'] != "GESTOR-1") {
+    if($_SESSION['user']['permissao'] != "GESTOR-1" && $_SESSION['user']['permissao'] != "GESTOR-2") {
         include('../include/acessoNegado.php');
         die();
     }
@@ -56,6 +56,8 @@
             <label for="local" class="text">Local</label>
             <input type="text" name="local" id="local" class="all-input" maxlength="80">
         </div>
+    </div>
+    <div class="row">
         <div class="col-sm">
             <label for="descricao" class="text">Descrição</label>
             <input type="text" name="descricao" id="descricao" class="all-input" maxlength="150">

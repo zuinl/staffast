@@ -51,7 +51,7 @@ if(isset($_GET['novo'])) {
             }
         $arqNome = $diretorio.md5(md5($documento['name'])).'.'.$arq_tipo;
         if(move_uploaded_file($documento['tmp_name'], $arqNome)) {
-            $diretorio = date('Y-m-d')."/".md5(md5($documento['name'])).'.'.$arq_tipo;
+            $diretorio = date('Y-m-d').'-emp'.$_SESSION['empresa']['emp_id']."/".md5(md5($documento['name'])).'.'.$arq_tipo;
         } else {
             $_SESSION['msg'] = "Houve um erro no upload do documento. Cód. 01";
             header('Location: ../empresa/novoDocumento.php');

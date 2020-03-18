@@ -156,3 +156,18 @@ border-color: rgb(59, 55, 55);
 	border-radius: 30px;
 	height: 80px;
   }
+
+  /* unvisited link */
+  a:link {
+    color: #13a378;
+    }
+
+    /* visited link */
+    a:visited {
+    color: #13a378;
+    }
+
+    /* mouse over link */
+    a:hover {
+    color: #13A330;
+    }

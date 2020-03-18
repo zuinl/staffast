@@ -16,11 +16,6 @@ $modelo = new ModeloAvaliacao();
 
 if (isset($_GET['novo'])) {
 
-    if($_SESSION['user']['permissao'] != 'GESTOR-1') {
-        include('../include/acessoNegado.php');
-        die();
-    }
-
     $modelo->setCpfCriador($_SESSION['user']['cpf']);
     $modelo->setTitulo(addslashes($_POST['titulo']));
     $modelo->setUm(addslashes($_POST['um']));
@@ -58,10 +53,6 @@ if (isset($_GET['novo'])) {
     header('Location: ../empresa/novoModeloAvaliacao.php');
     die();
 } else if (isset($_GET['ativar'])) {
-    if($_SESSION['user']['permissao'] != 'GESTOR-1') {
-        include('../include/acessoNegado.php');
-        die();
-    }
 
     $id = $_GET['id'];
     $modelo->setID($id);
@@ -79,10 +70,6 @@ if (isset($_GET['novo'])) {
     header('Location: ../empresa/verModelosAvaliacao.php');
     die();
 } else if (isset($_GET['desativar'])) {
-    if($_SESSION['user']['permissao'] != 'GESTOR-1') {
-        include('../include/acessoNegado.php');
-        die();
-    }
 
     $id = $_GET['id'];
     $modelo->setID($id);
@@ -100,10 +87,6 @@ if (isset($_GET['novo'])) {
     header('Location: ../empresa/verModelosAvaliacao.php');
     die();
 } else if (isset($_GET['editar'])) {
-    if($_SESSION['user']['permissao'] != 'GESTOR-1') {
-        include('../include/acessoNegado.php');
-        die();
-    }
 
     $modelo->setID($_POST['id']);
     $modelo->setTitulo(addslashes($_POST['titulo']));
@@ -142,10 +125,6 @@ if (isset($_GET['novo'])) {
     header('Location: ../empresa/verModelosAvaliacao.php');
     die();
 } else if (isset($_GET['atribuirColaboradores'])) {
-    if($_SESSION['user']['permissao'] != 'GESTOR-1') {
-        include('../include/acessoNegado.php');
-        die();
-    }
 
     $id = $_POST['id'];
 
@@ -163,10 +142,6 @@ if (isset($_GET['novo'])) {
     $_SESSION['msg'] = 'Colaboradores atribuídos com sucesso';
     header('Location: ../empresa/verModeloAvaliacao.php?id='.$id);
 } else if (isset($_GET['retirarColaboradores'])) {
-    if($_SESSION['user']['permissao'] != 'GESTOR-1') {
-        include('../include/acessoNegado.php');
-        die();
-    }
 
     $id = $_POST['id'];
 

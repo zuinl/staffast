@@ -378,7 +378,7 @@
             $conn = $conexao->conecta();
             $helper = new QueryHelper($conn);
 
-            $select = "SELECT * FROM tbl_setor_funcionario WHERE ges_cpf = '$ges_cpf' AND col_cpf = '$col_cpf'";
+            $select = "SELECT * FROM tbl_gestor_funcionario WHERE ges_cpf = '$ges_cpf' AND col_cpf = '$col_cpf'";
 
             $query = $helper->select($select, 1);
 

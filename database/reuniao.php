@@ -170,7 +170,7 @@ if(isset($_GET['nova'])) {
     }
 
     $_SESSION['msg'] = "Reunião criada com sucesso";
-    header("Location: ../empresa/reunioes.php");
+    header("Location: ../empresa/verReuniao.php?id=".$reu_id);
     die();
 
 } else if (isset($_GET['editar'])) {

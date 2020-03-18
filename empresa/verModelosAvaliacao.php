@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="row" style="text-align: center;">
-        <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?>
+        <?php if($_SESSION['user']['permissao'] == 'GESTOR-1' || $_SESSION['user']['permissao'] == 'GESTOR-2') { ?>
         <div class="col-sm">
             <a href="novoModeloAvaliacao.php"><input type="button" class="button button1" value="Criar modelo"></a>
         </div>
@@ -86,8 +86,8 @@
             <th>Título</th>
             <th>Criador</th>
             <th>Situação</th>
-            <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?><th>Editar</th><?php } ?>
-            <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?><th>Desativar</th><?php } ?>
+            <?php if($_SESSION['user']['permissao'] == 'GESTOR-1' || $_SESSION['user']['permissao'] == 'GESTOR-2') { ?><th>Editar</th><?php } ?>
+            <?php if($_SESSION['user']['permissao'] == 'GESTOR-1' || $_SESSION['user']['permissao'] == 'GESTOR-2') { ?><th>Desativar</th><?php } ?>
             <th>Ver</th>
         </tr>
         <?php
@@ -104,13 +104,18 @@
                     $acao = 'ativar';
                     $button = 'Ativar';
                 }
+
+                $liberaEdicao = false;
+                if($_SESSION['user']['permissao'] == 'GESTOR-1' || $f['cpf'] == $_SESSION['user']['cpf']) {
+                    $liberaEdicao = true;
+                }
         ?>
         <tr>
             <td><b><?php echo $f['titulo']; ?></b></td>
             <td><?php echo $gestor->getNomeCompleto(); ?></td>
             <td><?php echo $situacao; ?></td>
-            <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?><td><a href="novoModeloAvaliacao.php?editar=true&id=<?php echo $f['id']; ?>"><button class="button button2">Editar</button></a></td><?php } ?>            
-            <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?><td><a href="../database/modeloAvaliacao.php?<?php echo $acao; ?>=true&id=<?php echo $f['id']; ?>"><button class="button button2"><?php echo $button; ?></button></a></td><?php } ?>
+            <?php if($liberaEdicao) { ?><td><a href="novoModeloAvaliacao.php?editar=true&id=<?php echo $f['id']; ?>"><button class="button button2">Editar</button></a></td><?php } else { ?> <td>Não autorizado</td> <?php } ?>            
+            <?php if($liberaEdicao) { ?><td><a href="../database/modeloAvaliacao.php?<?php echo $acao; ?>=true&id=<?php echo $f['id']; ?>"><button class="button button2"><?php echo $button; ?></button></a></td><?php } else { ?> <td>Não autorizado</td> <?php } ?>
             <td><a href="verModeloAvaliacao.php?id=<?php echo $f['id']; ?>"><button class="button button3">Ver</button></a></td>            
     <?php } ?>   
     </table>

@@ -288,7 +288,7 @@
 
     }
 
-        function limparGestores($database_empresa) {
+        function limparGestores($database_empresa, $ges_cpf = '') {
 
                 require_once('class_conexao_empresa.php');
                 require_once('class_queryHelper.php');
@@ -298,7 +298,9 @@
                 $helper = new QueryHelper($conexao);
 
                 $delete = "DELETE FROM tbl_setor_funcionario WHERE set_id = '$this->ID' AND col_cpf = '00000000000'";
+                $helper->delete($delete);
 
+                $delete = "DELETE FROM tbl_gestor_funcionario WHERE ges_cpf = '$ges_cpf'";
                 $helper->delete($delete);
 
         }
@@ -356,7 +358,7 @@
 
             while($f = mysqli_fetch_assoc($query)) {
                 $ges_cpf = $f['cpf'];
-                $insert = "INSERT INTO tbl_gestor_funcionario (set_it, ges_cpf, col_cpf) VALUES ('$this->ID', '$ges_cpf', '$col_cpf')";
+                $insert = "INSERT INTO tbl_gestor_funcionario (set_id, ges_cpf, col_cpf) VALUES ('$this->ID', '$ges_cpf', '$col_cpf')";
                 $helper->insert($insert);
             }
 
@@ -494,7 +496,7 @@
             $query = $helper->select($select, 1);
 
             while($f = mysqli_fetch_assoc($query)) {
-                echo '<input type="checkbox" id="colaboradoresrmv[]" name="colaboradoresrmv[]" value='.$f['cpf'].'>'.$f['nome'].'<br>';
+                echo '<input type="checkbox" id="colaboradoresrmv[]" name="colaboradoresrmv[]" value='.$f['cpf'].'> '.$f['nome'].'<br>';
             }
     
         }
@@ -514,7 +516,7 @@
             $query = $helper->select($select, 1);
 
             while($f = mysqli_fetch_assoc($query)) {
-                echo '<input type="checkbox" id="gestoresrmv[]" name="gestoresrmv[]" value='.$f['cpf'].'>'.$f['nome'].'<br>';
+                echo '<input type="checkbox" id="gestoresrmv[]" name="gestoresrmv[]" value='.$f['cpf'].'> '.$f['nome'].'<br>';
             }
     
         }

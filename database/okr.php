@@ -182,7 +182,7 @@ if(isset($_GET['nova'])) {
         $log->salvar();
 
     $_SESSION['msg'] = "Meta OKR e Key Results criados com sucesso";
-    header("Location: ../empresa/metas.php");
+    header("Location: ../empresa/verOKR.php?id=".$okr_id);
     die();
 
 } else if (isset($_GET['editar'])) {

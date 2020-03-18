@@ -12,10 +12,10 @@
     $cpf = $_SESSION['user']['cpf'];
 
     if($_SESSION['user']['permissao'] == 'GESTOR-1') {
-        $select = "SELECT DISTINCT eve_id as id FROM tbl_evento WHERE eve_data_inicial < NOW() ORDER BY eve_data_inicial ASC";
+        $select = "SELECT DISTINCT eve_id as id FROM tbl_evento WHERE eve_data_inicial < NOW() AND eve_status = 1 ORDER BY eve_data_inicial ASC";
     } else {
         $select = "SELECT DISTINCT t1.eve_id as id FROM tbl_evento_participante t1 INNER JOIN tbl_evento t2 
-        ON t2.eve_id = t1.eve_id WHERE t1.cpf = '$cpf' AND t2.eve_data_inicial < NOW() ORDER BY t2.eve_data_inicial ASC";
+        ON t2.eve_id = t1.eve_id WHERE t1.cpf = '$cpf' AND t2.eve_data_inicial < NOW() AND t2.eve_status = 1 ORDER BY t2.eve_data_inicial ASC";
     }
     
     $query = $helper->select($select, 1);  

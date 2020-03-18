@@ -190,7 +190,7 @@ if(isset($_GET['novo'])) {
     }
 
     $_SESSION['msg'] = "Evento criado com sucesso";
-    header("Location: ../empresa/novoEvento.php");
+    header("Location: ../empresa/verEvento.php?id=".$eve_id);
     die();
 
 } else if (isset($_GET['editar'])) {
@@ -201,7 +201,7 @@ if(isset($_GET['novo'])) {
     $eve->setID($eve_id);
     $eve = $eve->retornarEvento($_SESSION['empresa']['database']);
 
-    if($_SESSION['user']['permissao'] != "GESTOR-1" && $evento->getCpfGestor() != $_SESSION['user']['cpf']) {
+    if($_SESSION['user']['permissao'] != "GESTOR-1" && $eve->getCpfGestor() != $_SESSION['user']['cpf']) {
         include("../include/acessoNegado.php");
         die();
     }
@@ -287,7 +287,23 @@ if(isset($_GET['novo'])) {
         $log->salvar();
 
     $_SESSION['msg'] = "Evento cancelado!";
-    header("Location: ../empresa/eventos.php");
+    header("Location: ../empresa/verEvento.php?id=".$id);
+    die();
+
+} else if (isset($_GET['reverterCancelamento'])) {
+
+    $id = $_GET['id'];
+
+    $update = "UPDATE tbl_evento SET eve_status = 1 WHERE eve_id = '$id'";
+    $helper->update($update);
+
+    $log = new LogAlteracao();
+        $log->setDescricao("Reverteu cancelamento de evento - ID ".$id);
+        $log->setIDUser($_SESSION['user']['usu_id']);
+        $log->salvar();
+
+    $_SESSION['msg'] = "O evento está ativo novamente!";
+    header("Location: ../empresa/verEvento.php?id=".$id);
     die();
 
 } else if (isset($_GET['addColaboradores'])) {

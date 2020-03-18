@@ -215,21 +215,21 @@
     <div class="row" style="margin-top: 1em;">
         <div class="col-sm">
         <form method="POST" action="../database/okr.php?<?php echo $action; ?>=true" id="form">
-            <label for="titulo" class="text">Objetivo *</label>
+            <label for="titulo" class="text">Qual objetivo deverá ser atingido? *</label>
             <input type="text" name="titulo" id="titulo" value="<?php echo $okr->getTitulo(); ?>" class="all-input" maxlength="60" required>
             <small class="text">Lembre-se: o objetivo de uma meta OKR deve ser único e direto. Exemplos: "Atingir excelência em atendimento ao cliente", "Construir o time de vendas perfeito" ou "Atingir 100% de segurança dos dados dos clientes"</small>
         </div>
     </div>
     <div class="row" style="margin-top: 1em;">
         <div class="col-sm">
-            <label for="descricao" class="text">Descrição do objetivo *</label>
+            <label for="descricao" class="text">Explique brevemente sobre o objetivo. As vantagens e avanços que trará... *</label>
             <input type="text" name="descricao" id="descricao" value="<?php echo $okr->getDescricao(); ?>" class="all-input" maxlength="500" required>
             <small class="text">Assim como o objetivo, a descrição precisa ser curta, citando, por exemplo, a principal vantagem que o objetivo trará</small>
         </div>
     </div>
     <div class="row" style="margin-top: 1em;">
         <div class="col-sm">
-            <label for="tipo" class="text">Categoria *</label>
+            <label for="tipo" class="text">Categoria do objetivo *</label>
             <select name="tipo" id="tipo" class="all-input" required>
                 <option value="">-- Selecione --</option>
                 <option value="Atendimento ao cliente" <?php if($okr->getTipo() == 'Atendimento ao cliente') echo 'selected'; ?>>Atendimento ao cliente</option>
@@ -255,7 +255,7 @@
 
     <div class="row" style="margin-top: 1em;">
         <div class="col-sm">
-            <label class="text">Prazo *</label>
+            <label class="text">Qual o prazo para que o objetivo seja atingida? *</label>
             <input type="date" name="prazo" id="prazo" value="<?php echo $okr->getPrazo_format(); ?>" class="all-input">
         </div>   
     </div>
@@ -423,6 +423,12 @@
         </div>
     </div>
     <?php } ?>
+
+    <div class="row" style="margin-top: 1em;">
+        <div class="col-sm">
+            <small class="text">Você poderá adicionar e editar as Key Results depois.</small>
+        </div>
+    </div>
 
     <hr class="hr-divide-super-light">
 

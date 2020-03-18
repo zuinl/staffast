@@ -28,6 +28,14 @@
                     mas ainda não há autoavaliações liberadas pelos gestores para você</h2>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-sm">
+                    <h4 class="text">Lembrete: apenas Colaboradores ou Gestores que tenham cadastro duplicado, ou seja, que também sejam colaboradores 
+                    podem fazer uma autoavaliação. Se você se enquadra nesse perfil e ainda não consegue se autoavaliar, pode ser que os seus gestores não 
+                    liberaram nenhuma autoavaliação pra você.</h4>
+                </div>
+            </div>
         </div>
     </body>
         <?php

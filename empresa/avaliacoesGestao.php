@@ -7,7 +7,7 @@
     require_once('../classes/class_queryHelper.php');
     require_once('../classes/class_conexao_empresa.php');
 
-    if(!isset($_GET['codigo']) && !isset($_GET['semfiltro']) && !isset($_GET['gestor']) && !isset($_GET['setor'])) {
+    if(!isset($_REQUEST['codigo']) && !isset($_REQUEST['semfiltro']) && !isset($_REQUEST['gestor']) && !isset($_REQUEST['setor'])) {
       header('Location: avaliacaoGestao.php');
       die();
     }
@@ -24,17 +24,17 @@
     $condicao = "";
     $filtros = "";
 
-    if(isset($_GET['codigo'])) {
-      $codigo = $_GET['codigo'];
+    if(isset($_REQUEST['codigo'])) {
+      $codigo = $_REQUEST['codigo'];
       $condicao .= "WHERE cod_string = '$codigo'";
       $filtros = 'Código '.$codigo.' - Todos os gestores - Todo o período';
     } else {  
-      if(!isset($_GET['semfiltro']) && $_POST['gestor'] == "all" && $_POST['setor'] == "all") {
+      if(!isset($_REQUEST['semfiltro']) && $_POST['gestor'] == "all" && $_POST['setor'] == "all") {
         $condicao .= "WHERE avg_data_criacao >= '".$_POST['dataI']."' AND avg_data_criacao <= '".$_POST['dataF']."'";
         $dataI =date_create($_POST['dataI']);
         $dataF =date_create($_POST['dataF']);
         $filtros .= date_format($dataI,"d/m/Y").' a '.date_format($dataF,"d/m/Y");
-      } else if (!isset($_GET['semfiltro']) && $_POST['gestor'] != "all" && $_POST['setor'] != "all") {
+      } else if (!isset($_REQUEST['semfiltro']) && $_POST['gestor'] != "all" && $_POST['setor'] != "all") {
         $condicao .= "WHERE avg_data_criacao >= '".$_POST['dataI']."' AND avg_data_criacao <= '".
         $_POST['dataF']."' AND ges_cpf = '".$_POST['gestor']."' AND set_id = ".
         $_POST['setor'];
@@ -46,7 +46,7 @@
         $setor = $setor->retornarSetor($_SESSION['empresa']['database']);
         $filtros .= date_format($dataI,"d/m/Y").' a '.date_format($dataF,"d/m/Y").
         "<br>Gestor: ".$gestor->getNomeCompleto()."<br>Setor: ".$setor->getNome();
-      } else if (!isset($_GET['semfiltro']) && $_POST['gestor'] != "all" && $_POST['setor'] == "all") {
+      } else if (!isset($_REQUEST['semfiltro']) && $_POST['gestor'] != "all" && $_POST['setor'] == "all") {
         $condicao .= "WHERE avg_data_criacao >= '".$_POST['dataI']."' AND avg_data_criacao <= '".
         $_POST['dataF']."' AND ges_cpf = '".$_POST['gestor']."'";
         $dataI = date_create($_POST['dataI']);
@@ -55,7 +55,7 @@
         $gestor = $gestor->retornarGestor($_SESSION['empresa']['database']);
         $filtros .= date_format($dataI,"d/m/Y").' a '.date_format($dataF,"d/m/Y").
         "<br>Gestor: ".$gestor->getNomeCompleto();
-      } else if (!isset($_GET['semfiltro']) && $_POST['gestor'] == "all" && $_POST['setor'] != "all") {
+      } else if (!isset($_REQUEST['semfiltro']) && $_POST['gestor'] == "all" && $_POST['setor'] != "all") {
         $condicao .= "WHERE avg_data_criacao >= '".$_POST['dataI']."' AND avg_data_criacao <= '".
         $_POST['dataF']."' AND set_id = ".$_POST['setor'];
         $dataI = date_create($_POST['dataI']);

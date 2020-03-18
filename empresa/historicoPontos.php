@@ -21,10 +21,9 @@
     $colaborador = new Colaborador();
     $gestor = new Gestor();
 
-    $colaborador->setCpf($cpf);
-    $col = $colaborador->retornarColaborador($_SESSION['empresa']['database']);
-
-    if($col->getNomeCompleto() != "") {
+    if($colaborador->existeColaborador($_SESSION['empresa']['database'], $cpf)) {
+        $colaborador->setCpf($cpf);
+        $col = $colaborador->retornarColaborador($_SESSION['empresa']['database']);
         $nome = $col->getNomeCompleto();
     } else {
         $gestor->setCpf($cpf);

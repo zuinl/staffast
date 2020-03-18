@@ -728,8 +728,7 @@
     </div>
 </div>
 
-
-
+<?php } ?>
 
 <div class="container">
     <div class="modal" tabindex="-1" role="dialog" id="modal-anotacao-krs" data-target=".bd-example-modal-lg">
@@ -767,6 +766,5 @@
     </div>
     </div>
 </div>
-<?php } ?>
 
 </html>

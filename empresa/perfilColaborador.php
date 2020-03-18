@@ -141,7 +141,7 @@
         $isAutorizado = true;
     } else if ($_SESSION['user']['cpf'] == $cpf) {
         $isAutorizado = true;
-    } else if($_SESSION['user']['permissao'] == "GESTOR-2" && $avaliacao->isAutorizado($_SESSION['empresa']['database'], $_SESSION['user']['cpf'], $cpf)) {
+    } else if($_SESSION['user']['permissao'] == "GESTOR-2" && $ava->isAutorizado($_SESSION['empresa']['database'], $_SESSION['user']['cpf'], $cpf)) {
         $isAutorizado = true;
     } else {
         $isAutorizado = false;

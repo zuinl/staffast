@@ -11,7 +11,7 @@
     $helper = new QueryHelper($conn);
     $cpf = $_SESSION['user']['cpf'];
 
-    if($_SESSION['user']['permissao'] == 'GESTOR-1') {
+    if($_SESSION['user']['permissao'] == 'GESTOR-1') { 
         $select = "SELECT DISTINCT eve_id as id FROM tbl_evento WHERE eve_data_inicial >= NOW() AND eve_status = 1 ORDER BY eve_data_inicial ASC";
     } else {
         $select = "SELECT DISTINCT t1.eve_id as id FROM tbl_evento_participante t1 INNER JOIN tbl_evento t2 

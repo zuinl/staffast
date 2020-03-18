@@ -183,7 +183,7 @@ if(isset($_GET['novoGestor'])) {
         $_SESSION['msg'] = 'Houve um erro ao cadastrar o usuário. Talvez já exista uma conta no Staffast utilizando e-mail inserido';
     }
 
-        header('Location: ../empresa/novoGestor.php');
+        header('Location: ../empresa/perfilGestor.php?id='.base64_encode($cpf));
         
 } else if (isset($_GET['atualiza'])) {
 

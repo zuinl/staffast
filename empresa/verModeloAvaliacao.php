@@ -62,7 +62,7 @@
         <div class="col-sm">
             <h6 class="text">Situação: <?php echo $situacao; ?></h6>
         </div>
-        <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?>
+        <?php if($_SESSION['user']['permissao'] == 'GESTOR-1' || $modelo->getCpfCriador() == $_SESSION['user']['cpf']) { ?>
         <div class="col-sm">
             <input type="button" class="button button1" data-toggle="modal" data-target="#modal" value="Gerenciar atribuições">
         </div>
@@ -264,7 +264,9 @@
             <div class="col-sm">
                 <form action="../database/modeloAvaliacao.php?atribuirColaboradores=true" method="POST">
                 <div style="height:7em;; overflow:auto;">          
-                    <?php $colaborador->popularSelectMultiple($_SESSION['empresa']['database']); ?>
+                    <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') $colaborador->popularSelectMultiple($_SESSION['empresa']['database']); 
+                          else $colaborador->popularSelectAvaliacaoMultiple($_SESSION['empresa']['database'], $_SESSION['user']['cpf']);
+                    ?>
                 </div>
                 <input type="hidden" name="id" id="id" value="<?php echo $modelo->getID(); ?>">
                 <input type="submit" value="Atribuir" class="button button1">

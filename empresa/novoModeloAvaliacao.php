@@ -3,7 +3,7 @@
     include('../src/meta.php');
     require_once '../classes/class_modelo_avaliacao.php';
 
-    if($_SESSION['user']['permissao'] != 'GESTOR-1') {
+    if($_SESSION['user']['permissao'] != 'GESTOR-1' && $_SESSION['user']['permissao'] != 'GESTOR-2') {
         include('../include/acessoNegado.php');
         die();
     }

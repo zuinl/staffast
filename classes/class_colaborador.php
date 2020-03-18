@@ -342,6 +342,21 @@ class Colaborador {
 
     }
 
+    function existeColaborador($database_empresa, $cpf) {
+        require_once('class_conexao_empresa.php');
+        require_once('class_queryHelper.php');
+
+        $conexao = new ConexaoEmpresa($database_empresa);
+        $conexao = $conexao->conecta();
+        $helper = new QueryHelper($conexao);
+
+        $select = "SELECT col_cpf as cpf FROM tbl_colaborador WHERE col_cpf = '$cpf'";
+        $query = $helper->select($select, 1);
+
+        if(mysqli_num_rows($query) == 0) return false;
+        else return true;
+    }
+
     function popularSelect($database_empresa, $documento = false) {
 
         require_once('class_conexao_empresa.php');
@@ -414,14 +429,50 @@ class Colaborador {
         if($permissao == "GESTOR-1") {
             $select = "SELECT col_cpf as cpf, col_nome_completo as nome FROM tbl_colaborador WHERE col_ativo = 1 ORDER BY col_nome_completo ASC";
         } else if ($permissao == "GESTOR-2") {
-            $select = "SELECT t2.col_cpf as cpf, t2.col_nome_completo as nome FROM tbl_setor_funcionario t1 INNER JOIN tbl_colaborador t2 
-            ON t2.col_cpf = t1.col_cpf WHERE t1.ges_cpf = '$ges_cpf' ORDER BY t2.col_nome_completo ASC";
+            $select = "SELECT 
+                        DISTINCT t1.col_cpf as cpf,
+                        t2.col_nome_completo as nome
+                       FROM tbl_gestor_funcionario t1 
+                        INNER JOIN tbl_colaborador t2
+                            ON t2.col_cpf = t1.col_cpf 
+                       WHERE t1.ges_cpf = '$ges_cpf'
+                       ORDER BY t2.col_nome_completo ASC";
         }
 
         $query = $helper->select($select, 1);
 
         while($f = mysqli_fetch_assoc($query)) {
             echo '<option value='.$f['cpf'].'>'.$f['nome'].'</option>';
+        }
+
+    }
+
+    function popularSelectAvaliacaoMultiple($database_empresa, $ges_cpf, $permissao = "GESTOR-2") {
+
+        require_once('class_conexao_empresa.php');
+        require_once('class_queryHelper.php');
+
+        $conexao = new ConexaoEmpresa($database_empresa);
+        $conexao = $conexao->conecta();
+        $helper = new QueryHelper($conexao);
+
+        if($permissao == "GESTOR-1") {
+            $select = "SELECT col_cpf as cpf, col_nome_completo as nome FROM tbl_colaborador WHERE col_ativo = 1 ORDER BY col_nome_completo ASC";
+        } else if ($permissao == "GESTOR-2") {
+            $select = "SELECT 
+                        DISTINCT t1.col_cpf as cpf,
+                        t2.col_nome_completo as nome
+                       FROM tbl_gestor_funcionario t1 
+                        INNER JOIN tbl_colaborador t2
+                            ON t2.col_cpf = t1.col_cpf 
+                       WHERE t1.ges_cpf = '$ges_cpf'
+                       ORDER BY t2.col_nome_completo ASC";
+        }
+
+        $query = $helper->select($select, 1);
+
+        while($f = mysqli_fetch_assoc($query)) {
+            echo '<input type="checkbox" id="colaboradores[]" name="colaboradores[]" value='.$f['cpf'].'> '.strtoupper($f['nome']).'<br>';
         }
 
     }

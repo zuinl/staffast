@@ -55,6 +55,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="home.php">Início</a></li>
             <li class="breadcrumb-item"><a href="PDIs.php">Planos de Desenvolvimento Individual (PDIs)</a></li>
+            <?php if(isset($_GET['editar'])) { ?> <li class="breadcrumb-item"><a href="verPDI.php?id=<?php echo $pdi->getID(); ?>">PDI - <?php echo $pdi->getTitulo(); ?></a></li> <?php } ?>
             <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?> PDI</li>
         </ol>
     </nav>
@@ -92,14 +93,14 @@
     <div class="row" style="margin-top: 1em;">
         <div class="col-sm">
         <form method="POST" action="../database/pdi.php?<?php echo $action; ?>=true" id="form">
-            <label for="titulo" class="text">Título / Objetivo *</label>
+            <label for="titulo" class="text">Qual o objetivo principal a ser atingido? *</label>
             <input type="text" name="titulo" id="titulo" value="<?php echo $pdi->getTitulo(); ?>" class="all-input" maxlength="60" required>
         </div>
     </div>
 
     <div class="row" style="margin-top: 1em;">
         <div class="col-sm">
-            <label class="text">Prazo *</label>
+            <label class="text">Até quando esse objetivo deve ser atingido? *</label>
             <input type="date" name="prazo" id="prazo" value="<?php echo $pdi->getPrazo_format(); ?>"  class="all-input" required>
         </div>   
     </div>
@@ -113,8 +114,15 @@
                 <select name="dono" id="dono" class="all-input" required>
                     <?php if($_SESSION['user']['permissao'] == 'COLABORADOR') { ?>
                         <option value="<?php echo $_SESSION['user']['cpf'] ?>" selected disabled><?php echo $_SESSION['user']['nome_completo'] ?></option>
-                    <?php } else { ?>
+                    <?php } else if ($_SESSION['user']['permissao'] == 'GESTOR-2') {
+                        ?>
                         <option value="">- Selecione -</option>
+                        <option value="<?php echo $_SESSION['user']['cpf'] ?>">Eu mesmo - <?php echo $_SESSION['user']['nome_completo'] ?></option>
+                        <?php
+                        $colaborador->popularSelectAvaliacao($_SESSION['empresa']['database'], $_SESSION['user']['cpf'], $_SESSION['user']['permissao']);
+                        } else { ?>
+                        <option value="">- Selecione -</option>
+                        <option value="<?php echo $_SESSION['user']['cpf'] ?>">Eu mesmo - <?php echo $_SESSION['user']['nome_completo'] ?></option>
                         <option value="" disabled>--- COLABORADORES</option>
                         <?php
                         $colaborador->popularSelect($_SESSION['empresa']['database']);
@@ -125,13 +133,21 @@
                         ?>
                     <?php } ?>
                 </select>
+                <?php if($_SESSION['user']['permissao'] == 'GESTOR-2') { ?>
+                    <small class="text">Atenção: como Gestor Operacional, você só poderá criar um PDI para você mesmo ou os colaboradores 
+                    do(s) seu(s) setor(es)</small>
+                <?php } ?>
+                <?php if($_SESSION['user']['permissao'] == 'COLABORADOR') { ?>
+                    <small class="text">Atenção: como Colaborador, você só pode criar um PDI para si mesmo</small>
+                <?php } ?>
             </div>
 
             <div class="col-sm">
                 <label class="text">... e o gestor que orientará é...</label>
                 <select name="orientador" id="orientador" value="<?php echo $pdi->getCpfGestor(); ?>" class="all-input" required>
-                    <?php if($_SESSION['user']['permissao'] == 'COLABORADOR') { ?>
-                        <option value="Nenhum" selected disabled>Nenhum</option>
+                    <?php if($_SESSION['user']['permissao'] == 'GESTOR-2') { ?>
+                        <option value="Nenhum" selected>Nenhum</option>
+                        <option value="<?php echo $_SESSION['user']['cpf']; ?>" selected>Eu mesmo(a) - <?php echo $_SESSION['user']['nome_completo']; ?></option>
                     <?php } else { ?>
                         <option value="Nenhum" selected>Nenhum</option>
                         <?php
@@ -144,6 +160,12 @@
             <?php } ?>
         </div>
 
+    </div>
+
+    <div class="row" style="margin-top: 1em;">
+        <div class="col-sm">
+            <small class="text">Após salvar este Plano de Desenvolvimento Individual, você poderá adicionar competências e metas para ele.</small>
+        </div>   
     </div>
 
     <hr class="hr-divide-super-light">

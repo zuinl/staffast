@@ -19,11 +19,6 @@ $_SESSION['msg'] = "";
 
 if(isset($_GET['novoSetor'])) {
 
-    if($_SESSION['user']['permissao'] != "GESTOR-1"){
-        include('../include/acessoNegado.php');
-        die();
-    }
-
     $nome = addslashes($_POST['nome']);
     $local = addslashes($_POST['local']);
     $descricao = addslashes($_POST['descricao']);
@@ -64,14 +59,9 @@ if(isset($_GET['novoSetor'])) {
         $_SESSION['msg'] = 'Erro ao cadastrar o setor';
     }
 
-    header('Location: ../empresa/setores.php');
+    header('Location: ../empresa/perfilSetor.php?id='.$set_id);
         
 } else if (isset($_GET['atualiza'])) {
-
-    if($_SESSION['user']['permissao'] != "GESTOR-1"){
-        include('../include/acessoNegado.php');
-        die();
-    }
 
     $id = $_POST['id'];
     $nome = addslashes($_POST['nome']);
@@ -113,11 +103,6 @@ if(isset($_GET['novoSetor'])) {
 
 } else if (isset($_GET['desativa'])) {
 
-    if($_SESSION['user']['permissao'] != "GESTOR-1"){
-        include('../include/acessoNegado.php');
-        die();
-    }
-
     $id = $_GET['id'];
 
     $setor = new Setor();
@@ -136,11 +121,6 @@ if(isset($_GET['novoSetor'])) {
     die();
 
 } else if (isset($_GET['reativa'])) {
-
-    if($_SESSION['user']['permissao'] != "GESTOR-1"){
-        include('../include/acessoNegado.php');
-        die();
-    }
 
     $id = $_GET['id'];
 
@@ -332,11 +312,6 @@ if(isset($_GET['novoSetor'])) {
     die();
 
 } else if (isset($_GET['liberarAvaliacao'])) {
-
-    if($_SESSION['user']['permissao'] != "GESTOR-1"){
-        include('../include/acessoNegado.php');
-        die();
-    }
 
     $id = $_GET['id'];
 

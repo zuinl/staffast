@@ -16,11 +16,12 @@
     } else {
         $select = "SELECT DISTINCT t1.set_id as id, t2.set_nome as nome FROM tbl_setor_funcionario t1 
         INNER JOIN tbl_setor t2 ON t2.set_id = t1.set_id 
-        WHERE t2.col_cpf = '$cpf' OR t2.ges_cpf = '$cpf'  
+        WHERE t1.col_cpf = '$cpf' OR t1.ges_cpf = '$cpf'  
         ORDER BY t2.set_nome ASC";
     }
 
     $query = $helper->select($select, 1);
+    $query_select = $helper->select($select, 1);
 
     $setor = new Setor();
     
@@ -73,7 +74,6 @@
 
 <div class="container">
 
-    <?php if($_SESSION['user']['permissao'] == "GESTOR-1" || $_SESSION['user']['permissao'] == "GESTOR-2") { ?>
     <div class="row">
         <div class="col-sm">
             <form action="avaliacoesSetor.php" method="POST">
@@ -90,7 +90,13 @@
             <label class="text"><b>... do seguinte setor</b></label>
             <select class="all-input" name="setor" id="setor" required>
                 <option value="">-- Selecione --</option>
-                <?php echo $setor->popularSelect($_SESSION['empresa']['database'], $_SESSION['user']['permissao'], $_SESSION['user']['cpf']); ?>
+                <?php
+                while($f = mysqli_fetch_assoc($query_select)) {
+                    ?>
+                    <option value="<?php echo $f['id']; ?>"><?php echo $f['nome']; ?></option>
+                    <?php
+                }
+                ?>
             </select>
         </div>
         <div class="col-sm" style="margin-top: 2em;">
@@ -98,13 +104,12 @@
             </form>
         </div>
     </div>
-    <?php } ?>
 
     <?php
     if(isset($_SESSION['msg'])) {
         ?>
 		<div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm">
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
                 </div>
@@ -117,7 +122,7 @@
     <table class="table-site">
         <tr>
             <th>Setor</th>
-            <?php if ($_SESSION['user']['permissao'] == "GESTOR-1") { ?>
+            <?php if ($_SESSION['user']['permissao'] == "GESTOR-1" || $_SESSION['user']['permissao'] == "GESTOR-2") { ?>
                 <th>Liberar avaliações (por 7 dias)</th>
             <?php } ?> 
             <th>Avaliar</th>
@@ -132,15 +137,19 @@
                 <td><a href="perfilSetor.php?id=<?php echo $setor->getID(); ?>" target="blank_"><?php echo $setor->getNome(); ?></a></td>
 
                 <?php
-                if($_SESSION['user']['permissao'] == "GESTOR-1" && $setor->isAvaliacaoLiberada($_SESSION['empresa']['database'])) {
-                    ?>
-                    <td><h6 class="text">Avaliações atualmente liberadas</h6></td>
-                    <?php
-                } else if ($_SESSION['user']['permissao'] == "GESTOR-1" && !$setor->isAvaliacaoLiberada($_SESSION['empresa']['database'])) {
-                    ?>
-                    <td>
-                        <a href="../database/setor.php?liberarAvaliacao=true&id=<?php echo $setor->getID(); ?>"><input type="button" class="button button2" value="Liberar"></a>
-                    </td>
+                if($_SESSION['user']['permissao'] == 'GESTOR-1' || $setor->isGestorIn($_SESSION['empresa']['database'], $_SESSION['user']['cpf'])) {
+                    if($setor->isAvaliacaoLiberada($_SESSION['empresa']['database'])) {
+                        ?>
+                        <td><h6 class="text">Avaliações atualmente liberadas</h6></td>
+                        <?php
+                    } else if (!$setor->isAvaliacaoLiberada($_SESSION['empresa']['database'])) {
+                        ?>
+                        <td>
+                            <a href="../database/setor.php?liberarAvaliacao=true&id=<?php echo $setor->getID(); ?>"><input type="button" class="button button2" value="Liberar"></a>
+                        </td>
+                    <?php } ?>
+                <?php } else if ($_SESSION['user']['permissao'] != 'COLABORADOR') { ?>
+                    <td><h6 class="text">Sem permissão para este setor</h6></td>
                 <?php } ?>
 
                 <?php
