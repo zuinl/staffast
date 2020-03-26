@@ -316,42 +316,131 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-sm">
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Anotações deste evento  
+                        <span><input type="button" style="font-size: 0.7em;" class="button button2" data-toggle="modal" data-target="#modal-note" value="Adicionar anotação"></span>       
+
+                        </button>
+                    </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <?php
+                            $select = "SELECT 
+                                        DATE_FORMAT(t1.data, '%d/%m/%Y às %H:%i') as data, 
+                                        t1.anotacao as anotacao,
+                                        CASE
+                                            WHEN t2.ges_nome_completo IS NOT NULL THEN t2.ges_nome_completo
+                                            ELSE t3.col_nome_completo
+                                        END as nome 
+                                       FROM tbl_evento_anotacao t1
+                                        LEFT JOIN tbl_gestor t2
+                                            ON t2.ges_cpf = t1.cpf
+                                        LEFT JOIN tbl_colaborador t3
+                                            ON t3.col_cpf = t1.cpf 
+                                       WHERE eve_id = ".$evento->getID();
+                            $query = $helper->select($select, 1);
+                            if(mysqli_num_rows($query) == 0) {
+                                ?>
+                                <p class="text">Nenhuma anotação.</p>
+                                <?php
+                            } else {
+                                while($f = mysqli_fetch_assoc($query)) {
+                                    ?>
+                                    <p class="text"><b><?php echo $f['data'] ?> - <?php echo $f['nome'] ?>:</b> <?php echo $f['anotacao']; ?></p>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 </body>
 
-<div class="modal" tabindex="-1" role="dialog" id="modal" data-target=".bd-example-modal-lg">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Enviar mensagens aos participantes</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="col-sm">
-                <h5 class="high-text">Mensagem</h5>
-            </div>
+<div class="container">
+    <div class="modal" tabindex="-1" role="dialog" id="modal" data-target=".bd-example-modal-lg">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Enviar mensagens aos participantes</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-        <div class="row">
-            <div class="col-sm">
-                <form action="verEvento.php?enviar_mensagem=true&id=<?php echo $evento->getID(); ?>" method="POST">
-                <textarea name="mensagem" id="mensagem" class="all-input" maxlength="400" required></textarea>
-                <small class="text">Uma mensagem será criada e direcionada a todos os participantes</small>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm">
+                    <h5 class="high-text">Mensagem</h5>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                <input type="submit" class="button button1" value="Enviar">
-                </form>
+            <div class="row">
+                <div class="col-sm">
+                    <form action="verEvento.php?enviar_mensagem=true&id=<?php echo $evento->getID(); ?>" method="POST">
+                    <textarea name="mensagem" id="mensagem" class="all-input" maxlength="400" required></textarea>
+                    <small class="text">Uma mensagem será criada e direcionada a todos os participantes</small>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-sm">
+                    <input type="submit" class="button button1" value="Enviar">
+                    </form>
+                </div>
+            </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
         </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      </div>
+        </div>
     </div>
-  </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="modal" tabindex="-1" role="dialog" id="modal-note" data-target=".bd-example-modal-lg">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adicionar anotação</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm">
+                        <h5 class="high-text">Anotação</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <form action="../database/evento.php?anotacao=true&eve_id=<?php echo $evento->getID(); ?>" method="POST">
+                        <textarea name="anotacao" id="anotacao" class="all-input" maxlength="1000" required></textarea>
+                        <small class="text">A anotação será visível para todos os participantes</small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <input type="submit" class="button button1" value="Salvar anotação">
+                        </form>
+                    </div>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </html>

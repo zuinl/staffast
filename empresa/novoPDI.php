@@ -194,34 +194,30 @@
 
         <div class="row">
             <div class="col-sm">
-                <h3 class="high-text">Objetivo do PDI: Abrir um escritório de arquitetura</h3>
+                <h3 class="high-text">Título do PDI: Ser um escritor de artigos científicos</h3>
             </div>
         </div>
         <div class="row">
             <div class="col-sm">
-                <h4 class="high-text">Competências a desenvolver (3)</h4>
+                <h4 class="high-text">Competências a desenvolver (2)</h4>
             </div>
         </div>
         <div class="row">
             <div class="col-sm">
                 <ul>
-                    <li>Investimento financeiro</li>
+                    <li>Conhecimento científico</li>
                         <ul>
                             Metas a cumprir para desenvolver a competência
-                            <li>Possuir R$10.000,00 disponíveis para investimento</li>
-                            <li>Encontrar um investidor</li>
+                            <li>Buscar <i>websites</i>, revistas, livros e outros artigos da área de Tecnologia da Informação que 
+                            possuam conteúdo cientíco de referência</li>
+                            <li>Definir quais temas são mais relevantes para abordar em artigos científicos da área</li>
                         </ul>
-                    <li>Empreendedorismo</li>
+                    <li>Escrita</li>
                         <ul>
                             Metas a cumprir para desenvolver a competência
-                            <li>Frequentar 5 palestras/cursos sobre empreendedorismo</li>
-                            <li>Ler 1 livro sobre empreendedorismo</li>
-                            <li>Fazer 1 visita ao SEBRAE para orientações</li>
-                        </ul>
-                    <li>Administração de empresa</li>
-                        <ul>
-                            Metas a cumprir para desenvolver a competência
-                            <li>Fazer 1 curso rápido sobre administração de empresa</li>
+                            <li>Escrever, ler e revisar pequenos trechos de artigos de acordo com a Língua Portuguesa formal</li>
+                            <li>Ler diversos artigos científicos de diversas áreas para levantar referências de técnicas de escrita</li>
+                            <li>Estudar as regras e convenções de escrita de artigos científicos</li>
                         </ul>
                 </ul>
             </div>

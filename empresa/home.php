@@ -29,14 +29,6 @@
     $avaliacao = new Avaliacao();
     $avaliacao->setCpfColaborador($_SESSION['user']['cpf']);
 
-    $select = "SELECT ava_id FROM tbl_avaliacao WHERE ges_cpf = "."'".$_SESSION['user']['cpf']."'";
-    $query = $helper->select($select, 1);
-    $avaliacoes = mysqli_num_rows($query);
-
-    $select_ps = "SELECT sel_id FROM tbl_processo_seletivo WHERE sel_data_encerramento < NOW()";
-    $query_ps = $helper->select($select_ps, 1);
-    $processos = mysqli_num_rows($query_ps);
-
     $select_ms = "SELECT DISTINCT a.men_id as men_id FROM tbl_mensagem_funcionario a INNER JOIN tbl_mensagem b ON b.men_id = a.men_id
     WHERE a.cpf = "."'".$_SESSION['user']['cpf']."' AND b.men_data_expiracao >= NOW() ORDER BY a.men_id DESC";
     $query_ms = $helper->select($select_ms, 1);
@@ -48,12 +40,12 @@
     $select = "SELECT ata_id as id FROM tbl_autoavaliacao WHERE col_cpf = '$cpf' AND ata_preenchida = 0";
     $query = $helper->select($select, 1);
     $autoavaliacoes_liberadas = mysqli_num_rows($query);
-    $avisos += $autoavaliacoes_liberadas;
+    if($autoavaliacoes_liberadas > 0) $avisos++;
     
     $select = "SELECT ava_id as id FROM tbl_avaliacao WHERE col_cpf = '$cpf' AND ava_data_liberacao <= NOW() AND ava_visualizada = 0";
     $query = $helper->select($select, 1);
     $avaliacoes_nao_visualizadas = mysqli_num_rows($query);
-    $avisos += $avaliacoes_nao_visualizadas;
+    if($avaliacoes_nao_visualizadas > 0) $avisos++;
 
     $conexao_p = new ConexaoPadrao();
     $conexao_p = $conexao_p->conecta();
@@ -63,10 +55,13 @@
     $select = "SELECT cod_string as codigo FROM tbl_codigo_avaliacao_empresa WHERE emp_id = ".$_SESSION['empresa']['emp_id']." AND cod_validade > NOW()";
     $query_codigo = $helper_p->select($select, 1);
     $codigos_empresa = mysqli_num_rows($query_codigo);
-    $avisos += $codigos_empresa;
+    if($codigos_empresa > 0) $avisos++;
 
-    if($num_mensagens + $avisos == 1) $notificacoes = $num_mensagens+$avisos.' notificação';
-    else $notificacoes = $num_mensagens+$avisos.' notificações';
+    if($avisos <= 1) $notificacoesAvisos = $avisos.' aviso';
+    else $notificacoesAvisos = $avisos.' avisos';
+
+    if($num_mensagens <= 1) $notificacoesMensagens = $num_mensagens.' mensagem';
+    else $notificacoesMensagens = $num_mensagens.' mensagens';
 
     date_default_timezone_set('America/Sao_Paulo');
     $hora = date('H:i');
@@ -352,8 +347,22 @@
             <h3 class="text">Olá, <i><span class="destaque-text"><?php echo $_SESSION['user']['primeiro_nome']; ?></span></i></h3>
         </div>
         <div class="col-sm">
-            <a data-toggle="modal" data-target="#modal" href="#"><img src="img/question.png" width="60"></a>
-            <span class="text"><?php echo $notificacoes; ?></span>
+            <a data-toggle="modal" data-target="#modal-avisos" href="#"><img src="img/question.png" width="60"></a>
+            <span class="text"><?php echo $notificacoesAvisos; ?></span>
+        </div>
+        <div class="col-sm">
+            <a data-toggle="modal" data-target="#modal-mensagens" href="#"><img src="img/email.png" width="60"></a>
+            <span class="text"><?php echo $notificacoesMensagens; ?></span>
+        </div>
+    </div>
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+            <a href="verRanking.php"><img src="img/gold.png" width="40"></a>
+            <span class="text" style="font-size: 0.9em;"><i>Ranking</i></span>
+        </div>
+        <div class="col-sm">
+            <a href="painelAvaliacao.php"><img src="img/checklist.png" width="40"></a>
+            <span class="text" style="font-size: 0.9em;">Avaliações</span>
         </div>
     </div>
 
@@ -631,7 +640,7 @@
                         $feedback->setID($f['id']);
                         $feedback = $feedback->retornarFeedback($_SESSION['empresa']['database']);
                         ?>
-                        <br class="text"><?php echo '<b>De '.$feedback->getRemetente().':</b>'.$feedback->getTexto(); ?>
+                        <br class="text"><?php echo '<b>De '.$feedback->getRemetente().':</b> '.$feedback->getTexto(); ?>
                         <?php
                     }
                 }
@@ -695,81 +704,97 @@
     <?php } ?>
 </div>
 
-<div class="modal" tabindex="-1" role="dialog" id="modal" data-target=".bd-example-modal-lg">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title"><img src="img/question.png" width="60"> Notificações (<?php echo $avisos + $num_mensagens; ?>)</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-        <div class="row">
-            <div class="col-sm">
-                <h4 class="text">Avisos (<?php echo $avisos; ?>)</h4>
-            </div>
+<div class="container">
+    <div class="modal" tabindex="-1" role="dialog" id="modal-avisos" data-target=".bd-example-modal-lg">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title"><img src="img/question.png" width="60"> Avisos (<?php echo $avisos; ?>)</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-        
-        <?php if($autoavaliacoes_liberadas > 0) { ?>
-            <div class="row">
-                <div class="col-sm">
-                    <p class="text"><b>Você tem autoavaliação liberada</b>
-                    <a href="novaAutoavaliacao.php"><button class="button button1" style="font-size: 0.7em;">Autoavalie-se</button></a>
-                    </p>
+        <div class="modal-body">
+            
+            <?php if($autoavaliacoes_liberadas > 0) { ?>
+                <div class="row">
+                    <div class="col-sm">
+                        <p class="text">Você tem autoavaliação liberada
+                        <a href="novaAutoavaliacao.php"><button class="button button1" style="font-size: 0.7em;">Autoavalie-se</button></a>
+                        </p>
+                    </div>
                 </div>
-            </div>
+                <?php } ?>
+            <?php if($avaliacoes_nao_visualizadas > 0) { ?>
+                <div class="row">
+                    <div class="col-sm">
+                        <p class="text">Há avaliações que você não visualizou
+                        <a href="resultados.php?id=<?php echo base64_encode($_SESSION['user']['cpf']); ?>"><button class="button button1" style="font-size: 0.7em;">Ver resultados</button></a>
+                        <br><span style="font-size: 0.7em;">Uma avaliação só é considerada visualizada quando você a visualizada individualmente no 
+                        Painel de Controle de Avaliações. O mesmo vale para avaliações realizadas usando modelos.</span>
+                        </p>
+                    </div>
+                </div>
             <?php } ?>
-        <?php if($avaliacoes_nao_visualizadas > 0) { ?>
-            <div class="row">
-                <div class="col-sm">
-                    <p class="text"><b>Há avaliações que você não visualizou</b>
-                    <a href="resultados.php?id=<?php echo base64_encode($_SESSION['user']['cpf']); ?>"><button class="button button1" style="font-size: 0.7em;">Ver resultados</button></a>
-                    </p>
-                </div>
-            </div>
-        <?php } ?>
-        <?php if($codigos_empresa > 0) {
-            $f = mysqli_fetch_assoc($query_codigo);
-            ?>
-            <div class="row">
-                <div class="col-sm">
-                    <p class="text"><b>A avaliação da sua empresa está liberada! Use o código: <?php echo $f['codigo']; ?></b>
-                    <a href="../avaliacao-empresa/" target="blank_"><button class="button button1" style="font-size: 0.7em;">Avalie agora</button></a>
-                    </p>
-                </div>
-            </div>
-        <?php } ?>
-
-        <div class="row">
-            <div class="col-sm">
-                <h4 class="text">Mensagens (<?php echo $num_mensagens; ?>)</h4>
-            </div>
-        </div>
-
-        <?php if(mysqli_num_rows($query_ms) == 0) { ?>
-            <h6 class="text">Não há mensagens</h6>
-            <?php } else { ?>
-            <div id="mensagens">
-            <?php
-            while($f = mysqli_fetch_assoc($query_ms)) {
-                $mensagem = new Mensagem();
-                $mensagem->setID($f['men_id']);
-                $mensagem = $mensagem->retornarMensagem($_SESSION['empresa']['database']);
+            <?php if($codigos_empresa > 0) {
+                $f = mysqli_fetch_assoc($query_codigo);
                 ?>
-                <h6 class="text"><b><?php echo $mensagem->getTitulo() ?> - De: <?php echo $mensagem->getRemetente(); ?></b></h6>
-                <p class="text"><?php echo $mensagem->getTexto(); ?>
-                <br><small class="text"><?php echo $mensagem->getDataCriacao(); ?></small><br>
-        <?php }
-        } ?>
-      </div>  
+                <div class="row">
+                    <div class="col-sm">
+                        <p class="text">A avaliação da sua empresa está liberada! Use o código: <?php echo $f['codigo']; ?>
+                        <a href="../avaliacao-empresa/" target="blank_"><button class="button button1" style="font-size: 0.7em;">Avalie agora</button></a>
+                        </p>
+                    </div>
+                </div>
+            <?php } ?> 
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      </div>
+        <div class="modal-footer">
+            <small class="text">Fique tranquilo(a), se você já está ciente dos avisos, eles desaparecerão em alguns dias.</small>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+        </div>
     </div>
-  </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="modal" tabindex="-1" role="dialog" id="modal-mensagens" data-target=".bd-example-modal-lg">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title"><img src="img/question.png" width="60"> Mensagens (<?php echo $num_mensagens; ?>)</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <?php if(mysqli_num_rows($query_ms) == 0) { ?>
+                <h6 class="text">Não há mensagens</h6>
+                <?php } else { ?>
+                <div id="mensagens">
+                <?php
+                while($f = mysqli_fetch_assoc($query_ms)) {
+                    $mensagem = new Mensagem();
+                    $mensagem->setID($f['men_id']);
+                    $mensagem = $mensagem->retornarMensagem($_SESSION['empresa']['database']);
+                    ?>
+                    <h6 class="text"><b><?php echo $mensagem->getTitulo() ?> - De: <?php echo $mensagem->getRemetente(); ?></b></h6>
+                    <p class="text"><?php echo $mensagem->getTexto(); ?>
+                    <br><small class="text"><?php echo $mensagem->getDataCriacao(); ?></small><br>
+            <?php }
+            } ?>
+        </div>  
+
+        <div class="modal-footer">
+            <small class="text">Fique tranquilo(a), se você já visualizou as mensagens, elas desaparecerão em alguns dias.</small>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+        </div>
+    </div>
+    </div>
 </div>
 
 </body>

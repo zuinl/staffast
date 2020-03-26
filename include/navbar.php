@@ -54,8 +54,8 @@ $(function () {
           <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?>
           <a class="dropdown-item" href="horarios.php">Gerenciar horários dos funcionários</a>
           <?php } ?>
-          <a class="dropdown-item" href="#"><span><img src="/staffast/empresa/img/google-play.png" width="20" style="margin-right: 1em;"></span>Baixe nosso app para Android</a>
-          <a class="dropdown-item" href="#"><span><img src="/staffast/empresa/img/app.png" width="20" style="margin-right: 1em;"></span>Baixe nosso app para iOS</a>
+          <a class="dropdown-item" href="#" onclick="alert('Em breve!')"><span><img src="/staffast/empresa/img/google-play.png" width="20" style="margin-right: 1em;"></span>Baixe nosso app para Android</a>
+          <a class="dropdown-item" href="#" onclick="alert('Em breve!')"><span><img src="/staffast/empresa/img/app.png" width="20" style="margin-right: 1em;"></span>Baixe nosso app para iOS</a>
         </div>
       </li>
       <li class="nav-item dropdown" style="margin-left:1em;">
@@ -89,7 +89,7 @@ $(function () {
           <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?>
           <!-- <a class="dropdown-item" href="novoModeloAvaliacao.php">Novo modelo de avaliação</a> -->
           <?php } ?>
-          <a class="dropdown-item" href="painelAvaliacao.php">Painel de controle</a>
+          <a class="dropdown-item" href="painelAvaliacao.php">Painel de Controle de Avaliação</a>
           <a class="dropdown-item" href="novaAutoavaliacao.php">Fazer autovaliação</a>
         </div>
       </li>

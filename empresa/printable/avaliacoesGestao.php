@@ -250,7 +250,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_um'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_um'));
 
         chart.draw(data, options);
       }
@@ -284,7 +284,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_dois'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_dois'));
 
         chart.draw(data, options);
       }
@@ -318,7 +318,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_tres'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_tres'));
 
         chart.draw(data, options);
       }
@@ -352,7 +352,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_quatro'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_quatro'));
 
         chart.draw(data, options);
       }
@@ -386,7 +386,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_cinco'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_cinco'));
 
         chart.draw(data, options);
       }
@@ -422,7 +422,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_seis'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_seis'));
 
         chart.draw(data, options);
       }
@@ -458,7 +458,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_sete'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_sete'));
 
         chart.draw(data, options);
       }
@@ -494,7 +494,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_oito'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_oito'));
 
         chart.draw(data, options);
       }
@@ -530,7 +530,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_nove'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_nove'));
 
         chart.draw(data, options);
       }
@@ -566,7 +566,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_dez'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_dez'));
 
         chart.draw(data, options);
       }

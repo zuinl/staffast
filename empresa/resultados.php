@@ -8,7 +8,7 @@
     require_once('../classes/class_queryHelper.php');
     require_once('../classes/class_conexao_empresa.php');
 
-    if($_SESSION['empresa']['plano'] != "REVOLUCAO" || $_SESSION['empresa']['plano'] != "AVALIACAO") {
+    if($_SESSION['empresa']['plano'] != "REVOLUCAO" && $_SESSION['empresa']['plano'] != "AVALIACAO") {
       $_SESSION['msg'] = "O plano atualmente utilizado pela sua empresa não permite acesso a este 
       módulo do Staffast. <a href='../planos.php'>Conheça nossos planos</a>.";
       header('Location: home.php');
@@ -1202,19 +1202,24 @@
             <?php
             $cpf = $colaborador->getCpf();
             $select = "SELECT t1.ava_id as id, 
-            CONCAT(DATE_FORMAT(t1.ava_data_criacao, '%d/%m/%Y'), ' - Avaliado por ', t2.ges_primeiro_nome) as avaliacao 
-            FROM tbl_avaliacao t1 
-            INNER JOIN tbl_gestor t2 ON t2.ges_cpf = t1.ges_cpf 
-            WHERE t1.col_cpf = '$cpf' AND t1.ava_data_liberacao <= NOW() 
-            AND ava_modelo_id = 0 
-            ORDER BY t1.ava_data_criacao DESC";
+                        t1.ava_visualizada as visualizada,
+                        CONCAT(DATE_FORMAT(t1.ava_data_criacao, '%d/%m/%Y'), ' - Avaliado por ', t2.ges_primeiro_nome) as avaliacao 
+                      FROM tbl_avaliacao t1 
+                        INNER JOIN tbl_gestor t2 ON t2.ges_cpf = t1.ges_cpf 
+                      WHERE t1.col_cpf = '$cpf' 
+                        AND t1.ava_data_liberacao <= NOW() 
+                        AND ava_modelo_id = 0 
+                      ORDER BY t1.ava_data_criacao DESC";
             $query = $helper->select($select, 1);
             while($fetch = mysqli_fetch_assoc($query)) {
-              echo '<option value="'.$fetch['id'].'">'.$fetch['avaliacao'].'</option>';
+              echo '<option value="'.$fetch['id'].'">'.$fetch['avaliacao'];
+              if($fetch['visualizada'] == 0) echo ' * ';
+              echo '</option>';
             }
             ?>
         </select>
         <small class="text">Aqui aparecem as avaliações já liberadas</small>
+        <small class="text">As avaliações que ainda não visualizadas pelo colaborador aparecem com *</small>
       </div>
       <div class="col-sm" style="margin-top: 2em;">
           <h3 class="text">&</h3>
@@ -1265,20 +1270,26 @@
             <?php
             $cpf = $colaborador->getCpf();
             $select = "SELECT t1.ava_id as id, 
-            CONCAT(DATE_FORMAT(t1.ava_data_criacao, '%d/%m/%Y'), ' - Avaliado por ', t2.ges_primeiro_nome) as avaliacao,
-            t3.titulo as titulo 
-            FROM tbl_avaliacao t1 
-            INNER JOIN tbl_gestor t2 ON t2.ges_cpf = t1.ges_cpf 
-            INNER JOIN tbl_modelo_avaliacao t3 ON t3.id = t1.ava_modelo_id
-            WHERE t1.col_cpf = '$cpf' AND t1.ava_data_liberacao <= NOW() 
-            AND t1.ava_modelo_id != 0 ORDER BY t1.ava_data_criacao DESC";
+                        t1.ava_visualizada as visualizada,
+                        CONCAT(DATE_FORMAT(t1.ava_data_criacao, '%d/%m/%Y'), ' - Avaliado por ', t2.ges_primeiro_nome) as avaliacao,
+                        t3.titulo as titulo 
+                      FROM tbl_avaliacao t1 
+                        INNER JOIN tbl_gestor t2 ON t2.ges_cpf = t1.ges_cpf 
+                        INNER JOIN tbl_modelo_avaliacao t3 ON t3.id = t1.ava_modelo_id
+                      WHERE t1.col_cpf = '$cpf' 
+                        AND t1.ava_data_liberacao <= NOW() 
+                        AND t1.ava_modelo_id != 0 
+                      ORDER BY t1.ava_data_criacao DESC";
             $query = $helper->select($select, 1);
             while($fetch = mysqli_fetch_assoc($query)) {
-              echo '<option value="'.$fetch['id'].'">'.$fetch['avaliacao'].' - Modelo: '.$fetch['titulo'].'</option>';
+              echo '<option value="'.$fetch['id'].'">'.$fetch['avaliacao'];
+              if($fetch['visualizada'] == 0) echo ' * ';
+              echo ' - Modelo: '.$fetch['titulo'].'</option>';
             }
             ?>
         </select>
         <small class="text">Aqui aparecem as avaliações já liberadas</small>
+        <small class="text">As avaliações que ainda não visualizadas pelo colaborador aparecem com *</small>
       </div>
       <div class="col-sm">
         <label class="text">Selecione um modelo</label>

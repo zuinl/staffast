@@ -642,5 +642,13 @@ CREATE TABLE IF NOT EXISTS `tbl_pdi_competencia_meta` (
         `anotacao` TEXT NOT NULL , PRIMARY KEY (`id`))
         ;
 
+        CREATE TABLE IF NOT EXISTS `tbl_evento_anotacao` ( 
+        `id` INT NOT NULL AUTO_INCREMENT , 
+        `eve_id` INT NOT NULL , 
+        `cpf` VARCHAR(11) NOT NULL , 
+        `data` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+        `anotacao` TEXT NOT NULL , PRIMARY KEY (`id`))
+        ;
+
 
     

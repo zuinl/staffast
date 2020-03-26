@@ -214,7 +214,7 @@ class PDI {
                     t1.pdi_arquivado as arquivado,
                     t1.pdi_publico as publico,
                     t1.ges_cpf as cpf_orientador, 
-                    DATE_FORMAT(t1.pdi_data_criacao, '%d/%m/%Y %H:%i') as criacao, 
+                    DATE_FORMAT(t1.pdi_data_criacao, '%d/%m/%Y às %H:%i') as criacao, 
                     t1.pdi_titulo as titulo, 
                     DATE_FORMAT(t1.pdi_prazo, '%d/%m/%Y') as prazo, 
                     DATE_FORMAT(t1.pdi_prazo, '%Y-%m-%d') as prazo_format,

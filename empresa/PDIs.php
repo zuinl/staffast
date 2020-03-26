@@ -160,6 +160,9 @@
 <div class="row" style="text-align: center; margin-top: 1em;">
     <div class="col-sm">
         <h4 class="text">PDIs públicos</h4>
+        <small class="text">Planos de Desenvolvimento Individual públicos são aqueles que o dono ou o orientador decidiram o tornar 
+        visível para todos. Eles devem ser utilizados como fonte de inspiração ou de consulta de como alguém desenvolveu habilidades e 
+        competências</small>
     </div>
 </div>
 

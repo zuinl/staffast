@@ -87,7 +87,7 @@
         <div class="col-sm">
             <p class="text"><b>IMPORTANTE: </b>apenas você e os gestores administrativos (RH) da sua empresa possuem acesso aos documentos direcionados a você. 
             Holerites sempre são direcionados apenas a você. O Staffast recomenda que você envie seus documentos para a nuvem (usando o botão do Google Drive), pois 
-            se um dia veir a perder acesso ao Staffast, você não terá mais acesso a eles.</p>
+            se um dia vier a perder acesso ao Staffast, você não terá mais acesso a eles.</p>
         </div>
     </div>
 

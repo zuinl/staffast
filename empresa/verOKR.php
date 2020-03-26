@@ -200,21 +200,21 @@
             <input type="button" class="button button1" data-toggle="modal" data-target="#modal"  <?php if($_SESSION['user']['permissao'] == 'GESTOR-1' || $_SESSION['user']['cpf'] == $okr->getCpfGestor()) { ?> value="Ver/Gerenciar participantes" <?php } else { ?> value="Ver participantes" <?php } ?>>       
         </div>
         <?php if($_SESSION['user']['permissao'] == 'GESTOR-1' || $_SESSION['user']['cpf'] == $okr->getCpfGestor()) { ?>
-        <div class="col-sm">
-            <a href="novaOKR.php?editar=true&id=<?php echo $okr->getID(); ?>"><input type="button" class="button button1" value="Editar meta"></a>
-        </div>
-        <div class="col-sm">
-            <input type="button" class="button button1" data-toggle="modal" data-target="#modal-new-krs" value="Adicionar uma Key Result">       
-        </div>
-        <?php if($okr->getArquivada() == 0) { ?>
-        <div class="col-sm">
-            <a href="../database/okr.php?arquivar=true&id=<?php echo $okr->getID(); ?>"><input type="button" class="button button1" value="Arquivar meta"></a>
-        </div>
-        <?php } else { ?>
-        <div class="col-sm">
-            <a href="../database/okr.php?desarquivar=true&id=<?php echo $okr->getID(); ?>"><input type="button" class="button button1" value="Desarquivar meta"></a>
-        </div>
-        <?php } ?>
+            <div class="col-sm">
+                <a href="novaOKR.php?editar=true&id=<?php echo $okr->getID(); ?>"><input type="button" class="button button1" value="Editar meta"></a>
+            </div>
+            <div class="col-sm">
+                <input type="button" class="button button2" data-toggle="modal" data-target="#modal-new-krs" value="Adicionar uma Key Result">       
+            </div>
+            <?php if($okr->getArquivada() == 0) { ?>
+            <div class="col-sm">
+                <a href="../database/okr.php?arquivar=true&id=<?php echo $okr->getID(); ?>"><input type="button" class="button button1" value="Arquivar meta"></a>
+            </div>
+            <?php } else { ?>
+            <div class="col-sm">
+                <a href="../database/okr.php?desarquivar=true&id=<?php echo $okr->getID(); ?>"><input type="button" class="button button1" value="Desarquivar meta"></a>
+            </div>
+            <?php } ?>
         <?php } ?>
     </div>
 
@@ -614,7 +614,7 @@
 </div>
 
 
-<?php if($_SESSION['user']['cpf'] == $okr->getCpfGestor()) { ?>
+<?php if($_SESSION['user']['cpf'] == $okr->getCpfGestor() || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
 <div class="container">
     <div class="modal" tabindex="-1" role="dialog" id="modal-krs" data-target=".bd-example-modal-lg">
     <div class="modal-dialog" role="document">

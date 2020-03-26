@@ -54,6 +54,19 @@
 
         }
 
+        public function adicionarAnotacao($database_empresa, $anotacao, $cpf) {
+                require_once('class_conexao_empresa.php');
+                require_once('class_queryHelper.php');
+        
+                $conexao_empresa = new ConexaoEmpresa($database_empresa);
+                $conn = $conexao_empresa->conecta();
+                $helper = new QueryHelper($conn);
+    
+                $insert = "INSERT INTO tbl_evento_anotacao (eve_id, cpf, anotacao) VALUES ($this->ID, '$cpf', '$anotacao')";
+                if($helper->insert($insert)) return true;
+                else return false;
+            }
+
         function retornarEvento($database_empresa) {
 
             require_once("class_conexao_empresa.php");

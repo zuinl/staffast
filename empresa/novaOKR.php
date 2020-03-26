@@ -312,17 +312,24 @@
     <?php if(!isset($_GET['editar'])) { ?>
     <hr class="hr-divide-super-light">
 
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+            <h3 class="text">Adicionar <i>Key Results</i></h3>
+            <small class="text">Adicione quantas quiser ou nenhuma. Você poderá adicionar e editar elas depois.</small>
+        </div>
+    </div>
+
     <div class="row" style="margin-top: 1em;">
         <div class="col-sm">
             <h4 class="high-text"><i>Key result 1</i></h4>
         </div>
         <div class="col-sm">
             <label class="tituloOKR1">Título</label>
-            <input type="text" name="tituloOKR1" id="tituloOKR1" class="all-input" maxlength="120" placeholder="Ex: Economizar R$500,00 em perdas" required>
+            <input type="text" name="tituloOKR1" id="tituloOKR1" class="all-input" maxlength="120" placeholder="Ex: Economizar R$500,00 em perdas">
         </div>
         <div class="col-sm">
             <label class="tipoOKR1">Tipo</label>
-            <select name="tipoOKR1" id="tipoOKR1" class="all-input" required>
+            <select name="tipoOKR1" id="tipoOKR1" class="all-input">
                 <option value="">-- Selecione --</option>
                 <option value="Orçamento">Orçamento (dinheiro)</option>
                 <option value="Meta numérica">Meta numérica (número inteiro)</option>
@@ -330,7 +337,7 @@
         </div>
         <div class="col-sm">
             <label class="metaOKR1">Meta</label>
-            <input type="text" name="metaOKR1" id="metaOKR1" class="all-input" placeholder="Ex: 500,00" required>
+            <input type="text" name="metaOKR1" id="metaOKR1" class="all-input" placeholder="Ex: 500,00">
         </div>
     </div>
 
@@ -430,12 +437,6 @@
         </div>
     </div>
     <?php } ?>
-
-    <div class="row" style="margin-top: 1em;">
-        <div class="col-sm">
-            <small class="text">Você poderá adicionar e editar as Key Results depois.</small>
-        </div>
-    </div>
 
     <hr class="hr-divide-super-light">
 

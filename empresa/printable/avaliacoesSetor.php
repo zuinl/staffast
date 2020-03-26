@@ -107,7 +107,7 @@
     $array_evolucao = array();
 
     $select = "SELECT um, dois, tres, quatro, cinco, seis
-    FROM tbl_avaliacao_setor ORDER BY avs_data_criacao DESC LIMIT 30";
+    FROM tbl_avaliacao_setor WHERE set_id = ".$setor->getID()." ORDER BY avs_data_criacao DESC LIMIT 30";
 
     $query = $helper->select($select, 1);
 
@@ -211,7 +211,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_um'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_um'));
 
         chart.draw(data, options);
       }
@@ -244,7 +244,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_dois'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_dois'));
 
         chart.draw(data, options);
       }
@@ -277,7 +277,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_tres'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_tres'));
 
         chart.draw(data, options);
       }
@@ -310,7 +310,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_quatro'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_quatro'));
 
         chart.draw(data, options);
       }
@@ -344,7 +344,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_cinco'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_cinco'));
 
         chart.draw(data, options);
       }
@@ -379,7 +379,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('evolucao_seis'));
+        var chart = new google.visualization.AreaChart(document.getElementById('evolucao_seis'));
 
         chart.draw(data, options);
       }

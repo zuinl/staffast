@@ -3,7 +3,7 @@
     include('../src/meta.php');
     require_once('../classes/class_setor.php');
 
-    if($_SESSION['empresa']['plano'] != "REVOLUCAO" || $_SESSION['empresa']['plano'] != "AVALIACAO") {
+    if($_SESSION['empresa']['plano'] != "REVOLUCAO" && $_SESSION['empresa']['plano'] != "AVALIACAO") {
         $_SESSION['msg'] = "O plano atualmente utilizado pela sua empresa não permite acesso a este 
         módulo do Staffast. <a href='../planos.php'>Conheça nossos planos</a>.";
         header('Location: home.php');
@@ -121,7 +121,7 @@
             <select name="periodo" id="periodo" class="all-input" required>
                 <option value="all" selected>Desde sempre</option>
                 <option value="semana">Semana - 7 dias</option>
-                <option value="curto">Quinzena - 15 dias</option>
+                <option value="quinzena">Quinzena - 15 dias</option>
                 <option value="curto">Curto prazo - 30 dias</option>
                 <option value="medio">Médio prazo - 90 dias</option>
                 <option value="curto-medio">Curto médio prazo - 180 dias</option>
@@ -143,3 +143,6 @@
     </div> 
 
 </html>
+<script>
+    getRanking();
+</script>

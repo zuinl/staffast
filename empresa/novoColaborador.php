@@ -137,6 +137,19 @@
 ?>
 <div class="container-fluid">
 
+    <div class="row">
+        <div class="col-sm">
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                <p class="text"><b>DICA RÁPIDA:</b> você não precisa preencher todos os campos do cadastro do(a) Colaborador(a) agora. Se 
+                preferir, preencha apenas os campos obrigatórios (aqueles que aparecem com *) e depois o(a) próprio(a) colaborador(a) 
+                pode finalizar o cadastro usando o acesso dele(a) ;)</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+	</div>
+
     <!-- NAV DE CAMINHO DE TELA -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">

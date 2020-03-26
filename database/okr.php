@@ -108,17 +108,19 @@ if(isset($_GET['nova'])) {
         }
     }
 
-    $krs = new KeyResult();
-    $titulo = addslashes($_POST['tituloOKR1']);
-    $krs->setTitulo($titulo);
-    $krs->setTipo("Padrão");
-    $meta = $_POST['metaOKR1'];
-        $meta = str_replace('.', '', $meta);
-        $meta = str_replace(',', '.', $meta);
-    $krs->setGoal($meta);
-    $krs->setIDOKR($okr_id);
+    if($_POST['tituloOKR1'] != "" && $_POST['metaOKR1'] != "") {
+        $krs = new KeyResult();
+        $titulo = addslashes($_POST['tituloOKR1']);
+        $krs->setTitulo($titulo);
+        $krs->setTipo("Padrão");
+        $meta = $_POST['metaOKR1'];
+            $meta = str_replace('.', '', $meta);
+            $meta = str_replace(',', '.', $meta);
+        $krs->setGoal($meta);
+        $krs->setIDOKR($okr_id);
 
-    $krs->salvar($_SESSION['empresa']['database']);
+        $krs->salvar($_SESSION['empresa']['database']);
+    }
 
     if($_POST['tituloOKR2'] != "" && $_POST['metaOKR2'] != "") {
         $krs = new KeyResult();

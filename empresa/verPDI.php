@@ -22,7 +22,7 @@
 
     //Coletando anotações do PDI
     $select = "SELECT 
-                    DATE_FORMAT(data, '%d/%m/%Y %H:%i') as data, 
+                    DATE_FORMAT(data, '%d/%m/%Y às %H:%i') as data, 
                     anotacao 
                 FROM tbl_pdi_anotacao 
                 WHERE pdi_id = ".$_GET['id']." 
@@ -103,14 +103,9 @@
             <h6 class="text">Criado em: <?php echo $pdi->getDataCriacao(); ?></h6>
         </div>
     </div>
+
     <?php if($_SESSION['user']['cpf'] == $pdi->getCpf() || $_SESSION['user']['cpf'] == $pdi->getCpfGestor()) { ?>
     <div class="row" style="text-align: center;">
-        <div class="col-sm">
-            <span><input type="button" data-toggle="modal" data-target="#modal" class="button button3" onClick="update('pdi', '<?php echo $pdi->getID(); ?>')" value="Atualizar andamento do PDI"></span>
-        </div>
-        <div class="col-sm">
-            <span><input type="button" data-toggle="modal" data-target="#modal-nova-competencia" class="button button3" value="Adicionar uma competência"></span>
-        </div>
         <div class="col-sm">
             <span><a href="novoPDI.php?editar=true&id=<?php echo $pdi->getID(); ?>"><input type="button" class="button button3" value="Editar PDI"></a></span>
         </div>
@@ -132,6 +127,15 @@
             <span><input type="button" class="button button2" value="Reverter PDI público" onclick="reverterPublico('<?php echo $pdi->getID(); ?>');"></span>
         </div>
         <?php } ?>
+    </div>
+    
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+            <span><input type="button" data-toggle="modal" data-target="#modal" class="button button3" onClick="update('pdi', '<?php echo $pdi->getID(); ?>')" value="Atualizar andamento do PDI"></span>
+        </div>
+        <div class="col-sm">
+            <span><input type="button" data-toggle="modal" data-target="#modal-nova-competencia" class="button button3" value="Adicionar uma competência"></span>
+        </div>
     </div>
     <?php } ?>
 </div>
@@ -283,7 +287,7 @@
             <div class="row">
                 <div class="col-sm">
                     <form action="../database/pdi.php?novaCompetencia=true" method="POST">
-                    <label class="text">Qual é a competência?</label>
+                    <label class="text">Qual nova competência será desenvolvida?</label>
                     <input type="text" maxlength="50" class="all-input" name="competencia" required>
                 </div>
             </div>

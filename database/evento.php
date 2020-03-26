@@ -470,6 +470,19 @@ if(isset($_GET['novo'])) {
     header('Location: ../empresa/verEvento.php?id='.$id);
     die();
 
+} else if (isset($_GET['anotacao'])) {
+    $eve_id = $_GET['eve_id'];
+
+    $evento = new Evento();
+    $evento->setID($eve_id);
+    if($evento->adicionarAnotacao($_SESSION['empresa']['database'], addslashes($_POST['anotacao']), $_SESSION['user']['cpf'])) {
+        $_SESSION['msg'] = 'Anotação adicionada com sucesso';
+    } else {
+        $_SESSION['msg'] = 'Houve um erro ao salvar sua anotação';
+    }
+
+    header('Location: ../empresa/verEvento.php?id='.$eve_id);
+    die();
 }
 
 
