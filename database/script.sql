@@ -634,4 +634,13 @@ CREATE TABLE IF NOT EXISTS `tbl_pdi_competencia_meta` (
       `fee_id` INT NULL DEFAULT NULL , PRIMARY KEY (`id`));
 
 
+      CREATE TABLE IF NOT EXISTS `tbl_reuniao_anotacao` ( 
+        `id` INT NOT NULL AUTO_INCREMENT , 
+        `reu_id` INT NOT NULL , 
+        `cpf` VARCHAR(11) NOT NULL , 
+        `data` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+        `anotacao` TEXT NOT NULL , PRIMARY KEY (`id`))
+        ;
+
+
     

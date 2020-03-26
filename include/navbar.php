@@ -38,8 +38,10 @@ $(function () {
           <a class="dropdown-item" href="novoColaborador.php">Cadastrar colaborador</a>
           <a class="dropdown-item" href="colaboradoresDesativados.php">Colaboradores desativados</a>
           <?php } ?>
+          <?php if($_SESSION['empresa']['plano'] == "AVALIACAO" || $_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
           <a class="dropdown-item" href="PDIs.php">Planos de Desenvolvimento Individual (PDIs)</a>
           <a class="dropdown-item" href="verRanking.php">Ver ranking</a>
+          <?php } ?>
         </div>
       </li>
       <li class="nav-item dropdown" style="margin-left:1em;">
@@ -70,6 +72,8 @@ $(function () {
           <?php } ?>
         </div>
       </li>
+
+      <?php if($_SESSION['empresa']['plano'] == "AVALIACAO" || $_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
       <li class="nav-item dropdown" style="margin-left:1em;">
         <a class="nav-link dropdown-toggle text" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img src="/staffast/include/icon/test.png" width="21" data-toggle="tooltip" data-placement="top" title="Avaliações">
@@ -89,22 +93,28 @@ $(function () {
           <a class="dropdown-item" href="novaAutoavaliacao.php">Fazer autovaliação</a>
         </div>
       </li>
-      <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?>
-      <li class="nav-item dropdown" style="margin-left:1em;">
-        <a class="nav-link dropdown-toggle text" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="/staffast/include/icon/video-conference.png" width="21" data-toggle="tooltip" data-placement="top" title="Processos Seletivos">
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <?php if($_SESSION['user']['permissao'] == 'GESTOR-1' || $_SESSION['user']['permissao'] == 'GESTOR-2') { ?>
-          <a class="dropdown-item" href="processosSeletivos.php">Ver processos seletivos em andamento</a>
-          <a class="dropdown-item" href="processosSeletivosEncerrados.php">Ver processos seletivos encerrados</a>
-          <?php } ?>
-        <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?>
-          <a class="dropdown-item" href="novoProcessoSeletivo.php">Novo processo seletivo</a>
-          <?php } ?>
-        </div>
-      </li>
       <?php } ?>
+
+      <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
+        <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?>
+        <li class="nav-item dropdown" style="margin-left:1em;">
+          <a class="nav-link dropdown-toggle text" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="/staffast/include/icon/video-conference.png" width="21" data-toggle="tooltip" data-placement="top" title="Processos Seletivos">
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <?php if($_SESSION['user']['permissao'] == 'GESTOR-1' || $_SESSION['user']['permissao'] == 'GESTOR-2') { ?>
+            <a class="dropdown-item" href="processosSeletivos.php">Ver processos seletivos em andamento</a>
+            <a class="dropdown-item" href="processosSeletivosEncerrados.php">Ver processos seletivos encerrados</a>
+            <?php } ?>
+          <?php if($_SESSION['user']['permissao'] == 'GESTOR-1') { ?>
+            <a class="dropdown-item" href="novoProcessoSeletivo.php">Novo processo seletivo</a>
+            <?php } ?>
+          </div>
+        </li>
+        <?php } ?>
+      <?php } ?>
+
+      <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
       <li class="nav-item dropdown" style="margin-left:1em;">
         <a class="nav-link dropdown-toggle text" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img src="/staffast/include/icon/round-table.png" width="21" data-toggle="tooltip" data-placement="top" title="Reuniões">
@@ -117,27 +127,41 @@ $(function () {
           <?php } ?>
         </div>
       </li>
+      <?php } ?>
+
+      <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
       <li class="nav-item active" style="margin-left:1em;">
         <a class="nav-link high-text" href="eventos.php"><img src="/staffast/include/icon/calendar.png" width="21" data-toggle="tooltip" data-placement="top" title="Eventos"></a>
       </li>
+      <?php } ?>
+
+      <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
       <li class="nav-item active" style="margin-left:1em;">
         <a class="nav-link high-text" href="metas.php"><img src="/staffast/include/icon/target.png" width="21" data-toggle="tooltip" data-placement="top" title="Metas"></a>
       </li>
+      <?php } ?>
+
       <li class="nav-item active" style="margin-left:1em;">
         <a class="nav-link high-text" href="novoFeedback.php"><img src="/staffast/include/icon/feedback.png" width="21" data-toggle="tooltip" data-placement="top" title="Feedback"></a>
       </li>
+
+
       <li class="nav-item active" style="margin-left:1em;">
         <a class="nav-link high-text" href="novaMensagem.php"><img src="/staffast/include/icon/envelope.png" width="21" data-toggle="tooltip" data-placement="top" title="Mensagem"></a>
       </li>
+
+      <?php if($_SESSION['empresa']['plano'] == "AVALIACAO" || $_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
       <li class="nav-item active" style="margin-left:1em;">
         <a class="nav-link high-text" href="relatorios.php"><img src="/staffast/include/icon/laptop.png" width="21" data-toggle="tooltip" data-placement="top" title="Relatórios"></a>
       </li>
-      <!-- <li class="nav-item active">
-        <a class="nav-link high-text" href="../ajuda.php">Relatórios <span class="sr-only">(current)</span></a>
-      </li> -->
+      <?php } ?>
+
+      <?php if($_SESSION['empresa']['plano'] == "AVALIACAO" || $_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
       <li class="nav-item active" style="margin-left:1em;">
         <a class="nav-link high-text" href="documentos.php"><img src="/staffast/include/icon/file.png" width="21" data-toggle="tooltip" data-placement="top" title="Documetos"></a>
       </li>
+      <?php } ?>
+      
       <li class="nav-item dropdown" style="margin-left:1em;">
         <a class="nav-link dropdown-toggle text" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Mais
@@ -145,6 +169,7 @@ $(function () {
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <!-- <a class="dropdown-item" href="#">Minha empresa</a>
           <a class="dropdown-item" href="#">Meus dados</a> -->
+          <a class="dropdown-item" href="../blog/" target="_blank">Blog do Staffast</a>
           <a class="dropdown-item" href="meuUsuario.php">Minha conta</a>
           <a class="dropdown-item" href="minhaEmpresa.php">Minha empresa</a>
           <?php if($_SESSION['user']['permissao'] == "GESTOR-1") { ?>

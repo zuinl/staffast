@@ -48,7 +48,7 @@
 
         public function setEmailTo($emailTo)
         {
-                $this->emailTo = $emailTo;
+                $this->emailTo = $emailTo; 
 
                 return $this;
         }

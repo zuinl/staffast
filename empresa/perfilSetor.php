@@ -630,32 +630,34 @@
         </div>
 </div>
 <div class="container">
-
-    <div class="row">
-        <div class="col-sm" style="text-align: center">
-            <h3 class="text">Metas do setor</h3>
-            <hr class="hr-divide-super-light">
-            <?php 
-            $select = "SELECT DISTINCT t2.okr_id as id, t2.okr_titulo as titulo FROM tbl_okr_setor t1 
-            INNER JOIN tbl_okr t2 ON t2.okr_id = t1.okr_id WHERE t2.okr_visivel = 1 AND t1.set_id = '$id' 
-            ORDER BY t2.okr_titulo DESC";
-            $query = $helper->select($select, 1);
-            if(mysqli_num_rows($query) == 0) {
-                ?>
-                    <span class="text">Nenhuma.
-                <?php
-            } else {
-                while($f = mysqli_fetch_assoc($query)) {
+    
+    <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
+        <div class="row">
+            <div class="col-sm" style="text-align: center">
+                <h3 class="text">Metas do setor</h3>
+                <hr class="hr-divide-super-light">
+                <?php 
+                $select = "SELECT DISTINCT t2.okr_id as id, t2.okr_titulo as titulo FROM tbl_okr_setor t1 
+                INNER JOIN tbl_okr t2 ON t2.okr_id = t1.okr_id WHERE t2.okr_visivel = 1 AND t1.set_id = '$id' 
+                ORDER BY t2.okr_titulo DESC";
+                $query = $helper->select($select, 1);
+                if(mysqli_num_rows($query) == 0) {
                     ?>
-                    <span class="text"><a href="verOKR.php?id=<?php echo $f['id'] ?>"><?php echo $f['titulo']; ?></a>
+                        <span class="text">Nenhuma.
                     <?php
+                } else {
+                    while($f = mysqli_fetch_assoc($query)) {
+                        ?>
+                        <span class="text"><a href="verOKR.php?id=<?php echo $f['id'] ?>"><?php echo $f['titulo']; ?></a>
+                        <?php
+                    }
                 }
-            }
-            ?>
+                ?>
+            </div>
         </div>
+    <?php } ?>
 
-    </div>
-
+    <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO" || $_SESSION['empresa']['plano'] == "AVALIACAO") { ?>
     <hr class="hr-divide">
 
         <div class="row" style="text-align: center;">
@@ -694,6 +696,7 @@
                 <div id="grafico" style="width: 100%; height: 410px;"></div>
             </div>
         </div>
+    <?php } ?>
 </div>
 </body>
 

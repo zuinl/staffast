@@ -8,6 +8,13 @@
     require_once('../classes/class_queryHelper.php');
     require_once('../classes/class_conexao_empresa.php');
 
+    if($_SESSION['empresa']['plano'] != "REVOLUCAO" || $_SESSION['empresa']['plano'] != "AVALIACAO") {
+        $_SESSION['msg'] = "O plano atualmente utilizado pela sua empresa não permite acesso a este 
+        módulo do Staffast. <a href='../planos.php'>Conheça nossos planos</a>.";
+        header('Location: home.php');
+        die();
+    }
+
     if(!isset($_GET['id_ata']) || !isset($_GET['col']) || !isset($_GET['id_ava'])) {
         header('Location: painelAvaliacao.php');
         die();

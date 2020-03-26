@@ -8,6 +8,13 @@
     require_once('../classes/class_queryHelper.php');
     require_once('../classes/class_colaborador.php');
 
+    if($_SESSION['empresa']['plano'] != "REVOLUCAO" || $_SESSION['empresa']['plano'] != "AVALIACAO") {
+        $_SESSION['msg'] = "O plano atualmente utilizado pela sua empresa não permite acesso a este 
+        módulo do Staffast. <a href='../planos.php'>Conheça nossos planos</a>.";
+        header('Location: home.php');
+        die();
+    }
+
     $conexao = new ConexaoEmpresa($_SESSION['empresa']['database']);
     $conn = $conexao->conecta();
     $helper = new QueryHelper($conn);

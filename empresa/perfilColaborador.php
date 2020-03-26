@@ -523,20 +523,26 @@
         <li class="nav-item">
             <a class="nav-link active" id="nav-setores" href="#">Setores</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-metas" href="#">Metas</a>
-        </li>
-        <?php if($colaborador->getCpf() == $_SESSION['user']['cpf'] || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-docs" href="#">Documentos</a>
-        </li>
+        <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-metas" href="#">Metas</a>
+            </li>
         <?php } ?>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-reunioes" href="#">Reuniões</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-eventos" href="#">Eventos</a>
-        </li>
+        <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO" || $_SESSION['empresa']['plano'] == "AVALIACAO") { ?>
+            <?php if($colaborador->getCpf() == $_SESSION['user']['cpf'] || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-docs" href="#">Documentos</a>
+            </li>
+            <?php } ?>
+        <?php } ?>
+        <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-reunioes" href="#">Reuniões</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-eventos" href="#">Eventos</a>
+            </li>
+        <?php } ?>
         <?php if($colaborador->getCpf() == $_SESSION['user']['cpf']) { ?>
         <li class="nav-item">
             <a class="nav-link" id="nav-mensagens" href="#">Mensagens</a>
@@ -545,13 +551,12 @@
             <a class="nav-link" id="nav-feedbacks" href="#">Feedbacks</a>
         </li>
         <?php } ?>
-        <?php if($colaborador->getCpf() == $_SESSION['user']['cpf'] || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-pdis" href="#">PDIs</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-ferias" href="#">Férias</a>
-        </li>
+        <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
+            <?php if($colaborador->getCpf() == $_SESSION['user']['cpf'] || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-pdis" href="#">PDIs</a>
+            </li>
+            <?php } ?>
         <?php } ?>
     </ul>
     <!-- FIM DA NAV DE NAVEGAÇÃO ENTRE ABAS -->
@@ -895,60 +900,48 @@
     <?php } ?>
     <!-- FIM DIV FEEDBACKS -->
 
-    <!-- DIV FÉRIAS -->
-    <?php if($colaborador->getCpf() == $_SESSION['user']['cpf'] || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
-    <div class="row" style="margin-top: 1.5em; display: none; text-align: center;" id="div-ferias" >
-        <div class="col-sm">
-            <h4 class="text">Férias</h4>
-
-            <hr class="hr-divide-super-light">
-
-            <span class="text">Não há férias agendadas</span><br>
-        </div>
-    <?php } ?>
-    </div>
-    <!-- FIM DIV FÉRIAS -->
-
     <hr class="hr-divide">
 
-    <!-- DIV GRÁFICOS -->
-        <?php if($isAutorizado) { ?>
-            <div class="row" style="text-align: center;">
-                <div class="col-sm">
+    <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO" || $_SESSION['empresa']['plano'] == "AVALIACAO") { ?>
+        <!-- DIV GRÁFICOS -->
+            <?php if($isAutorizado) { ?>
+                <div class="row" style="text-align: center;">
                     <div class="col-sm">
-                        <h3 class="text">Avaliações</h3>
-                        <span style="font-size: 0.8em;"><a href="resultados.php?id=<?php echo base64_encode($colaborador->getCpf()); ?>" target="_blank"><button class="button button2">Ver detalhes</button></a></span>
-                        <br><small class="text">Os dados abaixo não incluem as avaliações realizadas utilizando modelos de avaliação. Para ver esses resultados, clique em "Ver detalhes" e encontre o modelo desejado</small>
+                        <div class="col-sm">
+                            <h3 class="text">Avaliações</h3>
+                            <span style="font-size: 0.8em;"><a href="resultados.php?id=<?php echo base64_encode($colaborador->getCpf()); ?>" target="_blank"><button class="button button2">Ver detalhes</button></a></span>
+                            <br><small class="text">Os dados abaixo não incluem as avaliações realizadas utilizando modelos de avaliação. Para ver esses resultados, clique em "Ver detalhes" e encontre o modelo desejado</small>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row" style="text-align: center;">
-                <div class="col-sm">
-                    <label class="text"><b>Média geral das avaliações</b></label>
-                    <br><span class="text">Avaliado <b><?php echo $avaliacoes_receb; ?></b> vezes
-                    <?php echo $show_media_ava; ?>
+                <div class="row" style="text-align: center;">
+                    <div class="col-sm">
+                        <label class="text"><b>Média geral das avaliações</b></label>
+                        <br><span class="text">Avaliado <b><?php echo $avaliacoes_receb; ?></b> vezes
+                        <?php echo $show_media_ava; ?>
+                    </div>
+                    <div class="col-sm">
+                        <label class="text"><b>Média geral das autoavaliações</b></label>
+                        <br><span class="text">Autoavaliado <b><?php echo $autoavaliacoes; ?></b> vezes
+                        <?php echo $show_media_ata; ?>
+                    </div>
                 </div>
-                <div class="col-sm">
-                    <label class="text"><b>Média geral das autoavaliações</b></label>
-                    <br><span class="text">Autoavaliado <b><?php echo $autoavaliacoes; ?></b> vezes
-                    <?php echo $show_media_ata; ?>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm">
-                    <div id="grafico" style="width: 100%; height: 410px;"></div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div id="grafico" style="width: 100%; height: 410px;"></div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm">
-                    <div id="grafico1" style="width: 100%; height: 410px;"></div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div id="grafico1" style="width: 100%; height: 410px;"></div>
+                    </div>
                 </div>
-            </div>
-        <?php } ?>
-    <!-- FIM DIV GRÁFICOS -->
+            <?php } ?>
+        <!-- FIM DIV GRÁFICOS -->
+    <?php } ?>
 
 </div>
 

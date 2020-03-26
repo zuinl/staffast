@@ -29,6 +29,16 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="home.php">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Setores desativados</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <?php
     if(isset($_SESSION['msg'])) {
         ?>

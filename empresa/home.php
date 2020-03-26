@@ -1,5 +1,12 @@
 <?php
     include('../include/auth.php');
+
+    //SE A EMPRESA FOR DO PLANO PONTO, MANDAR DIRETO PARA O PONTO
+    if($_SESSION['empresa']['plano'] == "PONTO") {
+        header('Location: historicoPontos.php');
+        die();
+    }
+
     include('../src/meta.php');
     require_once('../classes/class_gestor.php');
     require_once('../classes/class_colaborador.php');
@@ -354,39 +361,50 @@
 
     <!-- NAV DE NAVEGAÇÃO ENTRE ABAS -->
     <ul class="nav nav-tabs" style="margin-bottom: 2.5em; margin-top: 1.5em;">
-        <li class="nav-item">
-            <a class="nav-link active" id="nav-geral" href="#"><b>Geral</b></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-metas" href="#">Metas</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-docs" href="#">Documentos</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-reunioes" href="#">Reuniões</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-eventos" href="#">Eventos</a>
-        </li>
+        <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
+            <li class="nav-item">
+                <a class="nav-link active" id="nav-geral" href="#"><b>Geral</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-metas" href="#">Metas</a>
+            </li>
+        <?php } ?>
+        <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO" || $_SESSION['empresa']['plano'] == "AVALIACAO") { ?>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-docs" href="#">Documentos</a>
+            </li>
+        <?php } ?>
+        <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-reunioes" href="#">Reuniões</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-eventos" href="#">Eventos</a>
+            </li>
+        <?php } ?>
         <li class="nav-item">
             <a class="nav-link" id="nav-mensagens" href="#">Mensagens</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="nav-feedbacks" href="#">Feedbacks</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-pdis" href="#">PDIs</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-avaliacoes" href="#">Avaliações</a>
-        </li>
+        <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-pdis" href="#">PDIs</a>
+            </li>
+        <?php } ?>
+        <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO" || $_SESSION['empresa']['plano'] == "AVALIACAO") { ?>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-avaliacoes" href="#">Avaliações</a>
+            </li>
+        <?php } ?>
     </ul>
     <!-- FIM DA NAV DE NAVEGAÇÃO ENTRE ABAS -->
 </div>
 
 <div class="container">
 
+    <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
     <!-- DIV GERAL  -->
     <div class="row" id="div-geral" style="text-align: center;">
         <div class="col-sm">
@@ -427,7 +445,9 @@
         </div>
     </div>
     <!-- FIM DIV GERAL  -->
+    <?php } ?>
 
+    <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
     <!-- DIV METAS -->
     <div class="row" id="div-metas" style="display: none">
         <div class="col-sm" style="margin-top: 0.7em; text-align: center;">
@@ -470,6 +490,9 @@
         </div>
     </div>
     <!-- FIM DIV METAS -->
+    <?php } ?>
+
+    <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO" || $_SESSION['empresa']['plano'] == "AVALIACAO") { ?>
     <div class="row" id="div-avaliacoes" style="display: none; text-align: center">
         <div class="col-sm">
             <h4 class="text"><img src="img/checklist.png" width="70"> Últimas avaliações liberadas <a href="resultados.php?id=<?php echo base64_encode($cpf); ?>"><button class="button button2" style="font-size: 0.4em;">Ver painel</button></a></h4>
@@ -493,7 +516,9 @@
         </div>
     </div>
     <!-- FIM DIV AVALIAÇÕES -->
+    <?php } ?>
 
+    <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO" || $_SESSION['empresa']['plano'] == "AVALIACAO") { ?>
     <!-- DIV DOCUMENTOS -->
     <div class="row" id="div-docs" style="display: none; text-align: center;">
         <div class="col-sm">
@@ -526,7 +551,9 @@
         </div>
     </div>
     <!-- FIM DIV DOCUMENTOS -->
+    <?php } ?>
 
+    <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
     <!-- DIV EVENTOS -->
     <div class="row" id="div-eventos" style="display: none; text-align: center;">
         <div class="col-sm">
@@ -553,7 +580,9 @@
         </div>
     </div>
     <!-- FIM DIV EVENTOS  -->
+    <?php } ?>
 
+    <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
     <!-- DIV REUNIOES  -->
     <div class="row" id="div-reunioes" style="display: none; text-align: center;">
         <div class="col-sm">
@@ -584,6 +613,7 @@
         </div>
     </div>
     <!-- FIM DIV REUNIÕES  -->
+    <?php } ?>
 
     <!-- DIV FEEDBACKS  -->
     <div class="row" id="div-feedbacks" style="display: none; text-align: center;">
@@ -638,6 +668,7 @@
     </div>
     <!-- FIM DIV MENSAGENS  -->
 
+    <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
     <!-- DIV PDIS  -->
     <div class="row" id="div-pdis" style="display: none; text-align: center;">
         <div class="col-sm">
@@ -660,6 +691,8 @@
             ?>
         </div>
     </div>
+    <!-- FIM DIV PDIS  -->
+    <?php } ?>
 </div>
 
 <div class="modal" tabindex="-1" role="dialog" id="modal" data-target=".bd-example-modal-lg">

@@ -97,17 +97,42 @@ if(mysqli_num_rows($select) == 0) {
         $usu_email = $row['usu_email'];
         $emp_id = $row['emp_id'];
 
-        $row = $helper_p->select("SELECT t1.emp_razao_social as nome, t1.emp_database as db,
-        t1.emp_telefone as telefone, t1.emp_endereco as endereco, t1.emp_data_folha as fechamento, 
-        t1.emp_tolerancia_atraso as tolerancia,
-        t1.emp_logotipo as logotipo, t2.compet_um as c1, t2.compet_dois as c2, t2.compet_tres as c3, 
-        t2.compet_quatro as c4, t2.compet_cinco as c5, t2.compet_seis as c6, t2.compet_sete as c7,
-        t2.compet_oito as c8, t2.compet_nove as c9, t2.compet_dez as c10, t2.compet_onze as c11,
-        t2.compet_doze as c12, t2.compet_treze as c13, t2.compet_quatorze as c14, t2.compet_quinze as c15,
-        t2.compet_dezesseis as c16, t2.compet_dezessete as c17, t2.compet_dezoito as c18,
-        t2.compet_dezenove as c19, t2.compet_vinte as c20, t1.emp_ativo as ativo
-        FROM tbl_empresa t1 INNER JOIN tbl_competencia_empresa t2 ON t2.emp_id = t1.emp_id  
-        WHERE t1.emp_id = '$emp_id'", 2);
+        $row = $helper_p->select("SELECT 
+                                    t1.emp_razao_social as nome, 
+                                    t1.emp_database as db,
+                                    t1.emp_telefone as telefone, 
+                                    t1.emp_endereco as endereco, 
+                                    t1.emp_data_folha as fechamento, 
+                                    t1.emp_tolerancia_atraso as tolerancia,
+                                    t1.emp_logotipo as logotipo, 
+                                    t2.compet_um as c1, 
+                                    t2.compet_dois as c2, 
+                                    t2.compet_tres as c3, 
+                                    t2.compet_quatro as c4, 
+                                    t2.compet_cinco as c5, 
+                                    t2.compet_seis as c6, 
+                                    t2.compet_sete as c7,
+                                    t2.compet_oito as c8, 
+                                    t2.compet_nove as c9, 
+                                    t2.compet_dez as c10, 
+                                    t2.compet_onze as c11,
+                                    t2.compet_doze as c12, 
+                                    t2.compet_treze as c13, 
+                                    t2.compet_quatorze as c14, 
+                                    t2.compet_quinze as c15,
+                                    t2.compet_dezesseis as c16, 
+                                    t2.compet_dezessete as c17, 
+                                    t2.compet_dezoito as c18,
+                                    t2.compet_dezenove as c19, 
+                                    t2.compet_vinte as c20, 
+                                    t1.emp_ativo as ativo,
+                                    t3.pla_id as pla_id
+                                FROM tbl_empresa t1 
+                                    INNER JOIN tbl_competencia_empresa t2 
+                                        ON t2.emp_id = t1.emp_id  
+                                    INNER JOIN tbl_planos t3
+                                        ON t3.pla_id = t1.pla_id
+                                WHERE t1.emp_id = '$emp_id'", 2);
         $empresa = $row['nome'];
         $telefone = $row['telefone'];
         $endereco = $row['endereco'];
@@ -136,6 +161,14 @@ if(mysqli_num_rows($select) == 0) {
         $ativo = $row['ativo'];
         $fechamento = $row['fechamento'];
         $tolerancia = $row['tolerancia'];
+        $pla_id = $row['pla_id'];
+
+        $plano = "PONTO";
+        switch($pla_id) {
+            case 1: $plano = "PONTO"; break;
+            case 2: $plano = "AVALIACAO"; break;
+            case 3: $plano = "REVOLUCAO"; break;
+        }
 
         if($ativo == 0) {
             include('../src/meta.php');
@@ -266,7 +299,8 @@ if(mysqli_num_rows($select) == 0) {
             'fechamento' => $fechamento,
             'tolerancia' => $tolerancia,
             'logotipo'=> $logotipo, 
-            'usuarios' => $usuarios_empresa);  
+            'usuarios' => $usuarios_empresa,
+            'plano' => $plano);  
             
         $_SESSION['staffast'] = array(
             'logotipo' => 'logo_staffast.png'

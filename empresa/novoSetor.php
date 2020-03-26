@@ -20,6 +20,17 @@
     include('../include/navbar.php');
 ?>
 <div class="container-fluid">
+
+    <!-- NAV DE CAMINHO DE TELA -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="home.php">Início</a></li>
+            <li class="breadcrumb-item"><a href="setores.php">Setores</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Novo setor</li>
+        </ol>
+    </nav>
+    <!-- FIM DA NAV DE CAMINHO DE TELA -->
+
     <div class="row">
         <div class="col-sm-10 offset-sm-2">
             <h2 class="high-text">Cadastro de <span class="destaque-text">setor</span></h2>

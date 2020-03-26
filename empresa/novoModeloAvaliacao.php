@@ -3,6 +3,13 @@
     include('../src/meta.php');
     require_once '../classes/class_modelo_avaliacao.php';
 
+    if($_SESSION['empresa']['plano'] != "REVOLUCAO" || $_SESSION['empresa']['plano'] != "AVALIACAO") {
+        $_SESSION['msg'] = "O plano atualmente utilizado pela sua empresa não permite acesso a este 
+        módulo do Staffast. <a href='../planos.php'>Conheça nossos planos</a>.";
+        header('Location: home.php');
+        die();
+    }
+
     if($_SESSION['user']['permissao'] != 'GESTOR-1' && $_SESSION['user']['permissao'] != 'GESTOR-2') {
         include('../include/acessoNegado.php');
         die();

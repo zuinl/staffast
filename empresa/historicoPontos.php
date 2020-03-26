@@ -124,7 +124,7 @@
     if(isset($_SESSION['msg'])) {
         ?>
 		<div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm">
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

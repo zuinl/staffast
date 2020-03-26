@@ -511,20 +511,26 @@
         <li class="nav-item">
             <a class="nav-link active" id="nav-setores" href="#">Setores</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-metas" href="#">Metas</a>
-        </li>
-        <?php if($gestor->getCpf() == $_SESSION['user']['cpf'] || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-docs" href="#">Documentos</a>
-        </li>
+        <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-metas" href="#">Metas</a>
+            </li>
         <?php } ?>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-reunioes" href="#">Reuniões</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-eventos" href="#">Eventos</a>
-        </li>
+        <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO" || $_SESSION['empresa']['plano'] == "AVALIACAO") { ?>
+            <?php if($gestor->getCpf() == $_SESSION['user']['cpf'] || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-docs" href="#">Documentos</a>
+            </li>
+            <?php } ?>
+        <?php } ?>
+        <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO" || $_SESSION['empresa']['plano'] == "AVALIACAO") { ?>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-reunioes" href="#">Reuniões</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-eventos" href="#">Eventos</a>
+            </li>
+        <?php } ?>
         <?php if($gestor->getCpf() == $_SESSION['user']['cpf']) { ?>
         <li class="nav-item">
             <a class="nav-link" id="nav-mensagens" href="#">Mensagens</a>
@@ -533,13 +539,12 @@
             <a class="nav-link" id="nav-feedbacks" href="#">Feedbacks</a>
         </li>
         <?php } ?>
-        <?php if($gestor->getCpf() == $_SESSION['user']['cpf'] || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-pdis" href="#">PDIs</a>
-        </li>
-        <!-- <li class="nav-item">
-            <a class="nav-link" id="nav-ferias" href="#">Férias</a>
-        </li> -->
+        <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
+            <?php if($gestor->getCpf() == $_SESSION['user']['cpf'] || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-pdis" href="#">PDIs</a>
+            </li>
+            <?php } ?>
         <?php } ?>
     </ul>
     <!-- FIM DA NAV DE NAVEGAÇÃO ENTRE ABAS -->
@@ -885,39 +890,26 @@
     <?php } ?>
     <!-- FIM DIV FEEDBACKS -->
 
-    <!-- DIV FÉRIAS -->
-    <!-- <?php if($gestor->getCpf() == $_SESSION['user']['cpf'] || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
-    <div class="row" style="margin-top: 1.5em; display: none; text-align: center;" id="div-ferias" >
-        <div class="col-sm">
-            <h4 class="text">Férias</h4>
+    <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO" || $_SESSION['empresa']['plano'] == "AVALIACAO") { ?>
+        <?php if($_SESSION['user']['cpf'] == $gestor->getCpf() || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
 
-            <hr class="hr-divide-super-light">
+            <hr class="hr-divide">
 
-            <span class="text">Não há férias agendadas</span><br>
-        </div>
-    <?php } ?>
-    </div> -->
-    <!-- FIM DIV FÉRIAS -->
-
-
-    <?php if($_SESSION['user']['cpf'] == $gestor->getCpf() || $_SESSION['user']['permissao'] == "GESTOR-1") { ?>
-
-        <hr class="hr-divide">
-
-        <div class="row">
-            <div class="col-sm" style="text-align: center;">
-                <h3 class="text">Avaliações feitas por <?php echo $gestor->getPrimeiroNome(); ?></h3>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm">
-                <div class="col-sm">
-                    <div id="grafico" style="width: 100%; height: 410px;"></div>
+            <div class="row">
+                <div class="col-sm" style="text-align: center;">
+                    <h3 class="text">Avaliações feitas por <?php echo $gestor->getPrimeiroNome(); ?></h3>
                 </div>
             </div>
-        </div>
 
+            <div class="row">
+                <div class="col-sm">
+                    <div class="col-sm">
+                        <div id="grafico" style="width: 100%; height: 410px;"></div>
+                    </div>
+                </div>
+            </div>
+
+        <?php } ?>
     <?php } ?>
 
 </div>

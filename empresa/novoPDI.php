@@ -5,6 +5,13 @@
     include('../classes/class_colaborador.php');
     include('../classes/class_pdi.php');
 
+    if($_SESSION['empresa']['plano'] != "REVOLUCAO") {
+        $_SESSION['msg'] = "O plano atualmente utilizado pela sua empresa não permite acesso a este 
+        módulo do Staffast. <a href='../planos.php'>Conheça nossos planos</a>.";
+        header('Location: home.php');
+        die();
+    }
+
     $colaborador = new Colaborador();
     $gestor = new Gestor();
 
@@ -113,7 +120,7 @@
                 <label class="text">Este Plano de Desenvolvimento Individual é para...</label>
                 <select name="dono" id="dono" class="all-input" required>
                     <?php if($_SESSION['user']['permissao'] == 'COLABORADOR') { ?>
-                        <option value="<?php echo $_SESSION['user']['cpf'] ?>" selected disabled><?php echo $_SESSION['user']['nome_completo'] ?></option>
+                        <option value="<?php echo $_SESSION['user']['cpf'] ?>" selected><?php echo $_SESSION['user']['nome_completo'] ?></option>
                     <?php } else if ($_SESSION['user']['permissao'] == 'GESTOR-2') {
                         ?>
                         <option value="">- Selecione -</option>

@@ -395,15 +395,17 @@
         </div>
     </div> 
 
+    <?php if($_SESSION['user']['permissao'] != 'COLABORADOR') { ?>
     <div class="row" style="margin-top: 2.5em;">
         <div class="col-sm">
             <h4 class="high-text">Informações empresariais</h4>
         </div>
     </div>
+    <?php } ?>
 
     <hr class="hr-divide-super-light">
 
-    <div class="row" style="margin-top:0.8em;">
+    <div class="row" style="margin-top:0.8em; <?php if($_SESSION['user']['permissao'] == 'COLABORADOR') echo 'display: none;' ?>">
         <div class="col-sm">
             <label for="idInterno" class="text">ID interno</label>
             <input type="text" name="idInterno" id="idInterno" value="<?php echo $col->getIDInterno(); ?>" class="all-input">

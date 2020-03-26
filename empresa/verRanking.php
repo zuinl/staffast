@@ -3,6 +3,13 @@
     include('../src/meta.php');
     require_once('../classes/class_setor.php');
 
+    if($_SESSION['empresa']['plano'] != "REVOLUCAO" || $_SESSION['empresa']['plano'] != "AVALIACAO") {
+        $_SESSION['msg'] = "O plano atualmente utilizado pela sua empresa não permite acesso a este 
+        módulo do Staffast. <a href='../planos.php'>Conheça nossos planos</a>.";
+        header('Location: home.php');
+        die();
+    }
+
     $setor = new Setor();
 ?>
 <!DOCTYPE html>

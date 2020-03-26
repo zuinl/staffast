@@ -27,17 +27,53 @@ class PDI {
 
         $insert = "INSERT INTO tbl_pdi (pdi_titulo, pdi_prazo, pdi_cpf, ges_cpf) 
         VALUES ('$this->titulo', '$this->prazo', '$this->cpf', '$this->cpfGestor')";
-
-        $sucesso = $helper->insert($insert);
         
-        if($sucesso) {
-            echo '<br>Cadastrado com sucesso';
+        if($helper->insert($insert)) {
+            if($this->cpfGestor != "") {
+                $this->avisarGestor($database_empresa, $this->cpfGestor);
+            }
+
             return true;
-        }
-        else {
-            echo 'Erro: '.mysqli_error($conexao);
+        } else {
             return false;
-        }
+        } 
+    }
+
+    function avisarGestor($database_empresa, $cpf) {
+        require_once('class_conexao_empresa.php');
+        require_once('class_conexao_padrao.php');
+        require_once('class_email.php');
+        require_once('class_queryHelper.php');
+        require_once('class_codigoPS.php');
+
+        $conexaoE = new ConexaoEmpresa($database_empresa);
+        $conexaoE = $conexaoE->conecta();
+        $helperE = new QueryHelper($conexaoE);
+
+        $conexaoP = new ConexaoPadrao();
+        $conexaoP = $conexaoP->conecta();
+        $helperP = new QueryHelper($conexaoP);
+
+        $select = "SELECT usu_id as id, ges_primeiro_nome as nome FROM tbl_gestor WHERE ges_cpf = '$cpf'";
+        $fetch_usu = $helperE->select($select, 2);
+        $usu_id = $fetch_usu['id'];
+        $nome = $fetch_usu['nome'];
+
+        $select = "SELECT usu_email as email FROM tbl_usuario WHERE usu_id = $usu_id";
+        $fetch_email = $helperP->select($select, 2);
+        $email = $fetch_email['email'];
+
+        $mail = new Email();
+        $mail->setEmailTo($email);
+        $mail->setAssunto("Orientação no PDI");
+        $mail->setMensagem('<h1 class="high-text">Olá, '.$nome.'</h1>
+                            <h2 class="text">Um colaborador criou um Plano de Desenvolvimento Individual (PDI) 
+                            e te adicionou como orientador(a).</h2>
+                            <a href="https://sistemastaffast.com.br" target="_blank"><button class="button button1">Acesse o Staffast e veja</button></a>
+                            <h6 class="text">Por enquanto é só :D</h6>
+                            <small class="text">Equipe do Staffast</small>');
+        $mail->enviar();
+
     }
 
     function cadastrarCompetencia($database_empresa, $pdi_id, $competencia) {

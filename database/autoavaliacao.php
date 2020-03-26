@@ -208,26 +208,14 @@ if(isset($_GET['nova'])) {
         $log->setIDUser($_SESSION['user']['usu_id']);
         $log->salvar();
 
-        ?>
-        <script>
-            var conf = confirm("Sua autoavaliação foi salva!");
-            if(conf == true || conf == false) {
-                window.location.href = "../empresa/home.php";
-            }
-        </script>
-        <?php
+        $_SESSION['msg'] = 'Sua autoavaliação foi salva com sucesso.';
+        header('Location: ../empresa/painelAvaliacao.php');
+        die();
     } else {
-        ?>
-        <script>
-            var conf = confirm("Houve um erro! Contate o suporte");
-            if(conf == true || conf == false) {
-                window.location.href = "../empresa/home.php";
-            }
-        </script>
-        <?php
+        $_SESSION['msg'] = 'Houve um erro ao salvar sua autoavaliação.';
+        header('Location: ../empresa/painelAvaliacao.php');
+        die();
     }
-
-    die();
 
 } else if (isset($_GET['liberar'])) {
 
@@ -255,7 +243,7 @@ if(isset($_GET['nova'])) {
         $email->setAssunto("Autoavaliação liberada");
         $empresa = $_SESSION['empresa']['nome'];
         $msg = '<h1 class="high-text">Oi, '.$colaborador->getPrimeiroNome().'</h1>
-                <h2 class="high-text">Olá! Uma nova autoavaliação foi liberada para você preencher em '.$empresa.'.<br>
+                <h2 class="high-text">Uma nova autoavaliação foi liberada para você preencher em '.$empresa.'.<br>
                 Acesse o Staffast e faça agora mesmo ;D</h2>
                 <a href="https://sistemastaffast.com/staffast/" target="blank_"><button class="button button3">Acessar sistema</button></a>
                 <h2 class="destaque-text">Por agora é só :D</h2>

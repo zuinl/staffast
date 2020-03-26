@@ -7,6 +7,13 @@
     require_once('../classes/class_gestor.php');
     date_default_timezone_set('America/Sao_Paulo');
 
+    if($_SESSION['empresa']['plano'] != "REVOLUCAO") {
+        $_SESSION['msg'] = "O plano atualmente utilizado pela sua empresa não permite acesso a este 
+        módulo do Staffast. <a href='../planos.php'>Conheça nossos planos</a>.";
+        header('Location: home.php');
+        die();
+    }
+
     $conexao = new ConexaoEmpresa($_SESSION['empresa']['database']);
     $conn = $conexao->conecta();
     $helper = new QueryHelper($conn);
@@ -15,7 +22,7 @@
     $hoje = date('Y-m-d');
     $hora = date('H:i:s');
     if($_SESSION['user']['permissao'] == 'GESTOR-1') {
-        $select = "SELECT DISTINCT reu_id as id FROM tbl_reuniao WHERE reu_data >= '$hoje' AND reu_hora >= '$hora' AND reu_concluida = 0 ORDER BY reu_data ASC";
+        $select = "SELECT DISTINCT reu_id as id FROM tbl_reuniao WHERE (reu_data >= '$hoje' OR (reu_data = '$hoje' AND reu_hora < '$hora')) AND reu_concluida = 0 ORDER BY reu_data ASC";
     } else {
         $select = "SELECT DISTINCT t1.reu_id as id FROM tbl_reuniao_integrante t1 INNER JOIN tbl_reuniao t2 
         ON t2.reu_id = t1.reu_id WHERE t1.cpf = '$cpf' AND (t2.reu_data >= '$hoje' OR (t2.reu_data = '$hoje' AND t2.reu_hora >= '$hora')) AND reu_concluida = 0 ORDER BY t2.reu_data ASC";

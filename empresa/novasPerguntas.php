@@ -2,6 +2,13 @@
     include('../include/auth.php');
     include('../src/meta.php');
 
+    if($_SESSION['empresa']['plano'] != "REVOLUCAO") {
+        $_SESSION['msg'] = "O plano atualmente utilizado pela sua empresa não permite acesso a este 
+        módulo do Staffast. <a href='../planos.php'>Conheça nossos planos</a>.";
+        header('Location: home.php');
+        die();
+    }
+
     if($_SESSION['user']['permissao'] != "GESTOR-1") {
         include('../include/acessoNegado.php');
         die();
