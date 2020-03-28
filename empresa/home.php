@@ -730,7 +730,7 @@
                     <div class="col-sm">
                         <p class="text">Há avaliações que você não visualizou
                         <a href="resultados.php?id=<?php echo base64_encode($_SESSION['user']['cpf']); ?>"><button class="button button1" style="font-size: 0.7em;">Ver resultados</button></a>
-                        <br><span style="font-size: 0.7em;">Uma avaliação só é considerada visualizada quando você a visualizada individualmente no 
+                        <br><span style="font-size: 0.7em;">Uma avaliação só é considerada visualizada quando você a visualiza individualmente no 
                         Painel de Controle de Avaliações. O mesmo vale para avaliações realizadas usando modelos.</span>
                         </p>
                     </div>

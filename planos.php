@@ -107,69 +107,69 @@ include('src/meta.php');
             <th>Staffast Revolução</th>
         </tr>
         <tr>
-            <td><img src="empresa/img/team-1.png" width="90"><h6 class="text">Cadastros (gestores, colaboradores e setores)</h6></td>
+            <th><img src="empresa/img/team-1.png" width="90"><h6 class="text">Cadastros (gestores, colaboradores e setores)</h6></th>
             <td style="color: green;">INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
         </tr>
         <tr>
-            <td><img src="empresa/img/clock.png" width="90"><h6 class="text">Registro de Ponto</h6>
+            <th><img src="empresa/img/clock.png" width="90"><h6 class="text">Registro de Ponto</h6>
                 <img src="empresa/img/google-play.png" width="15"> 
                     <span style="font-size: 0.7em;"> Disponível no app </span>
                 <img src="empresa/img/app.png" width="15">
-            </td>
+            </th>
             <td style="color: green;">INCLUSO</td>
-            <td style="color: blue;">OPCIONAL</td>
-            <td style="color: blue;">OPCIONAL</td>
+            <td style="color: green;">INCLUSO</td>
+            <td style="color: green;">INCLUSO</td>
         </tr>
         <tr>
-            <td><img src="empresa/img/feedback.png" width="90"><h6 class="text"><i>Feedback</i></h6>
+            <th><img src="empresa/img/feedback.png" width="90"><h6 class="text"><i>Feedback</i></h6>
                 <img src="empresa/img/google-play.png" width="15"> 
                     <span style="font-size: 0.7em;"> Em breve no app </span>
                 <img src="empresa/img/app.png" width="15">
-            </td>
+            </th>
             <td style="color: green;">INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
         </tr>
         <tr>
-            <td><img src="empresa/img/checklist.png" width="90"><h6 class="text">Avaliações (4 tipos)</td>
+            <th><img src="empresa/img/checklist.png" width="90"><h6 class="text">Avaliações (4 tipos)</th>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
         </tr>
         <tr>
-            <td><img src="empresa/img/file.png" width="90"><h6 class="text">Documentos</td>
+            <th><img src="empresa/img/file.png" width="90"><h6 class="text">Documentos</th>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
         </tr>
         <tr>
-            <td><img src="empresa/img/goal.png" width="90"><h6 class="text">Metas OKR</td>
+            <th><img src="empresa/img/goal.png" width="90"><h6 class="text">Metas OKR</th>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
         </tr>
         <tr>
-            <td><img src="empresa/img/round-table.png" width="90"><h6 class="text">Reuniões</td>
+            <th><img src="empresa/img/round-table.png" width="90"><h6 class="text">Reuniões</th>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
         </tr>
         <tr>
-            <td><img src="empresa/img/calendar.png" width="90"><h6 class="text">Eventos</td>
+            <th><img src="empresa/img/calendar.png" width="90"><h6 class="text">Eventos</th>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
         </tr>
         <tr>
-            <td><img src="empresa/img/interview.png" width="90"><h6 class="text">Processos Seletivos</td>
+            <th><img src="empresa/img/interview.png" width="90"><h6 class="text">Processos Seletivos</th>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
         </tr>
         <tr>
-            <td><img src="empresa/img/pdi.png" width="90"><h6 class="text">Planos de Desenvolvimento Individual</td>
+            <th><img src="empresa/img/pdi.png" width="90"><h6 class="text">Planos de Desenvolvimento Individual</th>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
@@ -197,7 +197,7 @@ include('src/meta.php');
             <th>Acima de 50 funcionários</th>
         </tr>
         <tr>
-            <td><b>Staffast Ponto</b></td>
+            <th><b>Staffast Ponto</b></th>
             <td>R$ 19,90 </td>
             <td>R$ 16,90 </td>
             <td>R$ 13,90 </td>
@@ -205,7 +205,7 @@ include('src/meta.php');
             <td>R$ 9,90 </td>
         </tr>
         <tr>
-            <td><b>Staffast Avaliação</b></td>
+            <th><b>Staffast Avaliação</b></th>
             <td>R$ 24,90 </td>
             <td>R$ 22,90 </td>
             <td>R$ 19,90 </td>
@@ -213,7 +213,7 @@ include('src/meta.php');
             <td>R$ 15,90 </td>
         </tr>
         <tr>
-            <td><b>Staffast Revolução</b></td>
+            <th><b>Staffast Revolução</b></th>
             <td>R$ 27,90 </td>
             <td>R$ 25,90 </td>
             <td>R$ 23,90 </td>

@@ -50,7 +50,7 @@
     <!-- NAV DE CAMINHO DE TELA -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item"><a href="home.php">Início</a></li>
             <li class="breadcrumb-item active" aria-current="page">Reuniões passadas</li>
         </ol>
     </nav>

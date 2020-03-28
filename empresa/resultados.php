@@ -1109,7 +1109,7 @@
     <!-- NAV DE CAMINHO DE TELA -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item"><a href="home.php">Início</a></li>
             <li class="breadcrumb-item"><a href="painelAvaliacao.php">Painel de Avaliações</a></li>
             <li class="breadcrumb-item active" aria-current="page">Relatório de resultados de <?php echo $colaborador->getNomeCompleto(); ?></li>
         </ol>

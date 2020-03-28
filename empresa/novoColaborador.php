@@ -153,7 +153,7 @@
     <!-- NAV DE CAMINHO DE TELA -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="./">Início</a></li>
+            <li class="breadcrumb-item"><a href="home.php">Início</a></li>
             <li class="breadcrumb-item"><a href="colaboradores.php">Colaboradores</a></li> 
             <?php if(isset($_GET['editar'])) { ?> 
                 <li class="breadcrumb-item"><a href="perfilColaborador.php?id=<?php echo base64_encode($col->getCpf()) ?>"><?php echo $col->getNomeCompleto(); ?></a></li> 

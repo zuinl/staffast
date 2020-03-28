@@ -117,6 +117,15 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
 
         <div class="row" style="text-align: center;">
             <div class="col-sm">
+                <img src="covid-19/virus.png" width="70" style="margin-right: 2em;">
+                <a href="covid-19/"><button class="button button3">VEJA COMO O STAFFAST PODE TE AJUDAR COM A COVID-19</button></a>
+            </div>
+        </div>
+
+        <hr class="hr-divide-super-light">
+
+        <div class="row" style="text-align: center;">
+            <div class="col-sm">
                 <a href="login.php"><button class="button button1">JÁ USA O STAFFAST? CLIQUE PARA ENTRAR</button></a>
             </div>
             <div class="col-sm">
@@ -278,7 +287,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                     <div class="card-body">
                         <p class="card-text" style="font-size: 1.7em;"><b>Processos Seletivos</b></p>
                         <p class="card-text" style="font-size: 1.2em;">Receba o currículo, dados pessoais e faça quantas perguntas quiser para os seus candidatos. 
-                        <br> E ainda é possível relacionar as perguntas com as <b>competências da sua empresa.</p>
+                        <br> E ainda é possível relacionar as perguntas com as <b>competências da sua empresa</b>.</p>
                     </div>
                 </div>
             </div>
