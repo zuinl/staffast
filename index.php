@@ -32,6 +32,22 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
     }
 
     unset($_GET);
+} else if(isset($_POST) && isset($_GET['assinarNewsletter']) && $_GET['assinarNewsletter'] == "true") {
+    $email = $_POST['email'];
+
+    require_once 'classes/class_conexao_padrao.php';
+    require_once 'classes/class_queryHelper.php';
+
+    $conexao = new ConexaoPadrao();
+    $conn = $conexao->conecta();
+    $helper = new QueryHelper($conn);
+
+    $insert = "INSERT INTO tbl_newsletter_assinantes (email) VALUES ('$email')";
+    $helper->insert($insert);
+
+    $msg = "Prontinho! Você receberá mensagens do Staffast no e-mail ".$email;
+
+    unset($_GET);
 }
 ?>
 <!DOCTYPE html>
@@ -50,6 +66,20 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
             mensagem.focus();
         }
     </script>
+    <meta property="og:url"           content="https://sistemastaffast.com/staffast/" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="Staffast" />
+    <meta property="og:description"   content="Nossa missão é fazer você cumprir a sua" />
+    <meta property="og:image"         content="https://sistemastaffast.com/staffast/img/graphic.png" />
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 </head>
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" style="position: fixed;top: 0; width: 100%;">
     <img src="img/logo_staffast.png" width="180">
@@ -144,10 +174,20 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                 <h1 class="display-4 high-text">Nossa missão é fazer você cumprir a <i>sua</i></h1>
                 <p class="lead">No século onde é difícil cuidar de nós mesmos, porque tem que ser tão complicado cuidar da sua equipe? 
                 <br> O Staffast oferece tudo o que você precisa para focar no que realmente te interessa: fazer sua empresa voar</p>
-                <img src="empresa/img/instagram.png" width="40"><span style="font-size: 1.2em;"> <a href="https://www.instagram.com/staffast_/" target="_blank">@staffast_</span></a>
-                <img src="empresa/img/youtube.png" width="40" style="margin-left: 1.5em;"><span style="font-size: 1.2em;"> <a href="https://www.youtube.com/channel/UCFOx-xf2Iyv4kwkxekZcUaw" target="_blank">Youtube</span></a>
-                <img src="empresa/img/google-play.png" width="40" style="margin-left: 1.5em;"><span style="font-size: 1.2em;"> <a href="#" onclick="alert('Em breve!')">Baixe o app no seu Android</span></a>
-                <img src="empresa/img/app.png" width="40" style="margin-left: 1.5em;"><span style="font-size: 1.2em;"> <a href="#" onclick="alert('Em breve!')">Baixe o app no seu iOS</span></a>
+                <div class="row">
+                    <div class="col-sm">
+                        <img src="empresa/img/instagram.png" width="40"><span style="font-size: 1.2em;"> <a href="https://www.instagram.com/staffast_/" target="_blank">@staffast_</span></a>
+                    </div>
+                    <div class="col-sm">
+                        <img src="empresa/img/youtube.png" width="40"><span style="font-size: 1.2em;"> <a href="https://www.youtube.com/channel/UCFOx-xf2Iyv4kwkxekZcUaw" target="_blank">Youtube</span></a>
+                    </div>
+                    <div class="col-sm">
+                        <img src="empresa/img/google-play.png" width="40"><span style="font-size: 1.2em;"> <a href="#" onclick="alert('Em breve!')">Baixe o app no seu Android</span></a>
+                    </div>
+                    <div class="col-sm">
+                        <img src="empresa/img/app.png" width="40"><span style="font-size: 1.2em;"> <a href="#" onclick="alert('Em breve!')">Baixe o app no seu iOS</span></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -444,6 +484,42 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                     <input type="submit" value="Enviar mensagem" class="button button1">
                 </div>
                 </form>
+            </div>
+        </div>
+
+        <div class="row" style="text-align: center;">
+            <div class="col-sm">
+                <h1><img src="empresa/img/newspaper.png" width="70"> Quer receber <b>novidades</b> sobre gestão? <img src="empresa/img/newspaper.png" width="70"></h1>
+            </div>
+        </div>
+
+        <hr class="hr-divide-super-light">
+
+        <div class="jumbotron jumbotron-fluid" style="padding: 1em; text-align: center;">
+            <div class="row">
+                <div class="col-sm-4 offset-sm-4">
+                <form action="index.php?assinarNewsletter=true" method="POST" id="newsletter">
+                    <input type="email" class="all-input" name="email" id="email" placeholder="Insira seu e-mail" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <input type="submit" value="Enviar" class="button button1">
+                </div>
+                </form>
+            </div>
+        </div>
+
+        <hr class="hr-divide">
+
+        <div class="row" style="text-align: center;">
+            <div class="col-sm">
+                <small class="text">Adsumus Sistemas - <?php echo date('Y'); ?></small>
+            </div>
+        </div>
+        <div class="row" style="text-align: center;">
+            <div class="col-sm">
+                <small class="text"><a href="mailto:contato@sistemastaffast.com">contato@sistemastaffast.com</a></small>
             </div>
         </div>
 

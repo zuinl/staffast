@@ -23,8 +23,20 @@
 <html>
 <head>
     <title>Blog do Staffast</title>
+    <!-- For Facebook -->
+    <meta property="og:url" content="https://sistemastaffast.com/staffast/blog/index.php" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blog do Staffast" />
+    <meta property="og:description" content="O blog do Staffast é repleto de dicas e informações sobre gestão pra sua empresa" />
+    <meta property="og:image" content="https://sistemastaffast.com/staffast/img/graphic.png" />
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+    (function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1" fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- facebook Script End -->
 </head>
-<body style="margin-top: 4em; padding-left: 8em; padding-right: 8em;">
+<body style="margin-top: 4em;">
 <?php require_once 'bars.php'; ?>
 
 <div class="container">
@@ -59,9 +71,9 @@
         </div>
         <?php } ?>
 
-        <div class="row" style="padding-left: 10em; padding-right: 10em; margin-top: 2em;">
+        <div class="row" style="margin-top: 2em;">
             <div class="col-sm">
-                <h6 class="text"><?php echo substr($f['texto'], 0, 150); ?></h6>
+                <h6 class="text"><?php echo substr($f['texto'], 0, 400); ?></h6>
             </div>
         </div>
 

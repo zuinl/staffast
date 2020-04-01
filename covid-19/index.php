@@ -6,6 +6,18 @@ include('../src/meta.php');
 <html>
 <head>
 	<title>COVID-19 - Ajude sua empresa</title>
+    <!-- For Facebook -->
+    <meta property="og:url" content="https://sistemastaffast.com/staffast/covid-19/index.php" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="O Staffast quer ajudar sua empresa com a COVID-19" />
+    <meta property="og:description" content="Somos a ferramenta de gestão perfeita para o trabalho remoto" />
+    <meta property="og:image" content="https://sistemastaffast.com/staffast/img/graphic.png" />
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+    (function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1" fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- facebook Script End -->
 </head>
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" style="position: fixed;top: 0; width: 100%;">
     <img src="../img/logo_staffast.png" width="180">

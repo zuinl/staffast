@@ -360,10 +360,12 @@
             <a href="verRanking.php"><img src="img/gold.png" width="40"></a>
             <span class="text" style="font-size: 0.9em;"><i>Ranking</i></span>
         </div>
+        <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO" || $_SESSION['empresa']['plano'] == "AVALIACAO") { ?>
         <div class="col-sm">
             <a href="painelAvaliacao.php"><img src="img/checklist.png" width="40"></a>
             <span class="text" style="font-size: 0.9em;">Avaliações</span>
         </div>
+        <?php } ?>
     </div>
 
     <hr class="hr-divide">

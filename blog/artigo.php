@@ -28,15 +28,19 @@
     
     $update = "UPDATE tbl_artigo SET visualizacoes = (visualizacoes + 1) WHERE id = $id";
     $helper->update($update);
+
+    if($f['capa'] != "") $img_url = "https://sistemastaffast.com/staffast/blog/capas/".$f['capa'];
+    else $img_url = "https://sistemastaffast.com/staffast/img/graphic.png";
 ?>
 <html>
 <head>
-    <title>Blog do Staffast</title>
+    <title><?php echo $f['titulo']; ?></title>
     <!-- For Facebook -->
     <meta property="og:url" content="https://sistemastaffast.com/staffast/blog/artigo.php?id=<?php echo $f['id']; ?>" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Blog do Staffast" />
-    <meta property="og:image" content="https://sistemastaffast.com/staffast/empresa/img/logos/logo_adsumus.png" />
+    <meta property="og:title" content="<?php echo $f['titulo']; ?>" />
+    <meta property="og:description" content="Venha conferir este post no Blog do Staffast" />
+    <meta property="og:image" content="<?php echo $img_url; ?>" />
     <!-- Load Facebook SDK for JavaScript -->
     <div id="fb-root"></div>
     <script>
@@ -52,7 +56,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="../">Staffast</a></li>
-            <li class="breadcrumb-item"><a href="home.php">Blog do Staffast</a></li>
+            <li class="breadcrumb-item"><a href="index.php">Blog do Staffast</a></li>
             <li class="breadcrumb-item active" aria-current="page"><?php echo $f['titulo']; ?></li>
         </ol>
     </nav>
@@ -100,20 +104,20 @@
         <div class="row" style="text-align: center; margin-bottom: 3em; padding-left: 20%; padding-right: 20%;">
             <div class="col-sm">
                 <!-- For Facebook -->
-                <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=sistemastaffast.com">
+                <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://sistemastaffast.com/staffast/blog/artigo.php?id=<?php echo $f['id']; ?>">
                     <img src="/staffast/empresa/img/facebook.png" width="30">
                 </a>
             </div>
             <div class="col-sm">
                 <!-- For Twitter -->
-                <a data-size="large" href="https://twitter.com/intent/tweet?text=sistemastaffast.com" target="_blank">
+                <a data-size="large" href="https://twitter.com/intent/tweet?text=https://sistemastaffast.com/staffast/blog/artigo.php?id=<?php echo $f['id']; ?>" target="_blank">
                     <img src="/staffast/empresa/img/twitter.png" width="30">
                 </a>
             </div>
             <div class="col-sm">
                 <!-- For LinkedIn -->
                 <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-                <script type="IN/Share" data-url="sistemastaffast.com"></script>
+                <script type="IN/Share" data-url="https://sistemastaffast.com/staffast/blog/artigo.php?id=<?php echo $f['id']; ?>"></script>
             </div>
         </div>
 

@@ -41,6 +41,25 @@
 
         }
 
+        public function dispararNewsletter() {
+                require_once('class_conexao_padrao.php');
+                require_once('class_queryHelper.php');
+                include('../src/meta.php');
+
+                $conexao = new ConexaoPadrao();
+                $conn = $conexao->conecta();
+                $helper = new QueryHelper($conn);
+
+                $select = "SELECT DISTINCT email as email FROM tbl_newsletter_assinantes";
+                $query = $helper->select($select, 1);
+
+                while($f = mysqli_fetch_assoc($query)) {
+                        $this->setEmailTo($f['email']);
+                        $this->addUnsubscribe();
+                        $this->enviar();
+                }
+        }
+
         public function getEmailTo()
         {
                 return $this->emailTo;
@@ -256,6 +275,15 @@
                 </html>';
 
                 return $this;
+        }
+
+        public function addUnsubscribe() {
+                $this->mensagem .= '
+                        <div class="row" style="text-align: center; font-size: 0.7em; margin-top: 2em;">
+                            <div class="col-sm">
+                                <a href="https://sistemastaffast.com/staffast/newsletter/unsubscribe.php?email='.$this->emailTo.'" target="_blank">Não receber mais e-mails assim</a>
+                            </div>
+                        </div>';
         }
     }
 

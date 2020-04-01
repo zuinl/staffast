@@ -17,7 +17,7 @@ class ConexaoBlog {
 				$this->host = "108.179.253.15";
 				$this->user = "siste002_staffas";
 				$this->password = "wanderlustis18";
-				$this->database = "siste002_db_staffast_blog";
+				$this->database = "siste002_staffast_blog";
 			}
 
 			try {
