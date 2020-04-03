@@ -2,19 +2,18 @@
 
     //Teste de chamada da API teste.php desta mesma pasta
 
-    //URL da API
-    $latitude = "-22.9982128";
-    $longitude = "-45.5284302";
-    //$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&key=AIzaSyBs89DVkWnqf6u_CxyNXVg9NKgH3c5sEco";
-    
-    // get the json response
-    $resp_json = file_get_contents($url);
-     
-    // decode the json
-    $resp = json_decode($resp_json, true);
-
-    var_dump($resp);
-
-    echo $resp['status'];
-    echo $resp['results'][0]['formatted_address'];
+    $data = array("email" => 'leonardosoareszuin@gmail.com', "token" => 'c0a5fb68a6e5b84b58287ceff6d3e251');                                                                    
+    $data_string = json_encode($data);                                                                                   
+                                                                                                                        
+    $ch = curl_init('http://localhost/staffast/api/documento.php');                                                                      
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+        'Content-Type: application/json',                                                                                
+        'Content-Length: ' . strlen($data_string))                                                                       
+    );                                                                                                                   
+                                                                                                                        
+    $result = curl_exec($ch);
+    var_dump($result);
 ?>

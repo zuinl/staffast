@@ -41,7 +41,7 @@ class Documento {
         $helper = new QueryHelper($conn);
 
         $select = "SELECT doc_id as id, doc_titulo as titulo, doc_tipo as tipo, 
-        doc_caminho as caminho, DATE_FORMAT(doc_data_upload, '%d/%m/%Y %H:%i:%s') as upload, 
+        doc_caminho as caminho, DATE_FORMAT(doc_data_upload, '%d/%m/%Y às %H:%i') as upload, 
         ges_cpf as cpf FROM tbl_documento WHERE doc_id = '$this->ID'";
 
         $fetch = $helper->select($select, 2);
