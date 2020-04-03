@@ -182,7 +182,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                         <img src="empresa/img/youtube.png" width="40"><span style="font-size: 1.2em;"> <a href="https://www.youtube.com/channel/UCFOx-xf2Iyv4kwkxekZcUaw" target="_blank">Youtube</span></a>
                     </div>
                     <div class="col-sm">
-                        <img src="empresa/img/google-play.png" width="40"><span style="font-size: 1.2em;"> <a href="#" onclick="alert('Em breve!')">Baixe o app no seu Android</span></a>
+                        <img src="empresa/img/google-play.png" width="40"><span style="font-size: 1.2em;"> <a href="https://play.google.com/store/apps/details?id=com.staffast" target="_blank">Baixe o app no seu Android</span></a>
                     </div>
                     <div class="col-sm">
                         <img src="empresa/img/app.png" width="40"><span style="font-size: 1.2em;"> <a href="#" onclick="alert('Em breve!')">Baixe o app no seu iOS</span></a>
