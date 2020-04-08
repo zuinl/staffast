@@ -29,7 +29,7 @@ class PDI {
         VALUES ('$this->titulo', '$this->prazo', '$this->cpf', '$this->cpfGestor')";
         
         if($helper->insert($insert)) {
-            if($this->cpfGestor != "") {
+            if($this->cpfGestor != "" && $this->cpfGestor != "Nenhum") {
                 $this->avisarGestor($database_empresa, $this->cpfGestor);
             }
 

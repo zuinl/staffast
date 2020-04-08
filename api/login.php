@@ -67,13 +67,22 @@
                 $nome = $f_col['nome'];
                 $cpf = $f_col['cpf'];
 
-                $token = md5(date('Y-m-d H:i:s'));
+                //Checar se já existe token
+                $select = "SELECT token FROM tbl_usuario_token WHERE usu_id = $usu_id";
+                $query = $helperP->select($select, 1);
 
-                $delete = "DELETE FROM tbl_usuario_token WHERE usu_id = $usu_id";
-                $helperP->delete($delete);
+                $token = "";
+                if(mysqli_num_rows($query) == 0) { //se não existe
+                    $token = md5(date('Y-m-d H:i:s'));
 
-                $insert = "INSERT INTO tbl_usuario_token (usu_id, token) VALUES ($usu_id, '$token')";
-                $helperP->insert($insert);
+                    $insert = "INSERT INTO tbl_usuario_token (usu_id, token) VALUES ($usu_id, '$token')";
+                    $helperP->insert($insert);
+                } else { //se existe token
+                    $fetch = $helperP->select($select, 2);
+                    $token = $fetch['token'];
+                }
+
+                
 
                 $sucesso = true;
                 $msg = "Colaborador encontrado";

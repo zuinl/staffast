@@ -12,53 +12,69 @@ include('src/meta.php');
                 var numero = document.getElementById('numero').value;
                 var preco = 0.00;
 
-                if(plano == 'Ponto') {
-                    if(numero >= 1 && numero <= 5) { //19,90
-                        preco = numero * 19.90;
+                if(plano == 'Documento') {
+                    if(numero >= 1 && numero <= 5) {
+                        preco = numero * 6.90;
                     } 
-                    if(numero >= 6 && numero <= 15) { //16,90
-                        preco = numero * 16.90;
+                    if(numero >= 6 && numero <= 15) {
+                        preco = numero * 6.49;
                     } 
-                    if(numero >= 16 && numero <= 30) { //13,90
-                        preco = numero * 13.90;
+                    if(numero >= 16 && numero <= 30) {
+                        preco = numero * 5.99;
                     } 
-                    if(numero >= 31 && numero <= 50) { //11,90
-                        preco = numero * 11.90;
+                    if(numero >= 31 && numero <= 50) {
+                        preco = numero * 5.59;
                     } 
-                    if(numero > 50) { //9,90
-                        preco = numero * 9.90;
+                    if(numero > 50) {
+                        preco = numero * 4.49;
                     } 
-                } else if(plano == 'Avaliação') {
-                    if(numero >= 1 && numero <= 5) { //24,90
-                        preco = numero * 24.90;
-                    } 
-                    if(numero >= 6 && numero <= 15) { //22,90
-                        preco = numero * 22.90;
-                    } 
-                    if(numero >= 16 && numero <= 30) { //19,90
-                        preco = numero * 19.90;
-                    } 
-                    if(numero >= 31 && numero <= 50) { //17,90
+                } else if(plano == 'Ponto') {
+                    if(numero >= 1 && numero <= 5) {
                         preco = numero * 17.90;
                     } 
-                    if(numero > 50) { //15,90
-                        preco = numero * 15.90;
+                    if(numero >= 6 && numero <= 15) {
+                        preco = numero * 14.90;
+                    } 
+                    if(numero >= 16 && numero <= 30) {
+                        preco = numero * 10.90;
+                    } 
+                    if(numero >= 31 && numero <= 50) {
+                        preco = numero * 8.90;
+                    } 
+                    if(numero > 50) {
+                        preco = numero * 5.90;
+                    } 
+                } else if(plano == 'Avaliação') {
+                    if(numero >= 1 && numero <= 5) {
+                        preco = numero * 19.90;
+                    } 
+                    if(numero >= 6 && numero <= 15) {
+                        preco = numero * 16.90;
+                    } 
+                    if(numero >= 16 && numero <= 30) {
+                        preco = numero * 12.90;
+                    } 
+                    if(numero >= 31 && numero <= 50) {
+                        preco = numero * 10.90;
+                    } 
+                    if(numero > 50) {
+                        preco = numero * 7.90;
                     } 
                 } else if(plano == 'Revolução') {
-                    if(numero >= 1 && numero <= 5) { //27,90
-                        preco = numero * 27.90;
-                    } 
-                    if(numero >= 6 && numero <= 15) { //25,90
-                        preco = numero * 25.90;
-                    } 
-                    if(numero >= 16 && numero <= 30) { //23,90
+                    if(numero >= 1 && numero <= 5) {
                         preco = numero * 23.90;
                     } 
-                    if(numero >= 31 && numero <= 50) { //21,90
-                        preco = numero * 21.90;
-                    } 
-                    if(numero > 50) { //19,90
+                    if(numero >= 6 && numero <= 15) {
                         preco = numero * 19.90;
+                    } 
+                    if(numero >= 16 && numero <= 30) {
+                        preco = numero * 15.90;
+                    } 
+                    if(numero >= 31 && numero <= 50) {
+                        preco = numero * 12.90;
+                    } 
+                    if(numero > 50) {
+                        preco = numero * 9.90;
                     } 
                 }
 
@@ -102,6 +118,7 @@ include('src/meta.php');
     <table class="table-site">
         <tr>
             <th>Módulos</th>
+            <th>Staffast Documento</th>
             <th>Staffast Ponto</th>
             <th>Staffast Avaliação</th>
             <th>Staffast Revolução</th>
@@ -111,6 +128,18 @@ include('src/meta.php');
             <td style="color: green;">INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
+            <td style="color: green;">INCLUSO</td>
+        </tr>
+        <tr>
+            <th><img src="empresa/img/file.png" width="90"><h6 class="text">Documentos</h6>
+                <img src="empresa/img/google-play.png" width="15"> 
+                    <span style="font-size: 0.7em;"> Disponível no app </span>
+                <img src="empresa/img/app.png" width="15">
+            </th>
+            <td style="color: green;">INCLUSO</td>
+            <td style="color: red;">NÃO INCLUSO</td>
+            <td style="color: green;">INCLUSO</td>
+            <td style="color: green;">INCLUSO</td>
         </tr>
         <tr>
             <th><img src="empresa/img/clock.png" width="90"><h6 class="text">Registro de Ponto</h6>
@@ -118,6 +147,7 @@ include('src/meta.php');
                     <span style="font-size: 0.7em;"> Disponível no app </span>
                 <img src="empresa/img/app.png" width="15">
             </th>
+            <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
@@ -128,6 +158,7 @@ include('src/meta.php');
                     <span style="font-size: 0.7em;"> Em breve no app </span>
                 <img src="empresa/img/app.png" width="15">
             </th>
+            <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
@@ -135,11 +166,6 @@ include('src/meta.php');
         <tr>
             <th><img src="empresa/img/checklist.png" width="90"><h6 class="text">Avaliações (4 tipos)</th>
             <td style="color: red;">NÃO INCLUSO</td>
-            <td style="color: green;">INCLUSO</td>
-            <td style="color: green;">INCLUSO</td>
-        </tr>
-        <tr>
-            <th><img src="empresa/img/file.png" width="90"><h6 class="text">Documentos</th>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
@@ -148,10 +174,12 @@ include('src/meta.php');
             <th><img src="empresa/img/goal.png" width="90"><h6 class="text">Metas OKR</th>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: red;">NÃO INCLUSO</td>
+            <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
         </tr>
         <tr>
             <th><img src="empresa/img/round-table.png" width="90"><h6 class="text">Reuniões</th>
+            <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
@@ -160,10 +188,12 @@ include('src/meta.php');
             <th><img src="empresa/img/calendar.png" width="90"><h6 class="text">Eventos</th>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: red;">NÃO INCLUSO</td>
+            <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
         </tr>
         <tr>
             <th><img src="empresa/img/interview.png" width="90"><h6 class="text">Processos Seletivos</th>
+            <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
@@ -172,9 +202,16 @@ include('src/meta.php');
             <th><img src="empresa/img/pdi.png" width="90"><h6 class="text">Planos de Desenvolvimento Individual</th>
             <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: red;">NÃO INCLUSO</td>
+            <td style="color: red;">NÃO INCLUSO</td>
             <td style="color: green;">INCLUSO</td>
         </tr>
     </table>
+
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+            <a href="suporte/" target="_blank"><button class="button button2">Entre em contato e solicite um teste</button></a>
+        </div>
+    </div>
 
     <hr class="hr-divide-super-light">
 
@@ -197,30 +234,44 @@ include('src/meta.php');
             <th>Acima de 50 funcionários</th>
         </tr>
         <tr>
+            <th><b>Staffast Documento</b></th>
+            <td>R$ 6,90 </td>
+            <td>R$ 6,49 </td>
+            <td>R$ 5,99 </td>
+            <td>R$ 5,59 </td>
+            <td>R$ 4,49 </td>
+        </tr>
+        <tr>
             <th><b>Staffast Ponto</b></th>
-            <td>R$ 19,90 </td>
-            <td>R$ 16,90 </td>
-            <td>R$ 13,90 </td>
-            <td>R$ 11,90 </td>
-            <td>R$ 9,90 </td>
+            <td>R$ 17,90 </td>
+            <td>R$ 14,90 </td>
+            <td>R$ 10,90 </td>
+            <td>R$ 8,90 </td>
+            <td>R$ 5,90 </td>
         </tr>
         <tr>
             <th><b>Staffast Avaliação</b></th>
-            <td>R$ 24,90 </td>
-            <td>R$ 22,90 </td>
             <td>R$ 19,90 </td>
-            <td>R$ 17,90 </td>
-            <td>R$ 15,90 </td>
+            <td>R$ 16,90 </td>
+            <td>R$ 12,90 </td>
+            <td>R$ 10,90 </td>
+            <td>R$ 7,90 </td>
         </tr>
         <tr>
             <th><b>Staffast Revolução</b></th>
-            <td>R$ 27,90 </td>
-            <td>R$ 25,90 </td>
             <td>R$ 23,90 </td>
-            <td>R$ 21,90 </td>
             <td>R$ 19,90 </td>
+            <td>R$ 15,90 </td>
+            <td>R$ 12,90 </td>
+            <td>R$ 9,90 </td>
         </tr>
     </table>
+
+    <div class="row" style="text-align: center;">
+        <div class="col-sm">
+            <a href="suporte/" target="_blank"><button class="button button2">Entre em contato e solicite um teste</button></a>
+        </div>
+    </div>
 
     <hr class="hr-divide-super-light">
 
@@ -238,6 +289,7 @@ include('src/meta.php');
                     <option value="Revolução">Staffast Revolução</option>
                     <option value="Avaliação">Staffast Avaliação</option>
                     <option value="Ponto">Staffast Ponto</option>
+                    <option value="Documento">Staffast Documento</option>
                 </select>
             </div>
             <div class="col-sm">

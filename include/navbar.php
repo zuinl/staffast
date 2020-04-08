@@ -38,12 +38,15 @@ $(function () {
           <a class="dropdown-item" href="novoColaborador.php">Cadastrar colaborador</a>
           <a class="dropdown-item" href="colaboradoresDesativados.php">Colaboradores desativados</a>
           <?php } ?>
-          <?php if($_SESSION['empresa']['plano'] == "AVALIACAO" || $_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
+          <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
           <a class="dropdown-item" href="PDIs.php">Planos de Desenvolvimento Individual (PDIs)</a>
+          <?php } ?>
+          <?php if($_SESSION['empresa']['plano'] == "REVOLUCAO" || $_SESSION['empresa']['plano'] == "AVALIACAO") { ?>
           <a class="dropdown-item" href="verRanking.php">Ver ranking</a>
           <?php } ?>
         </div>
       </li>
+      <?php if($_SESSION['empresa']['plano'] != "DOCUMENTO") { ?>
       <li class="nav-item dropdown" style="margin-left:1em;">
         <a class="nav-link dropdown-toggle text" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img src="/staffast/include/icon/time.png" width="21" data-toggle="tooltip" data-placement="top" title="Ponto eletrônico">
@@ -58,6 +61,7 @@ $(function () {
           <a class="dropdown-item" href="#" onclick="alert('Em breve!')"><span><img src="/staffast/empresa/img/app.png" width="20" style="margin-right: 1em;"></span>Baixe nosso app para iOS</a>
         </div>
       </li>
+      <?php } ?>
       <li class="nav-item dropdown" style="margin-left:1em;">
         <a class="nav-link dropdown-toggle text" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img src="/staffast/include/icon/production.png" width="21" data-toggle="tooltip" data-placement="top" title="Setores">
@@ -141,10 +145,11 @@ $(function () {
       </li>
       <?php } ?>
 
+      <?php if($_SESSION['empresa']['plano'] != "DOCUMENTO") { ?>
       <li class="nav-item active" style="margin-left:1em;">
         <a class="nav-link high-text" href="novoFeedback.php"><img src="/staffast/include/icon/feedback.png" width="21" data-toggle="tooltip" data-placement="top" title="Feedback"></a>
       </li>
-
+      <?php } ?>
 
       <li class="nav-item active" style="margin-left:1em;">
         <a class="nav-link high-text" href="novaMensagem.php"><img src="/staffast/include/icon/envelope.png" width="21" data-toggle="tooltip" data-placement="top" title="Mensagem"></a>
@@ -156,7 +161,7 @@ $(function () {
       </li>
       <?php } ?>
 
-      <?php if($_SESSION['empresa']['plano'] == "AVALIACAO" || $_SESSION['empresa']['plano'] == "REVOLUCAO") { ?>
+      <?php if($_SESSION['empresa']['plano'] == "AVALIACAO" || $_SESSION['empresa']['plano'] == "REVOLUCAO" || $_SESSION['empresa']['plano'] == "DOCUMENTO") { ?>
       <li class="nav-item active" style="margin-left:1em;">
         <a class="nav-link high-text" href="documentos.php"><img src="/staffast/include/icon/file.png" width="21" data-toggle="tooltip" data-placement="top" title="Documetos"></a>
       </li>

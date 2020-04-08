@@ -16,38 +16,37 @@ $helper = new QueryHelper($conexao);
     if(isset($_GET['novo'])) { 
 
         $pdi = new PDI();
-        $pdi->setTitulo(addslashes($_POST['titulo']));
-        $pdi->setCpf($_POST['dono']);
-        $pdi->setCpfGestor($_POST['orientador']);
-        $pdi->setPrazo($_POST['prazo'].' 23:59:59');
+        $pdi->setTitulo(addslashes($_REQUEST['titulo']));
+        $pdi->setCpf($_REQUEST['dono']);
+        $pdi->setCpfGestor($_REQUEST['orientador']);
+        $pdi->setPrazo($_REQUEST['prazo'].' 23:59:59');
 
         $pdi->cadastrar($_SESSION['empresa']['database']);
 
         $log = new LogAlteracao();
-        $log->setDescricao("Cadastrou PDI ".$_POST['titulo']);
+        $log->setDescricao("Cadastrou PDI ".$_REQUEST['titulo']);
         $log->setIDUser($_SESSION['user']['usu_id']);
         $log->salvar();
 
         $id_pdi = $pdi->retornarUltimo($_SESSION['empresa']['database']);
 
-        $_SESSION['msg'] = 'Plano de Desenvolvimento Individual (PDI) criado com sucesso! <br>Agora você já pode adicionar competências e metas';
-        header('Location: ../empresa/verPDI.php?id='.$id_pdi);
+        echo 'Plano de Desenvolvimento Individual (PDI) criado com sucesso! Agora você já pode adicionar competências e metas na 
+        <a href="verPDI.php?id='.$id_pdi.'">página do PDI</a>';
 
     } else if (isset($_GET['editar'])) {
         $pdi = new PDI();
-        $pdi->setID($_POST['pdi_id']);
-        $pdi->setTitulo(addslashes($_POST['titulo']));
-        $pdi->setPrazo($_POST['prazo'].' 23:59:59');
+        $pdi->setID($_REQUEST['pdi_id']);
+        $pdi->setTitulo(addslashes($_REQUEST['titulo']));
+        $pdi->setPrazo($_REQUEST['prazo'].' 23:59:59');
 
         $pdi->atualizar($_SESSION['empresa']['database']);
 
         $log = new LogAlteracao();
-        $log->setDescricao("Atualizou PDI ".$_POST['titulo']);
+        $log->setDescricao("Atualizou PDI ".$_REQUEST['titulo']);
         $log->setIDUser($_SESSION['user']['usu_id']);
         $log->salvar();
 
-        $_SESSION['msg'] = 'Plano de Desenvolvimento Individual (PDI) atualizado com sucesso!';
-        header('Location: ../empresa/verPDI.php?id='.$_POST['pdi_id']);
+        echo 'Plano de Desenvolvimento Individual (PDI) atualizado com sucesso!';
     } else if (isset($_GET['atualizarTipo'])) {
         $tipo = $_POST['tipo'];
         $id = $_POST['id'];

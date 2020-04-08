@@ -168,6 +168,7 @@ if(mysqli_num_rows($select) == 0) {
             case 1: $plano = "PONTO"; break;
             case 2: $plano = "AVALIACAO"; break;
             case 3: $plano = "REVOLUCAO"; break;
+            case 4: $plano = "DOCUMENTO"; break;
         }
 
         if($ativo == 0) {

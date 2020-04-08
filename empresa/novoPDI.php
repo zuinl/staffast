@@ -5,6 +5,7 @@
     include('../classes/class_colaborador.php');
     include('../classes/class_pdi.php');
 
+
     if($_SESSION['empresa']['plano'] != "REVOLUCAO") {
         $_SESSION['msg'] = "O plano atualmente utilizado pela sua empresa não permite acesso a este 
         módulo do Staffast. <a href='../planos.php'>Conheça nossos planos</a>.";
@@ -49,6 +50,74 @@
                 document.getElementById('titulo').focus();
             }
         }
+        function CriaRequest() {
+            try{
+                request = new XMLHttpRequest();        
+            }
+            catch (IEAtual) {
+                try{
+                    request = new ActiveXObject("Msxml2.XMLHTTP");       
+                }
+                catch(IEAntigo){
+                    try{
+                        request = new ActiveXObject("Microsoft.XMLHTTP");          
+                    }   
+                    catch(falha){
+                    request = false;
+                    }
+                }
+            }
+      
+            if (!request) 
+                alert("Seu Navegador não suporta Ajax!");
+            else
+                return request;
+        }
+        function criarPDI(action = 'novo') {
+            var resposta = document.getElementById("div-resposta");
+            var titulo = document.getElementById("titulo");
+            var prazo = document.getElementById("prazo");
+            var pdi_id = 0;
+            var dono = '';
+            var orientador = '';
+
+            if(action == 'editar') {
+                pdi_id = document.getElementById("pdi_id");
+            } else if(action == 'novo') {
+                dono = document.getElementById("dono");
+                orientador = document.getElementById("orientador");
+            } 
+
+            if(titulo.value == "") {
+                resposta.innerHTML = '<div class="col-sm"><div class="alert alert-warning alert-dismissible fade show" role="alert">Insira o <b>título</b> do Plano de Desenvolvimento Individual<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></div>';
+                return false;
+            }
+            
+            if(dono.value == "") {
+                resposta.innerHTML = '<div class="col-sm"><div class="alert alert-warning alert-dismissible fade show" role="alert">Selecione <b>para quem</b> é este PDI<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></div>';
+                return false;
+            }
+
+            if(prazo.value == "") {
+                resposta.innerHTML = '<div class="col-sm"><div class="alert alert-warning alert-dismissible fade show" role="alert">Insira o <b>prazo</b> do Plano de Desenvolvimento Individual<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></div>';
+                return false;
+            }
+
+            var xmlreq = CriaRequest();
+            resposta.innerHTML = '<div class="row"><div class="col-sm"><div class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div></div></div>';
+            xmlreq.open("GET", "../database/pdi.php?" + action +"=true&titulo=" + titulo.value + "&dono=" + dono.value + "&orientador=" + orientador.value + "&prazo=" + prazo.value + "&pdi_id=" + pdi_id.value, true);
+            xmlreq.onreadystatechange = function(){
+                if (xmlreq.readyState == 4) {
+                    if (xmlreq.status == 200) {
+                        resposta.innerHTML = '<div class="col-sm"><div class="alert alert-success alert-dismissible fade show" role="alert">'+xmlreq.responseText+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></div>';
+                    }
+                    else{
+                        resposta.innerHTML = "Erro: " + xmlreq.statusText;
+                    }
+                }
+            };
+            xmlreq.send(null);
+        }
     </script>
 </head>
 <body>
@@ -79,7 +148,7 @@
 
     <hr class="hr-divide">
 
-    <?php
+    <!-- <?php
     if(isset($_SESSION['msg'])) {
         ?>
 		<div class="row">
@@ -94,12 +163,12 @@
 		</div>
         <?php
     }
-    ?>
+    ?> -->
+    <div class="row" id="div-resposta" style="text-align: center;"></div>
 </div>
 <div class="container">
     <div class="row" style="margin-top: 1em;">
         <div class="col-sm">
-        <form method="POST" action="../database/pdi.php?<?php echo $action; ?>=true" id="form">
             <label for="titulo" class="text">Qual o objetivo principal a ser atingido? *</label>
             <input type="text" name="titulo" id="titulo" value="<?php echo $pdi->getTitulo(); ?>" class="all-input" maxlength="60" required>
         </div>
@@ -153,7 +222,7 @@
                 <label class="text">... e o gestor que orientará é...</label>
                 <select name="orientador" id="orientador" value="<?php echo $pdi->getCpfGestor(); ?>" class="all-input" required>
                     <?php if($_SESSION['user']['permissao'] == 'GESTOR-2') { ?>
-                        <option value="Nenhum" selected>Nenhum</option>
+                        <option value="Nenhum" value="" selected>Nenhum</option>
                         <option value="<?php echo $_SESSION['user']['cpf']; ?>" selected>Eu mesmo(a) - <?php echo $_SESSION['user']['nome_completo']; ?></option>
                     <?php } else { ?>
                         <option value="Nenhum" selected>Nenhum</option>
@@ -179,14 +248,13 @@
 
     <div class="row">
         <div class="col-sm-2 offset-sm-4">
-            <?php if(isset($_GET['editar'])) { ?> <input type="hidden" name="pdi_id" value="<?php echo $pdi->getID(); ?>"> <?php } ?>
-            <input type="submit" value="<?php echo $button; ?>" id="btnSalvar" class="button button1">
+            <?php if(isset($_GET['editar'])) { ?> <input type="hidden" name="pdi_id" id="pdi_id" value="<?php echo $pdi->getID(); ?>"> <?php } ?>
+            <input type="button" value="<?php echo $button; ?>" id="btnSalvar" class="button button1" onclick="criarPDI('<?php echo $action; ?>');">
         </div>
         <div class="col-sm-2">
             <input type="reset" value="Limpar" id="btnLimpar" class="button button1">
         </div>
     </div>
-    </form>
 
     <div id="exemplo" style="display: none;">
 

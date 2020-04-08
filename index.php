@@ -147,8 +147,19 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
 
         <div class="row" style="text-align: center;">
             <div class="col-sm">
+                <img src="empresa/img/demo.png" width="70" style="margin-right: 2em;">
+                <a href="#fale-conosco" onClick="revolucionar();"><button class="button button3">SOLICITE UMA DEMONSTRAÇÃO</button></a>
+            </div>
+
+            <div class="col-sm">
                 <img src="covid-19/virus.png" width="70" style="margin-right: 2em;">
-                <a href="covid-19/"><button class="button button3">VEJA COMO O STAFFAST PODE TE AJUDAR COM A COVID-19</button></a>
+                <a href="covid-19/"><button class="button button3">ACEITE NOSSA AJUDA PARA A COVID-19</button></a>
+            </div>
+
+            <div class="col-sm">
+                <img src="empresa/img/clock.png" width="70" style="margin-right: 2em; margin-left: 3em;">
+                <a href="ponto/"><button class="button button3">REGISTRE SEU PONTO</button></a>
+                <br><small class="text">Para usuários cadastros</small>
             </div>
         </div>
 
@@ -164,9 +175,6 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
             <div class="col-sm">
                 <a href="planos.php"><button class="button button2">CONHEÇA OS PLANOS DO STAFFAST</button></a>
             </div>
-            <div class="col-sm">
-                <a href="ponto/"><button class="button button3">REGISTRAR MEU PONTO</button></a>
-            </div>
         </div>
 
         <div class="jumbotron jumbotron-fluid">
@@ -176,16 +184,19 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                 <br> O Staffast oferece tudo o que você precisa para focar no que realmente te interessa: fazer sua empresa voar</p>
                 <div class="row">
                     <div class="col-sm">
-                        <img src="empresa/img/instagram.png" width="40"><span style="font-size: 1.2em;"> <a href="https://www.instagram.com/staffast_/" target="_blank">@staffast_</span></a>
+                        <a href="https://www.instagram.com/staffast_/" target="_blank"><img src="empresa/img/instagram.png" width="40"></a>
                     </div>
                     <div class="col-sm">
-                        <img src="empresa/img/youtube.png" width="40"><span style="font-size: 1.2em;"> <a href="https://www.youtube.com/channel/UCFOx-xf2Iyv4kwkxekZcUaw" target="_blank">Youtube</span></a>
+                        <a href="https://www.facebook.com/Staffast-103640134626397/" target="_blank"><img src="empresa/img/facebook.png" width="40"></a>
                     </div>
                     <div class="col-sm">
-                        <img src="empresa/img/google-play.png" width="40"><span style="font-size: 1.2em;"> <a href="https://play.google.com/store/apps/details?id=com.staffast" target="_blank">Baixe o app no seu Android</span></a>
+                        <a href="https://www.linkedin.com/company/65253483" target="_blank"><img src="empresa/img/linkedin.png" width="40"></a>
                     </div>
                     <div class="col-sm">
-                        <img src="empresa/img/app.png" width="40"><span style="font-size: 1.2em;"> <a href="#" onclick="alert('Em breve!')">Baixe o app no seu iOS</span></a>
+                        <a href="https://play.google.com/store/apps/details?id=com.staffast" target="_blank"><img src="empresa/img/google-play.png" width="40"></a>
+                    </div>
+                    <div class="col-sm">
+                        <a href="#" onclick="alert('Em breve!')"><img src="empresa/img/app.png" width="40"></a>
                     </div>
                 </div>
             </div>
@@ -293,6 +304,56 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
 
         <div class="row" style="text-align: center;" id="solucoes">
             <div class="col-sm">
+                <h1><img src="empresa/img/google-play.png" width="70"> ... o que está no nosso <b>app</b> <img src="empresa/img/app.png" width="70"></h1>
+            </div>
+        </div>
+
+        <hr class="hr-divide-super-light">
+
+        <div class="row" style="margin-bottom: 3em;">
+            <div class="col-sm">
+                <div class="card" style="text-align: center">
+                    <img src="empresa/img/clock.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
+                    <div class="card-body">
+                        <p class="card-text" style="font-size: 1.7em;"><b>Controle de Ponto</b></p>
+                        <img src="empresa/img/google-play.png" width="20"><span style="font-size: 0.9em;"> Disponível no app </span><img src="empresa/img/app.png" width="20">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card" style="text-align: center">
+                    <img src="empresa/img/file.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
+                    <div class="card-body">
+                        <p class="card-text" style="font-size: 1.7em;"><b>Documentos</b></p>
+                        <img src="empresa/img/google-play.png" width="20"><span style="font-size: 0.9em;"> Disponível no app </span><img src="empresa/img/app.png" width="20">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card" style="text-align: center">
+                    <img src="empresa/img/feedback.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
+                    <div class="card-body">
+                        <p class="card-text" style="font-size: 1.7em;"><b><i>Feedbacks</i></b></p>
+                        <img src="empresa/img/google-play.png" width="20"><span style="font-size: 0.9em;"> Em breve no app </span><img src="empresa/img/app.png" width="20">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="text-align: center;">
+            <div class="col-sm">
+                <h4 class="high-text">Baixe agora no seu celular ou tablet</h4>
+            </div>
+        </div>
+        <div class="row" style="text-align: center;">
+            <div class="col-sm">
+                <a href='https://play.google.com/store/apps/details?id=com.staffast&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Disponível no Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/pt-br_badge_web_generic.png' width="200"/></a>
+            </div>
+        </div>
+        <hr class="hr-divide">
+
+        <div class="row" style="text-align: center;" id="solucoes">
+            <div class="col-sm">
                 <h1><img src="empresa/img/enterprise.png" width="70"> ... e diversas outras <b>soluções</b> <img src="empresa/img/enterprise.png" width="70"></h1>
             </div>
         </div>
@@ -300,13 +361,14 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
         <hr class="hr-divide-super-light">
 
         <div class="row" style="margin-bottom: 3em;">
-            <div class="col-sm-4">
+            <div class="col-sm">
                 <div class="card" style="text-align: center">
-                    <img src="empresa/img/round-table.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
+                    <img src="empresa/img/file.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
                     <div class="card-body">
-                        <p class="card-text" style="font-size: 1.7em;"><b>Reuniões</b></p>
-                        <p class="card-text" style="font-size: 1.2em;">Agende e gerencie os integrantes de reuniões, com confirmações de presença e <b>atas de encerramento</b>. 
-                        <br>Ninguém mais poderá dizer que não se lembra do que foi dito naquela reunião importante.</p>
+                        <p class="card-text" style="font-size: 1.7em;"><b>Documentos</b></p>
+                        <img src="empresa/img/google-play.png" width="20"><span style="font-size: 0.9em;"> Disponível no app </span><img src="empresa/img/app.png" width="20">
+                        <p class="card-text" style="font-size: 1.2em;">Chega de receber uma visita no RH de alguém querendo o holerite de 1999.
+                        <br>Enviando os documentos por aqui, o colaborador <b>salva no próprio Google Drive*</b> e tem uma cópia</p>
                     </div>
                 </div>
             </div>
@@ -378,13 +440,13 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                     </div>
                 </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-4">
                 <div class="card" style="text-align: center">
-                    <img src="empresa/img/file.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
+                    <img src="empresa/img/round-table.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
                     <div class="card-body">
-                        <p class="card-text" style="font-size: 1.7em;"><b>Documentos</b></p>
-                        <p class="card-text" style="font-size: 1.2em;">Chega de receber uma visita no RH de alguém querendo o holerite de 1999.
-                        <br>Enviando os documentos por aqui, o colaborador <b>salva no próprio Google Drive*</b> e tem uma cópia</p>
+                        <p class="card-text" style="font-size: 1.7em;"><b>Reuniões</b></p>
+                        <p class="card-text" style="font-size: 1.2em;">Agende e gerencie os integrantes de reuniões, com confirmações de presença e <b>atas de encerramento</b>. 
+                        <br>Ninguém mais poderá dizer que não se lembra do que foi dito naquela reunião importante.</p>
                     </div>
                 </div>
             </div>
@@ -451,6 +513,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
         <div class="row" style="text-align: center;">
             <div class="col-sm">
                 <h1><img src="empresa/img/conversation.png" width="70"> Vem <b>falar</b> com a gente <img src="empresa/img/conversation.png" width="70"></h1>
+                <p class="text">Nós estamos ansiosos para oferecer 15 dias de teste grátis para sua empresa *</p>
             </div>
         </div>
 
@@ -473,6 +536,14 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                 <div class="col-sm">
                     <input type="text" class="all-input" name="empresa" id="empresa" placeholder="Empresa que trabalha">
                 </div>
+                <div class="col-sm">
+                    <select class="all-input" name="plano" id="plano">
+                        <option value="Selecione um plano" disabled selected>- Selecione o plano que deseja experimentar -</option>
+                        <option value="Staffast Ponto">Staffast Ponto</option>
+                        <option value="Staffast Avaliação">Staffast Avaliação</option>
+                        <option value="Staffast Revolução">Staffast Revolução</option>
+                    </select>
+                </div>
             </div>
             <div class="row" style="margin-top: 1em;">
                 <div class="col-sm">
@@ -484,6 +555,12 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                     <input type="submit" value="Enviar mensagem" class="button button1">
                 </div>
                 </form>
+            </div>
+            <div class="row" style="text-align: center;">
+                <div class="col-sm">
+                    <small class="text">* O teste grátis será válido para empresas que nunca usaram o Staffast. Se está em dúvida de qual plano escolher, conheça as funcionalidades 
+                    que cada um oferece <a href="planos.php" target="_blank">clicando aqui</a></small>
+                </div>
             </div>
         </div>
 
