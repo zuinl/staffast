@@ -133,7 +133,7 @@ include('src/meta.php');
         <tr>
             <th><img src="empresa/img/file.png" width="90"><h6 class="text">Documentos</h6>
                 <img src="empresa/img/google-play.png" width="15"> 
-                    <span style="font-size: 0.7em;"> Disponível no app </span>
+                    <span style="font-size: 0.7em;"> Em breve no app </span>
                 <img src="empresa/img/app.png" width="15">
             </th>
             <td style="color: green;">INCLUSO</td>

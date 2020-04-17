@@ -9,6 +9,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
     $email = $_POST['email'];
     $telefone = $_POST['telefone'];
     $empresa = $_POST['empresa'];
+    $plano = $_POST['plano'];
     $mensagem = addslashes($_POST['mensagem']);
 
     require_once 'classes/class_email.php';
@@ -23,10 +24,11 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
         <h2>E-mail: $email</h2>
         <h2>Telefone: $telefone</h2>
         <h2>Empresa: $empresa</h2>
+        <h2>Plano: $plano</h2>
         <h2>Mensagem: $mensagem</h2>"
     );
     if($mail->enviar()) {
-        $msg = 'Mensagem enviada';
+        $msg = 'Mensagem enviada. Nós te responderemos em breve.';
     } else {
         $msg = 'Houve um erro ao enviar a mensagem';
     }
@@ -159,7 +161,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
             <div class="col-sm">
                 <img src="empresa/img/clock.png" width="70" style="margin-right: 2em; margin-left: 3em;">
                 <a href="ponto/"><button class="button button3">REGISTRE SEU PONTO</button></a>
-                <br><small class="text">Para usuários cadastros</small>
+                <br><small class="text">Para usuários cadastrados</small>
             </div>
         </div>
 
@@ -325,7 +327,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                     <img src="empresa/img/file.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
                     <div class="card-body">
                         <p class="card-text" style="font-size: 1.7em;"><b>Documentos</b></p>
-                        <img src="empresa/img/google-play.png" width="20"><span style="font-size: 0.9em;"> Disponível no app </span><img src="empresa/img/app.png" width="20">
+                        <img src="empresa/img/google-play.png" width="20"><span style="font-size: 0.9em;"> Em breve no app </span><img src="empresa/img/app.png" width="20">
                     </div>
                 </div>
             </div>
@@ -366,7 +368,7 @@ if(isset($_POST) && isset($_GET['enviarMensagem']) && $_GET['enviarMensagem'] ==
                     <img src="empresa/img/file.png" width="170" style="margin-left: 25%; margin-top: 1em;" alt="Controle de Ponto">
                     <div class="card-body">
                         <p class="card-text" style="font-size: 1.7em;"><b>Documentos</b></p>
-                        <img src="empresa/img/google-play.png" width="20"><span style="font-size: 0.9em;"> Disponível no app </span><img src="empresa/img/app.png" width="20">
+                        <img src="empresa/img/google-play.png" width="20"><span style="font-size: 0.9em;"> Em breve no app </span><img src="empresa/img/app.png" width="20">
                         <p class="card-text" style="font-size: 1.2em;">Chega de receber uma visita no RH de alguém querendo o holerite de 1999.
                         <br>Enviando os documentos por aqui, o colaborador <b>salva no próprio Google Drive*</b> e tem uma cópia</p>
                     </div>
