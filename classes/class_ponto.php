@@ -601,7 +601,7 @@
                 $longitude = (string)$longitude;
 
                 //URL da API
-                $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&key=AIzaSyBs89DVkWnqf6u_CxyNXVg9NKgH3c5sEco";
+                $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&key=thisIsASecret";
     
                 // get the json response
                 $resp_json = file_get_contents($url);
